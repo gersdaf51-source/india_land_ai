@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-[#0f172a] text-white px-5 py-10">
@@ -24,9 +26,14 @@ export default function TermsPage() {
           Phone: 044 2431 5340
         </p>
         
-        <div className="mt-10">
-          <a href="./" className="text-[#4ecdc4] hover:underline">← Back</a>
-        </div>
+<div className="mt-10">
+  <Link 
+    href="/" 
+    className="text-[#4ecdc4] hover:underline"
+  >
+    ← 返回主頁
+  </Link>
+</div>
       </div>
     </div>
   )

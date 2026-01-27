@@ -43,6 +43,75 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         const res = await fetch("/gg.php", { cache: "no-store" })
+
+// 原本：const res = await fetch("/gg.php", { cache: "no-store" });
+// 改成：
+
+// const mockData = {
+//   gg: `
+// <!-- Google tag (gtag.js) -->
+// <script async src="https://www.googletagmanager.com/gtag/js?id=AW-725505446"></script>
+// <script>
+//   window.dataLayer = window.dataLayer || [];
+//   function gtag(){dataLayer.push(arguments);}
+//   gtag('js', new Date());
+//   gtag('config', 'AW-725505446');
+// </script>
+
+// <script>
+// function gtag_report_conversion(url) {
+//  var callback = function () {
+//    if (url) window.location = url;
+//  };
+//  gtag('event', 'conversion', {
+//    'send_to': 'AW-725505446/Mb3iCO6ekdIbEKar-dkC',
+//    'event_callback': callback
+//  });
+//  return false;
+// }
+// </script>
+//   `,
+//   fb: `
+// <script>
+// !function(f,b,e,v,n,t,s){
+// if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+// n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+// if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!true;n.version='2.0';
+// n.queue=[];t=b.createElement(e);t.async=!true;
+// t.src=v;s=b.getElementsByTagName(e)[0];
+// s.parentNode.insertBefore(t,s)
+// }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+// fbq('init', '你的FACEBOOK_PIXEL_ID');
+// fbq('track', 'PageView');
+// </script>
+//   `,
+//   whatsapp_link: "https://chat.whatsapp.com/FjN0SD1ri8pIddjI8hwUzlqV?mode=wwt",
+//   is_change_link: true
+// };
+
+// const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+// // 模擬 fetch 的回傳格式
+// const mockResponse = {
+//   ok: true,
+//   status: 200,
+//   json: async () => {
+//     // 在這裡模擬網路延遲：先等 2.5 秒再回傳資料
+//     await delay(2500);  // ← 改成你想要的延遲時間，例如 1500 ~ 5000 ms
+//     return mockData;
+//   }
+// } as Response;
+
+// // 直接使用
+// const res = mockResponse;  // 取代原本的 await fetch
+
+
+
+
+
+
+
         if (!res.ok) throw new Error("無法載入像素設定")
 
         const data = await res.json()
@@ -61,10 +130,18 @@ export default function Home() {
           setWhatsappLink(data.whatsapp_link);
         }
 
+
         if (data.is_change_link !== undefined) {
-          setIsChangeLink(!!data.is_change_link);  // 强制转 boolean
+          const shouldOpen = !!data.is_change_link;   // 转成 boolean
+          
+          setIsChangeLink(shouldOpen);
+          setOpen(shouldOpen);                        // 用 data 的值，而不是旧的 ischangelink
+          
         }
-        if(ischangelink){setOpen(true)}
+
+
+
+        
         
 
         
@@ -119,27 +196,37 @@ function appendScriptFragment(html: string, id: string) {
   
 
   const handleJoin = () => {
-    setIsLoading(true)
+  setIsLoading(true);
 
-    toast
+  toast.loading("Opening WhatsApp...", { id: "join" });
 
-    toast.loading("Opening WhatsApp...", { id: "join" })
+  // 關鍵：呼叫 Google Ads 轉換追蹤
+  const whatsappUrl = whatsappLink;  // 你的 WhatsApp 連結
 
-    setTimeout(() => {
-      window.open(
-        whatsappLink,
-        "_blank",
-        "noopener,noreferrer"
-      )
+  // 如果 gtag_report_conversion 存在，就呼叫它（防萬一沒載入）
+  if (typeof window.gtag_report_conversion === 'function') {
+    // 傳入 WhatsApp URL，讓 callback 執行跳轉
+    window.gtag_report_conversion();
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
-      toast.success("Joined successfully!", {
-        id: "join",
-        description: "Redirecting to WhatsApp...",
-      })
-
-      setIsLoading(false)
-    }, 1200)
+  } else {
+    // fallback：如果函數還沒載入，直接跳轉（但不會追蹤）
+    console.warn("gtag_report_conversion 未載入，跳過 Google 轉換追蹤");
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   }
+
+  // 延遲顯示成功 toast（因為 callback 會處理跳轉，這裡的 setTimeout 可以移除或保留）
+  setTimeout(() => {
+    toast.success("Joined successfully!", {
+      id: "join",
+      description: "Redirecting to WhatsApp...",
+    });
+
+    setIsLoading(false);
+  }, 1200);
+};
+
+
 
 function injectHTML(html: string) {
   const div = document.createElement("div")

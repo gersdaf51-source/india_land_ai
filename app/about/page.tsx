@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#0f172a] text-white px-5 py-10">
@@ -25,7 +27,14 @@ export default function AboutPage() {
           Email: <a href="mailto:hello@aarush.ai" className="text-[#4ecdc4] hover:underline">hello@aarush.ai</a>
         </address>
         
-        <a href="./" className="text-[#4ecdc4] hover:underline">← Back to Home</a>
+<div className="mt-10">
+  <Link 
+    href="/" 
+    className="text-[#4ecdc4] hover:underline"
+  >
+    ← 返回主頁
+  </Link>
+</div>
       </div>
     </div>
   )
