@@ -32,7 +32,7 @@ export default function AboutPage() {
     href="/" 
     className="text-[#4ecdc4] hover:underline"
   >
-    ← 返回主頁
+    ← Back
   </Link>
 </div>
       </div>
