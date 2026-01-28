@@ -2,7 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-
+目前把版本都放到一个git里面
+海外书/上一个版本
+git@github.com:gersdaf51-source/book-landing.git
 
 启动方式：
 

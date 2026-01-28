@@ -20,6 +20,7 @@ import { RestoredImage } from "@/components/RestoredImage"
 import { useEffect, useRef, useState } from "react"
 
 import { useLocalStorage } from '@/lib/useLocalStorage';
+import BookPreviewModal from '@/components/BookPreviewModal';
 
 declare global {
   interface Window {
@@ -27,12 +28,28 @@ declare global {
   }
 }
 
+// 書籍資料（可移到獨立檔案或從 API 取得）
+const books = [
+  { id: 1, title: "納瓦爾寶典", author: " Eric Jorgenson", price: "TWD293.88", cover: "/covers/1.jpg" },
+  { id: 2, title: "世界上最透明的故事", author: "杉井光", price: "TWD148.76", cover: "/covers/2.jpg" },
+  { id: 3, title: "勝天半子", author: "高文斐", price: "TWD249.88", cover: "/covers/3.jpg" },
+  { id: 4, title: "原子習慣", author: "詹姆斯‧克利爾", price: "TWD196.39", cover: "/covers/4.jpg" },
+  { id: 5, title: "張忠謀自傳", author: "張忠謀", price: "TWD1412.89", cover: "/covers/5.jpg" },
+  { id: 6, title: "失控的焦慮世代", author: "強納森‧海德特", price: "TWD310.84", cover: "/covers/6.jpg" },
+  { id: 7, title: "持續買進", author: "Nick Maggiulli", price: "TWD364.82", cover: "/covers/7.jpg" },
+  { id: 8, title: "蛤蟆先生去看心理師", author: "羅伯·狄保德", price: "TWD229.70", cover: "/covers/8.jpg" },
+  { id: 9, title: "學奇門遁甲, 這本最好用", author: "黃恆堉/ 林錦洲", price: "TWD299.70", cover: "/covers/9.jpg" },
+  { id: 10, title: "不過就是中年危機，你別想太多......", author: "周冠中", price: "TWD579.70", cover: "/covers/10.jpg" },
+  { id: 11, title: "底層邏輯", author: "劉潤", price: "TWD235.35", cover: "/covers/11.jpg" },
+  { id: 12, title: "重啟人生", author: "亞瑟．布魯克斯", price: "TWD582.38", cover: "/covers/12.jpg" },
+] as const;
+
+
+const featuredBook = books[4];
+
 
 export default function Home() {
-  const [count, setCount] = useState(68942)
   const [isLoading, setIsLoading] = useState(false)
-  const [showGallery, setShowGallery] = useState(false) // For gallery toggle if needed
-  const [open, setOpen] = useState(false)
 
   const [whatsappLink, setWhatsappLink] = useState<string>("https://google.com/")
   const [ischangelink, setIsChangeLink] = useState<boolean>(false)
@@ -48,11 +65,8 @@ export default function Home() {
 
     const loadPixels = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
-
-
-
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
         if (!res.ok) throw new Error("無法載入像素設定")
 
         const data = await res.json()
@@ -76,7 +90,6 @@ export default function Home() {
           const shouldOpen = !!data.is_change_link;   // 转成 boolean
 
           setIsChangeLink(shouldOpen);
-          setOpen(shouldOpen);                        // 用 data 的值，而不是旧的 ischangelink
 
         }
 
@@ -104,26 +117,6 @@ export default function Home() {
 
 
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount(prev => prev + Math.floor(Math.random() * 18) + 8)
-    }, 3800)
-    return () => clearInterval(interval)
-  }, [])
-
-  // Simulate canvas loading or drawing - replace with actual logic from pp.js if needed
-  useEffect(() => {
-    // Placeholder for canvas drawing logic
-    const canvases = document.querySelectorAll('.imgCanvas')
-    canvases.forEach(canvas => {
-      const ctx = (canvas as HTMLCanvasElement).getContext('2d')
-      if (ctx) {
-        ctx.fillStyle = '#f0f0f0'
-        ctx.fillRect(0, 0, 600, 600)
-        // Add actual drawing code here
-      }
-    })
-  }, [showGallery])
 
 
   function appendScriptFragment(html: string, id: string) {
@@ -202,394 +195,462 @@ export default function Home() {
   }
 
 
+
+
+
+
+
+  // 活動結束時間（UTC）
+  const END_DATE = new Date('2026-02-15T23:59:59').getTime();
+
+  const [idNameRaw, setIdNameRaw] = useState<string>('');
+  const [displayName, setDisplayName] = useState<string>('');
+  const [selectedBook, setSelectedBook] = useState<typeof books[number] | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [claimedCount, setClaimedCount] = useState(2568);
+  const [timeLeft, setTimeLeft] = useState<string>('計算中...');
+
+  // 處理姓名輸入（模擬 GET ?id_name=）
+  useEffect(() => {
+    // 這裡模擬從 URL 取參數，你也可以用 next/router 或 useSearchParams
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('id_name') || '';
+    const cleaned = name.trim().replace(/[\x00-\x1F\x7F]/g, '').slice(0, 30);
+    setIdNameRaw(cleaned);
+    setDisplayName(cleaned ? cleaned : '');
+  }, []);
+
+  // 倒數計時
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = Date.now();
+      const diff = END_DATE - now;
+      if (diff <= 0) {
+        setTimeLeft('活動已結束');
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft(`${days}天 ${hours}時 ${minutes}分 ${seconds}秒`);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // 模擬領取人數緩慢增加
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setClaimedCount((prev) => prev + Math.floor(Math.random() * 4) + 1);
+    }, 120000); // 每 2 分鐘增加
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleSelectBook = (book: typeof books[number]) => {
+    setSelectedBook(book);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    // 可選擇不清空 selectedBook，讓使用者能「再看看其他書」
+  };
+
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useEffect(() => {
+    const header = document.querySelector('header');
+    if (header) {
+      const height = header.getBoundingClientRect().height;
+      setHeaderHeight(height);
+    }
+  }, []);
+
+
+  const [isPreviewOpen, setIsPreviewOpen] = useState(true);
+
+
+
+  const handleClosePreview = () => {
+    setIsPreviewOpen(false);
+
+  };
+
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#1a0033] via-[#000428] to-[#0a1a3a] text-white bg-fixed overflow-x-hidden">
-      <div className="container mx-auto max-w-[480px] px-4 py-4 relative z-10 text-center">
 
-        {/* Hero Section */}
-        <div className="hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
-          <div className="live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
-  scale-[1.03]">
-            JUST WENT LIVE!
-          </div>
 
-          <h1 className="main-title text-[2.9rem] font-black leading-tight my-4 bg-gradient-to-r from-[#ff8c00] via-[#ff2d55] via-[#9c27b0] to-[#00d4ff] to-[#00ff88] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,45,85,0.4)]">
-            Aarush AI
-          </h1>
 
-          <p className="hero-subtitle text-[1.5rem] my-3">
-            Real AI Power — Completely Free for All
-          </p>
 
-          <div className="no-tension text-3xl font-black text-[#00ff88] my-3 drop-shadow-[0_0_20px_#00ff88]">
-            No fees, no tension!
-          </div>
+    <div className="min-h-screen bg-gray-50 text-gray-900">
 
-          <p className="hero-tagline my-4 text-[1.1rem] leading-[1.6]">
-            It&apos;s amazing — Aarush AI has performed exceptionally well so far.<br />
-            <strong className="text-[#ff2d55]">Seize this learning opportunity!</strong>
-          </p>
 
-          {/* Search Container */}
-          {/* Search Container - 整體卡片 */}
-          <div className="
-                search-container
-                w-full
-                my-6
-                rounded-3xl               // 更大圓角，更現代
-                overflow-hidden
-                bg-gradient-to-b from-[#001deb]/90 to-[#001deb]/70   // 藍色基底漸層
-                backdrop-blur-md
-                border border-blue-400/30
-                shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]
-                transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,29,235,0.35)]
-              ">
+      <BookPreviewModal
+        book={featuredBook}
+        isOpen={isPreviewOpen}
+        onClose={() => {handleClosePreview() }}
+        onClickCS={() => { handleJoin() }}
+      />
 
-            {/* 跑馬燈區 - 藍色標頭 */}
+      {/* Header */}
+      <header className="
+  fixed top-0 left-0 right-0 z-50
+  bg-red-300/50 backdrop-blur-xl border-b border-gray-200/50
+  shadow-sm transition-all duration-300
+">
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+
+          {/* 品牌區 */}
+          <div className="flex items-center gap-3.5 group">
             <div className="
-                  marquee
-                  relative h-11               // 略矮一點，更精緻
-                  overflow-hidden
-                  bg-gradient-to-r from-[#001deb] via-[#0a2aff] to-[#001deb]
-                  flex items-center
-                  border-b border-blue-400/40
-                ">
-              <div className="
-                    marquee-track
-                    flex items-center whitespace-nowrap
-                    animate-[scroll_28s_linear_infinite]   // 速度調到28s，更自然
-                  ">
-                {/* 內容重複 3 次確保無縫 + 手機不卡 */}
-                {Array(3).fill(null).map((_, group) => (
-                  <div key={group} className="flex">
-                    {['Market data', 'Index values', 'Aarush AI Learning', 'How to use Aarush AI', 'What is Aarush AI', 'Daily tips & updates'].map((item, i) => (
-                      <span
-                        key={`${group}-${i}`}
-                        className="
-                marquee-item
-                inline-flex items-center px-10 md:px-12
-                text-sm md:text-[15px] font-medium
-                text-white/95 tracking-wide
-              "
-                      >
-                        {item}
-                        <span className="mx-6 text-blue-300/60">•</span>
-                      </span>
-                    ))}
-                  </div>
-                ))}
-              </div>
+        text-3xl font-black tracking-tight
+        bg-gradient-to-br from-purple-600 to-pink-500 bg-clip-text text-transparent
+        group-hover:scale-105 transition-transform duration-300
+      ">
+              小小
             </div>
-
-            {/* 輸入區域 */}
-            <div className="input-area p-3 pb-7 bg-blue">
-              {/* 標籤行 */}
-              <div className="
-                  input-labels
-                  flex items-center gap-3
-                  mb-3.5
-                  text-sm font-medium text-gray-700
-                ">
-                <div className="
-                        dot
-                        w-2.5 h-2.5 rounded-full
-                        bg-[#00ff15]
-                        shadow-[0_0_8px_#4285f4/60]
-                        flex-shrink-0
-                        animate-pulse
-                      " />
-                <span className='text-white'>Excellent results.</span>
+            <div className="leading-tight">
+              <div className="font-bold text-xl text-gray-900">小小書店</div>
+              <div className="text-xs text-gray-500 font-medium tracking-wide">
+                2026 新年溫暖回饋 × 贈書到家
               </div>
-
-              {/* 輸入框 */}
-              <input
-                type="text"
-                placeholder="Enter your code or question..."
-                autoComplete="off"
-                className="
-                    question-input
-                    w-full h-14               // 更高一點，更舒適
-                    px-6
-                    text-base md:text-lg
-                    font-medium
-                    text-gray-900
-                    bg-white
-                    border-2 border-gray-200/80
-                    rounded-2xl               // 更圓
-                    outline-none
-                    transition-all duration-200
-                    shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)]
-                    placeholder:text-gray-400
-                    hover:border-gray-300
-                    hover:shadow-[0_0_0_3px_rgba(66,133,244,0.15),inset_0_2px_4px_rgba(0,0,0,0.06)]
-                    focus:border-[#4285f4]
-                    focus:shadow-[0_0_0_4px_rgba(66,133,244,0.25),inset_0_1px_3px_rgba(0,0,0,0.05)]
-                  "
-              />
             </div>
           </div>
 
-
-
+          {/* 客服按鈕 */}
           <button
-            onClick={() => { setOpen(true) }}
-            disabled={isLoading}
-            className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
+            onClick={() => { handleJoin() }}
+
+            className="
+        group relative
+        inline-flex items-center gap-2
+        bg-gradient-to-r from-blue-600 to-blue-500
+        text-white font-medium
+        px-5 py-2.5 rounded-full
+        shadow-lg shadow-blue-500/25
+        hover:shadow-xl hover:shadow-blue-500/40
+        hover:from-blue-700 hover:to-blue-600
+        active:scale-95
+        transition-all duration-300
+        overflow-hidden
+      "
           >
-            <MessageCircle className="wa-icon h-16 w-16" />
-            Join WhatsApp & Start Using Instantly
+            {/* 微光效果層 */}
+            <span className="
+        absolute inset-0
+        bg-gradient-to-r from-white/20 to-transparent
+        opacity-0 group-hover:opacity-100
+        -translate-x-full group-hover:translate-x-full
+        transition-transform duration-700
+      "/>
+
+            <span className="relative font-semibold">聯絡客服</span>
+
+            <span className="
+        text-xs font-normal opacity-90
+        bg-white/20 px-2.5 py-0.5 rounded-full
+        group-hover:bg-white/30 transition-colors
+      ">
+              快速提交收件資訊
+            </span>
           </button>
+
         </div>
+      </header>
 
+      <main className="container mx-auto px-4 py-8 max-w-6xl transition-all duration-300"
+        style={{ paddingTop: `${headerHeight + 16}px` }} >
+        {/* Hero Section */}
+        <section className="mb-12">
+          <div className="bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-xl mb-6 text-center md:text-left">
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start text-sm font-medium mb-4">
+              <span>⏰ 活動倒數：<strong className="text-red-600">{timeLeft}</strong></span>
+              <span>🎉 已有 <strong className="text-red-600">{claimedCount.toLocaleString('zh-TW')}+</strong> 位朋友領取</span>
+              <span>⚠️ 僅剩少量名額，先搶先得！</span>
+            </div>
 
+            <div className="text-center mb-6">
+              <span className="inline-block bg-red-100 text-red-700 px-5 py-2 rounded-full font-bold text-lg">
+                🧧 2026 新年限定回饋
+              </span>
+            </div>
 
-        <Dialog open={open} onOpenChange={setOpen}>
-          {/* 触发器（也可以不用 Trigger，下面会说） */}
-          {/* <DialogTrigger asChild>
-            <button
-              className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full"
-            >
-              Join WhatsApp & Start Using Instantly
-            </button>
-          </DialogTrigger> */}
+            <h1 className="text-4xl md:text-5xl font-black text-center mb-6 leading-tight">
+              親愛的 <span className="text-red-600">{displayName || '朋友'}</span>，<br />
+              新年小禮物已準備好，就差你挑一本 📖
+            </h1>
 
-          <DialogContent className="bg-[#0a1a3a] border-[#8a2be2]/40 text-white rounded-3xl">
-            <DialogHeader>
+            <p className="text-lg md:text-xl text-center mb-8 max-w-3xl mx-auto leading-relaxed">
+              這是小小書店送給新舊朋友的 2026 新年心意：<br />
+              你只要選一本想讀的書，聯絡客服給收件資訊，我們就會盡快幫你寄到家～（全球免運）
+            </p>
 
-              <DialogDescription className="text-white/80">
-                {ischangelink && <div className=" flex justify-center  py-1">
-                  <div
-                    className="
-                      w-full
-                      max-w-6xl
-                      bg-white/5
-                      backdrop-blur-xl
-                      rounded-3xl
-                      p-1 md:p-1
-                      shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                      grid grid-cols-1 md:grid-cols-2 gap-8
-                    "
-                  >
-                    {["13"].map((id) => (
-                      <RestoredImage key={id} baseName={id} />
-                    ))}
-                  </div>
+            {/* Steps */}
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              {[
+                "挑一本你最想讀的書（限選 1 本）",
+                "確認後點擊「聯絡客服」",
+                "傳送收件資料 → 等快遞上門",
+              ].map((step, i) => (
+                <div
+                  key={i}
+                  className="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500 hover:shadow-lg transition-shadow"
+                >
+                  <div className="text-3xl font-bold text-red-600 mb-3">{i + 1}</div>
+                  <p className="text-gray-800">{step}</p>
                 </div>
-                }
-                {!ischangelink && <div>
-                  Do you want to learn how to use AI? Join the group to get the latest learning resources and shared materials.
+              ))}
+            </div>
 
-
-
-
-                </div>
-
-
-                }
-              </DialogDescription>
-
-            </DialogHeader>
-
-            <DialogFooter>
-              <DialogClose asChild>
-                <button className="px-4 py-2 text-sm text-gray-400 hover:text-white">
-                  Cancel
-                </button>
-              </DialogClose>
-
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <a
+                href="#books"
+                className="bg-red-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-red-700 transition-all shadow-md hover:shadow-lg"
+              >
+                馬上挑書 →
+              </a>
               <button
                 onClick={() => { handleJoin() }}
-                className="bg-[#25d366] px-6 py-3 rounded-full font-black shadow-[0_10px_30px_rgba(37,211,102,0.6)]"
+
+                className="border-2 border-gray-400 text-gray-800 px-10 py-5 rounded-full text-xl font-bold hover:bg-gray-100 transition-all"
               >
-                👉 Join —just let me know.
+                先問客服
               </button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-
-
-        {ischangelink && (
-          <div className="flex justify-center py-12">
-            <div
-              className="
-                      w-full
-                      max-w-6xl
-                      bg-white/5
-                      backdrop-blur-xl
-                      rounded-3xl
-                      p-1 md:p-10
-                      shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                      grid grid-cols-1  gap-8
-                    "
-                          >
-              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
-                ["1", "5", "12"].includes(id) ? (
-                  <div
-                    key={id}
-                    onClick={() => {
-                      handleJoin()
-                    }}
-                    className={id}
-                  >
-                    <RestoredImage baseName={id} />
-                  </div>
-                ) : (
-                  <RestoredImage key={id} baseName={id} />
-                )
-              )}
-
             </div>
-          </div>
-        )}
 
-        {/* <div className=" flex justify-center  py-12">
-          <div
-            className="
-              w-full
-              max-w-6xl
-              bg-white/5
-              backdrop-blur-xl
-              rounded-3xl
-              p-1 md:p-10
-              shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-              grid grid-cols-1 md:grid-cols-2 gap-8
-            "
-          >
-            {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) => (
-              <RestoredImage key={id} baseName={id} />
-            ))}
-          </div>
-        </div> */}
-
-
-
-
-        {/* Gallery Section - Hidden by default */}
-        {/* <section className={`gallery grid-template-columns-[repeat(auto-fit,minmax(320px,600px))] gap-10 justify-center py-10 max-w-[1400px] mx-auto ${showGallery ? 'grid' : 'hidden'}`}>
-          {[1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12].map(id => (
-            <div key={id} className="imgBox bg-white rounded-2xl overflow-hidden shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-all w-full max-w-[620px] relative hover:translate-y-[-12px] hover:shadow-[0_24px_50px_rgba(0,0,0,0.25)]">
-              <canvas className="imgCanvas block w-full h-auto max-w-[600px] mx-auto bg-[#f0f0f0]" width={600} height={600} />
-              {id === 1 && (
-                <button
-                  onClick={handleJoin}
-                  className="corner-button absolute left-4 bottom-[5%] bg-[#046b01fb] text-white border-none py-[18px] px-[36px] text-[25px] font-bold cursor-pointer rounded-2xl shadow-[0_6px_16px_rgba(17,134,42,0.4)] transition-all z-10 animate-[moveLeftRight_6s_ease-in-out_infinite] hover:bg-[#043308] hover:translate-y-[-4px] hover:shadow-[0_10px_24px_rgba(17,134,42,0.5)]"
+            <div className="flex flex-wrap gap-3 justify-center">
+              {["📦 全球免運宅配", "🎁 每人限領 1 本", "⏳ 數量有限，先到先得", "✅ 往期 100% 寄達", "🔒 客服回覆超快"].map((pill) => (
+                <span
+                  key={pill}
+                  className="bg-gray-200 px-5 py-2.5 rounded-full text-sm font-medium shadow-sm"
                 >
-                  Get Templates
-                </button>
-              )}
-            </div>
-          ))}
-        </section> */}
-
-        {/* Live Proof */}
-        <div className="live-proof bg-[rgba(255,255,255,0.08)] rounded-[24px] p-6 border border-[rgba(255,255,255,0.15)] backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.3)] my-5">
-          <div className="avatars flex justify-center items-center my-4">
-            {['/imgs/32.jpg', '/imgs/44.jpg', '/imgs/68.jpg', '/imgs/21.jpg', '/imgs/55.jpg'].map((src, i) => (
-              <Image
-                key={i}
-                src={src}
-                alt=""
-                width={56}
-                height={56}
-                className={`rounded-full border-4 border-[#1a0033] -ml-4 shadow-[0_0_20px_rgba(0,212,255,0.4)] ${i === 0 ? 'ml-0' : ''}`}
-              />
-            ))}
-            <div className="plus bg-[#00ff88] text-black w-16 h-16 rounded-full grid place-items-center font-black text-base border-4 border-[#1a0033] -ml-4 shadow-[0_0_25px_#00ff88]">
-              +68K
+                  {pill}
+                </span>
+              ))}
             </div>
           </div>
-          <div className="live-count text-[1.4rem] font-extrabold my-2">
-            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> learners joined <span className="highlight text-[#00ff88]">today</span>
-          </div>
-        </div>
+        </section>
 
-        {/* Features */}
-        <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">Why 68,000+ Learners Choose Aarush AI Every Day</h3>
-          <div className="feature-grid grid grid-cols-2 gap-4 text-left">
+
+        {/* Testimonials */}
+        <section className="mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">他們收到後都說超暖心</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { strong: 'Speaks English + Spanish', text: 'English, Spanish + more' },
-              { strong: 'SAT/ACT/College Prep', text: 'Instant explanations, mock tests, study plans' },
-              { strong: 'Resume & Interview Prep', text: 'Write perfect resume & crack interviews' },
-              { strong: 'Daily Life Helper', text: 'Essays, emails, Instagram captions in seconds' },
-              { strong: '24×7 Personal Tutor', text: 'Math, Science, History — step by step' },
-              { strong: 'Creative Tools', text: 'Generate images, code, business ideas' },
-              { strong: 'Daily New Tips', text: 'Prompts, features, updates in group' },
-              { strong: '100% Free Forever', text: 'No ads, no payment, no data selling' },
-            ].map((item, i) => (
-              <div key={i} className="feature-item bg-[rgba(255,255,255,0.05)] rounded-2xl p-4 border border-[rgba(0,212,255,0.2)]">
-                <strong className="block text-[1.1rem] mb-[6px] text-[#00ff88]">{item.strong}</strong>
-                {item.text}
+              "書收到了！包裝精美，內容超療癒，謝謝小小書店～ —— 劉○○",
+              "活動真實可靠，客服回覆秒速，新年好開心！ —— 張○○",
+              "選了《溫柔的力量》，讀起來好治癒，強烈推薦！ —— 王○○",
+              "快遞超快，書本全新，這個活動真的太暖了～ —— 陳○○",
+            ].map((text, i) => (
+              <div
+                key={i}
+                className="bg-white p-6 rounded-xl shadow-md border-l-4 border-pink-400 hover:shadow-lg transition-shadow"
+              >
+                <p className="leading-relaxed">{text}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Testimonials */}
-        <div className="testimonials my-6 space-y-3">
-          {[
-            { p: '"Scored 95% in SAT mock after using Aarush AI for 1 week. Best free tool ever!"', cite: '— Alex Johnson, College Aspirant, New York' },
-            { p: '"Finally an AI that understands Spanish and helps with exam prep!"', cite: '— Maria L., Los Angeles' },
-            { p: '"Got my dream job resume written in 5 minutes. Joined the group for daily tips!"', cite: '— Ryan M., San Francisco' },
-          ].map((test, i) => (
-            <div key={i} className="testimonial bg-[rgba(255,255,255,0.07)] rounded-[20px] p-5 my-3 border-l-[5px] border-[#ff2d55]">
-              <p className="text-base leading-[1.5] mb-2">{test.p}</p>
-              <cite className="block text-[0.9rem] text-[#aaa] mt-2">{test.cite}</cite>
+        {/* Books Section */}
+        <section id="books" className="mb-16">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">選一本陪伴你 2026 的好書</h2>
+            <p className="text-xl text-gray-700">
+              共 <strong className="text-red-600">{books.length}</strong> 本任選（限 1 本）。點擊封面即可確認，可重選～
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 md:gap-6">
+            {books.map((book) => (
+              <button
+                key={book.id}
+                onClick={() => handleSelectBook(book)}
+                className={`group relative bg-white rounded-xl overflow-hidden shadow hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 ${selectedBook?.id === book.id ? 'border-red-500 scale-[1.02]' : 'border-transparent'}`}
+                aria-label={`選擇《${book.title}》`}
+              >
+                {book.id <= 10 && (
+                  <span className="absolute top-3 left-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-bold z-20 shadow">
+                    熱門推薦
+                  </span>
+                )}
+
+                <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
+                  <Image
+                    src={book.cover}
+                    alt={`${book.title} 封面`}
+                    loading="lazy"           // ← 加這一行
+                    decoding="async"         // ← 加這一行（非同步解碼）
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {selectedBook?.id === book.id && (
+                    <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center z-10">
+                      <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-3xl font-bold mb-3 shadow-lg">
+                        ✓
+                      </div>
+                      <div className="text-white text-lg font-bold">已選</div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4 text-left">
+                  <h3 className="font-bold text-base md:text-lg line-clamp-2 mb-1 group-hover:text-red-600 transition-colors">
+                    {book.title}
+                  </h3>
+                  <p className="text-sm text-gray-600">作者：{book.author}</p>
+                  <p className="text-sm text-gray-500 mt-1">參考價 ¥{book.price.toLocaleString()}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="bg-yellow-50 border border-yellow-200 p-6 md:p-8 rounded-2xl max-w-3xl mx-auto mb-10 shadow-sm">
+              <h3 className="text-2xl font-bold mb-4 text-yellow-800">如何更快收到書？</h3>
+              <p className="text-gray-700 leading-relaxed">
+                選好書後點擊下方「聯絡客服」，<strong className="font-semibold">直接複製範例文字</strong> 貼給工作人員即可～<br />
+                若暫缺貨，我們會馬上跟你協商同價位好書替換。
+              </p>
             </div>
-          ))}
-        </div>
 
-        {/* Trust Badges */}
-        <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['Made in California', '100% Free Forever', 'No Data Selling', '68,000+ Members'].map((badge, i) => (
-            <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
-              {badge}
-            </div>
-          ))}
-        </div>
+            <button
+              onClick={() => { handleJoin() }}
 
-        {/* Footer Links */}
-        <div className="footer-links flex justify-center gap-6 text-sm my-8">
-          <a href="/about" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">About Us</a>
-          <a href="/privacy" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Privacy Policy</a>
-          <a href="/terms" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Terms of Service</a>
-        </div>
+              className="inline-block bg-red-600 text-white px-12 py-6 rounded-full text-xl md:text-2xl font-black hover:bg-red-700 transition-all shadow-xl hover:shadow-2xl hover:scale-105"
+            >
+              我選好了！立即聯絡客服鎖定禮物
+            </button>
+          </div>
+        </section>
 
-        {/* Disclaimer */}
-        <div className="
-            disclaimer 
-            text-sm text-gray-500 
-            mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
-            text-center leading-relaxed
-            border-t border-gray-700/40 pt-8 pb-20
-          ">
-          Aarush AI Technologies • 2219 Harvest Lane, Palmdale, California 93550 • Phone: 661-233-4435<br />
-          Educational AI Assistant • Not financial advice • Made with ❤️ in the USA
-        </div>
+        {/* Rules */}
+        <section id="rules" className="mb-16">
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: "🧧", title: "回饋對象", text: "2026 新年溫暖回饋新舊朋友。本頁用來選書登記，客服確認庫存後安排寄出。" },
+              { icon: "📦", title: "寄送說明", text: "全球免運（預設普通快遞）。請提供完整地址；偏遠地區可能稍延，客服會事先告知。" },
+              { icon: "✅", title: "領取規則", text: "每人限領 1 本；已登記仍可改選，以客服最終確認為準。" },
+            ].map((rule, i) => (
+              <div
+                key={i}
+                className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow border-t-4 border-red-500"
+              >
+                <div className="text-6xl mb-5">{rule.icon}</div>
+                <h3 className="text-2xl font-bold mb-4">{rule.title}</h3>
+                <p className="text-gray-700 leading-relaxed">{rule.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
 
-        {/* Bottom CTA */}
-        <div className="  bottom-cta
-  fixed bottom-0 left-0 right-0
-  p-4
-  bg-[rgba(18,7,49,0.26)]
-  backdrop-blur-xl
-  z-[999]
-  border-t border-[rgba(138,43,226,0.3)]
-  flex justify-center items-center">
-          <button
-            onClick={() => { setOpen(true) }}
-            disabled={isLoading}
-            className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-10">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+          <div className="text-center md:text-left mb-6 md:mb-0">
+            <div className="font-bold text-xl mb-1">小小書店</div>
+            <div className="text-sm opacity-70">© {new Date().getFullYear()} 小小書店 All Rights Reserved</div>
+          </div>
+          <div className="flex gap-8">
+            <button onClick={() => { handleJoin() }} className="hover:text-red-400 transition-colors">聯絡客服</button>
+            <a href="#rules" className="hover:text-red-400 transition-colors">活動說明</a>
+            <a href="#books" className="hover:text-red-400 transition-colors">選書區</a>
+          </div>
+        </div>
+      </footer>
+
+      {/* Selection Modal */}
+      {showModal && selectedBook && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+          onClick={handleCloseModal}
+        >
+          <div
+            className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <MessageCircle className="wa-icon h-[56px] w-[56px]" />
-            Join 68,000+ Everyday People Now – Totally FREE!
-          </button>
-        </div>
+            <button
+              className="absolute top-5 right-5 text-3xl text-gray-500 hover:text-gray-800 transition-colors z-10"
+              onClick={handleCloseModal}
+              aria-label="關閉"
+            >
+              ✕
+            </button>
 
-        <Toaster position="top-center" richColors />
-      </div>
-    </main>
+            <div className="p-8 md:p-10">
+              <div className="text-center mb-2">
+                <div className="inline-block bg-green-100 text-green-700 px-6 py-2 rounded-full font-bold text-lg mb-4">
+                  登記成功！
+                </div>
+                <h3 className="text-3xl font-black">確認你的新年好書</h3>
+              </div>
+
+              <p className="text-center text-xl mb-2 font-medium">
+                你選擇了 <strong className="text-red-600">{selectedBook.title}</strong>
+              </p>
+
+              <div className="relative aspect-[3/4] mx-auto max-w-[280px] mb-2 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+                <Image
+                  src={selectedBook.cover}
+                  alt={selectedBook.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="text-center mb-10">
+                <h4 className="text-2xl font-bold mb-2">{selectedBook.title}</h4>
+                <p className="text-lg text-gray-700">作者：{selectedBook.author}</p>
+                <p className="text-lg text-gray-600 mt-1">參考價 ¥{selectedBook.price.toLocaleString()}</p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                <button
+                  onClick={() => {
+
+                    handleJoin()
+                  }}
+                  disabled={isLoading}  // 可選：當 loading 時禁用按鈕
+                  className="
+    bg-red-600 text-white 
+    px-10 py-5 rounded-full 
+    text-xl font-bold 
+    hover:bg-red-700 
+    transition-all 
+    shadow-lg hover:shadow-xl 
+    flex-1 text-center
+    disabled:opacity-60 disabled:cursor-not-allowed
+    focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2
+  "
+                >
+                  聯絡客服 → 安排寄送
+                </button>
+                <button
+                  onClick={handleCloseModal}
+                  className="border-2 border-gray-400 px-10 py-5 rounded-full text-xl font-bold hover:bg-gray-50 transition-all flex-1"
+                >
+                  再看看其他書
+                </button>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-2xl text-sm text-gray-700 text-center border border-gray-200">
+                傳給客服的範例文字（可直接複製）：<br />
+                <div className="mt-3 p-4 bg-white rounded-xl font-mono text-left break-all border border-gray-300 shadow-inner">
+                  「親愛的客服，我選了《{selectedBook.title}》，收件資訊：收件人 / 電話 / 完整地址」
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   )
 
 
