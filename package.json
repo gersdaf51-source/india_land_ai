@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3001",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../ww7_海外書__0129-V2.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../ww7_海外書__0129-V3-修改語言和標題.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },
