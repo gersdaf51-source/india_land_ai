@@ -156,20 +156,7 @@ export default function BookPreviewModal({
         onMouseDown={handleDragStart}
         onTouchStart={handleDragStart}
       >
-        {/* 右上角關閉按鈕 */}
-        <button
-          onClick={onClose}
-          className="
-            absolute top-3 right-3 z-10
-            w-9 h-9 flex items-center justify-center
-            rounded-full bg-white/80 hover:bg-gray-100
-            text-gray-600 hover:text-gray-900
-            shadow-sm transition-all
-          "
-          aria-label="關閉"
-        >
-          <X size={20} />
-        </button>
+
 
         {/* 封面 */}
         <div className="relative h-84 bg-gradient-to-b from-gray-50 to-white">
@@ -181,6 +168,20 @@ export default function BookPreviewModal({
             priority
           />
         </div>
+                {/* 右上角關閉按鈕 */}
+        <button
+          onClick={onClose}
+          className="
+            absolute top-60 right-3 z-10
+            w-15 h-15 flex items-center justify-center
+            rounded-full bg-white/80 hover:bg-gray-100
+            text-black hover:text-gray-900
+            shadow-sm transition-all border border-neutral-800
+          "
+          aria-label="關閉"
+        >
+          <X size={40} />
+        </button>
 
         {/* 內容 */}
         <div className="p-5">
