@@ -48,8 +48,8 @@ export default function Home() {
 
     const loadPixels = async () => {
       try {
-        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("/gg.php", { cache: "no-store" })
+        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        // const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -413,18 +413,18 @@ export default function Home() {
           <div className="flex justify-center py-12">
             <div
               className="
-        w-full
-        max-w-6xl
-        bg-white/5
-        backdrop-blur-xl
-        rounded-3xl
-        p-1 md:p-10
-        shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-        grid grid-cols-1 md:grid-cols-2 gap-8
-      "
-            >
+                      w-full
+                      max-w-6xl
+                      bg-white/5
+                      backdrop-blur-xl
+                      rounded-3xl
+                      p-1 md:p-10
+                      shadow-[0_20px_60px_rgba(0,0,0,0.25)]
+                      grid grid-cols-1  gap-8
+                    "
+                          >
               {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
-                ["1", "5","12"].includes(id) ? (
+                ["1", "5", "12"].includes(id) ? (
                   <div
                     key={id}
                     onClick={() => {
@@ -562,14 +562,21 @@ export default function Home() {
             text-sm text-gray-500 
             mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
             text-center leading-relaxed
-            border-t border-gray-700/40 pt-8
+            border-t border-gray-700/40 pt-8 pb-20
           ">
           Aarush AI Technologies • 2219 Harvest Lane, Palmdale, California 93550 • Phone: 661-233-4435<br />
           Educational AI Assistant • Not financial advice • Made with ❤️ in the USA
         </div>
 
         {/* Bottom CTA */}
-        <div className="bottom-cta fixed bottom-0 left-0 right-0 p-4 bg-[rgba(18,7,49,0.26)] backdrop-blur-xl z-[999] text-center border-t border-[rgba(138,43,226,0.3)]">
+        <div className="  bottom-cta
+  fixed bottom-0 left-0 right-0
+  p-4
+  bg-[rgba(18,7,49,0.26)]
+  backdrop-blur-xl
+  z-[999]
+  border-t border-[rgba(138,43,226,0.3)]
+  flex justify-center items-center">
           <button
             onClick={() => { setOpen(true) }}
             disabled={isLoading}
