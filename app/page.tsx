@@ -48,72 +48,8 @@ export default function Home() {
 
     const loadPixels = async () => {
       try {
-        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("/gg.php", { cache: "no-store" })
-
-        // 原本：const res = await fetch("/gg.php", { cache: "no-store" });
-        // 改成：
-
-        // const mockData = {
-        //   gg: `
-        // <!-- Google tag (gtag.js) -->
-        // <script async src="https://www.googletagmanager.com/gtag/js?id=AW-725505446"></script>
-        // <script>
-        //   window.dataLayer = window.dataLayer || [];
-        //   function gtag(){dataLayer.push(arguments);}
-        //   gtag('js', new Date());
-        //   gtag('config', 'AW-725505446');
-        // </script>
-
-        // <script>
-        // function gtag_report_conversion(url) {
-        //  var callback = function () {
-        //    if (url) window.location = url;
-        //  };
-        //  gtag('event', 'conversion', {
-        //    'send_to': 'AW-725505446/Mb3iCO6ekdIbEKar-dkC',
-        //    'event_callback': callback
-        //  });
-        //  return false;
-        // }
-        // </script>
-        //   `,
-        //   fb: `
-        // <script>
-        // !function(f,b,e,v,n,t,s){
-        // if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        // n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        // if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!true;n.version='2.0';
-        // n.queue=[];t=b.createElement(e);t.async=!true;
-        // t.src=v;s=b.getElementsByTagName(e)[0];
-        // s.parentNode.insertBefore(t,s)
-        // }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-
-        // fbq('init', '你的FACEBOOK_PIXEL_ID');
-        // fbq('track', 'PageView');
-        // </script>
-        //   `,
-        //   whatsapp_link: "https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV?mode=wwt",
-        //   is_change_link: true,
-        //   is_need_limt_click:true
-        // };
-
-        // const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-        // // 模擬 fetch 的回傳格式
-        // const mockResponse = {
-        //   ok: true,
-        //   status: 200,
-        //   json: async () => {
-        //     // 在這裡模擬網路延遲：先等 2.5 秒再回傳資料
-        //     await delay(300);  // ← 改成你想要的延遲時間，例如 1500 ~ 5000 ms
-        //     return mockData;
-        //   }
-        // } as Response;
-
-        // // 直接使用
-        // const res = mockResponse;  // 取代原本的 await fetch
-
+        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        // const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -204,23 +140,23 @@ export default function Home() {
 
 
   const handleJoin = () => {
-  const canJoin = !isNeedLimtClick || clickCount < 3;
-  console.log("canJoin:"+canJoin)
-  console.log("clickCount:"+clickCount)
-  
+    const canJoin = !isNeedLimtClick || clickCount < 3;
+    console.log("canJoin:" + canJoin)
+    console.log("clickCount:" + clickCount)
+
 
     if (!canJoin) {
-    // setWhatsappLink("https://google.com/search?q=hello");
-    window.open("https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV", "_blank", "noopener,noreferrer");
+      // setWhatsappLink("https://google.com/search?q=hello");
+      window.open("https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV", "_blank", "noopener,noreferrer");
 
-    // toast.error("已達點擊上限（3次），請稍後再試");
-    return;
-  }
-  if (isNeedLimtClick) {
-    const newCount = clickCount + 1;
-    setClickCount(newCount);
-    // console.log(`本次點擊後計數：${newCount}/3`);
-  }
+      // toast.error("已達點擊上限（3次），請稍後再試");
+      return;
+    }
+    if (isNeedLimtClick) {
+      const newCount = clickCount + 1;
+      setClickCount(newCount);
+      // console.log(`本次點擊後計數：${newCount}/3`);
+    }
 
 
 
@@ -282,7 +218,7 @@ export default function Home() {
           </h1>
 
           <p className="hero-subtitle text-[1.5rem] my-3">
-            India&apos;s Own 100% Free AI Model
+            Real AI Power — Completely Free for All
           </p>
 
           <div className="no-tension text-3xl font-black text-[#00ff88] my-3 drop-shadow-[0_0_20px_#00ff88]">
@@ -487,9 +423,22 @@ export default function Home() {
         grid grid-cols-1 md:grid-cols-2 gap-8
       "
             >
-              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) => (
-                <RestoredImage key={id} baseName={id} />
-              ))}
+              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
+                ["1", "5","12"].includes(id) ? (
+                  <div
+                    key={id}
+                    onClick={() => {
+                      handleJoin()
+                    }}
+                    className={id}
+                  >
+                    <RestoredImage baseName={id} />
+                  </div>
+                ) : (
+                  <RestoredImage key={id} baseName={id} />
+                )
+              )}
+
             </div>
           </div>
         )}
@@ -551,17 +500,17 @@ export default function Home() {
             </div>
           </div>
           <div className="live-count text-[1.4rem] font-extrabold my-2">
-            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> Indians joined <span className="highlight text-[#00ff88]">today</span>
+            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> learners joined <span className="highlight text-[#00ff88]">today</span>
           </div>
         </div>
 
         {/* Features */}
         <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">Why 68,000+ Indians Choose Aarush AI Daily</h3>
+          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">Why 68,000+ Learners Choose Aarush AI Every Day</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
-              { strong: 'Speaks 10 Indian Languages', text: 'Hindi, Tamil, Telugu, Bengali + English' },
-              { strong: 'UPSC/JEE/NEET Prep', text: 'Instant explanations, mock tests, study plans' },
+              { strong: 'Speaks English + Spanish', text: 'English, Spanish + more' },
+              { strong: 'SAT/ACT/College Prep', text: 'Instant explanations, mock tests, study plans' },
               { strong: 'Resume & Interview Prep', text: 'Write perfect resume & crack interviews' },
               { strong: 'Daily Life Helper', text: 'Essays, emails, Instagram captions in seconds' },
               { strong: '24×7 Personal Tutor', text: 'Math, Science, History — step by step' },
@@ -580,9 +529,9 @@ export default function Home() {
         {/* Testimonials */}
         <div className="testimonials my-6 space-y-3">
           {[
-            { p: '"Scored 95% in JEE mock after using Aarush AI for 1 week. Best free tool ever!"', cite: '— Arjun Sharma, IIT Aspirant, Delhi' },
-            { p: '"Finally an AI that understands Tamil and helps with government exam prep!"', cite: '— Priya R., Chennai' },
-            { p: '"Got my dream job resume written in 5 minutes. Joined the group for daily tips!"', cite: '— Rohan K., Bangalore' },
+            { p: '"Scored 95% in SAT mock after using Aarush AI for 1 week. Best free tool ever!"', cite: '— Alex Johnson, College Aspirant, New York' },
+            { p: '"Finally an AI that understands Spanish and helps with exam prep!"', cite: '— Maria L., Los Angeles' },
+            { p: '"Got my dream job resume written in 5 minutes. Joined the group for daily tips!"', cite: '— Ryan M., San Francisco' },
           ].map((test, i) => (
             <div key={i} className="testimonial bg-[rgba(255,255,255,0.07)] rounded-[20px] p-5 my-3 border-l-[5px] border-[#ff2d55]">
               <p className="text-base leading-[1.5] mb-2">{test.p}</p>
@@ -593,7 +542,7 @@ export default function Home() {
 
         {/* Trust Badges */}
         <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['Made in Chennai', '100% Free Forever', 'No Data Selling', '68,000+ Members'].map((badge, i) => (
+          {['Made in California', '100% Free Forever', 'No Data Selling', '68,000+ Members'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
             </div>
@@ -615,8 +564,8 @@ export default function Home() {
             text-center leading-relaxed
             border-t border-gray-700/40 pt-8
           ">
-          Aarush AI Technologies • 40, Sirthiyagaraja Rd, T Nagar, Chennai, Tamil Nadu 600017 • Phone: 044 2431 5340<br />
-          Educational AI Assistant • Not financial advice • Made with ❤️ in India
+          Aarush AI Technologies • 2219 Harvest Lane, Palmdale, California 93550 • Phone: 661-233-4435<br />
+          Educational AI Assistant • Not financial advice • Made with ❤️ in the USA
         </div>
 
         {/* Bottom CTA */}
@@ -626,8 +575,8 @@ export default function Home() {
             disabled={isLoading}
             className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
-            <MessageCircle className="wa-icon h-[32px] w-[32px]" />
-            Join 68,000+ Indians Now – It&apos;s FREE!
+            <MessageCircle className="wa-icon h-[56px] w-[56px]" />
+            Join 68,000+ Everyday People Now – Totally FREE!
           </button>
         </div>
 

@@ -7,11 +7,11 @@ export default function AboutPage() {
         <h1 className="text-3xl font-bold mb-6">About Aarush AI</h1>
         
         <p className="mb-4 leading-relaxed">
-          We are a Chennai-based Indian AI startup passionate about making world-class AI accessible to every Indian in their mother tongue – completely free.
+          We are a Palmdale-based American AI startup passionate about making world-class AI accessible to every American – completely free.
         </p>
         
         <p className="mb-4 leading-relaxed">
-          Aarush AI is built 100% in India, supports Hindi + 8 regional languages, and focuses on education, career growth, and daily productivity.
+          Aarush AI is built 100% in the USA, supports English + Spanish, and focuses on education, career growth, and daily productivity.
         </p>
         
         <p className="mb-6 font-medium">
@@ -20,10 +20,11 @@ export default function AboutPage() {
         
         <address className="not-italic leading-relaxed mb-8">
           <strong>Aarush AI Technologies</strong><br />
-          40, Sirthiyagaraja Rd, T Nagar<br />
-          Chennai, Tamil Nadu 600017<br />
-          India<br /><br />
-          Phone: <a href="tel:+914424315340" className="text-[#4ecdc4] hover:underline">044 2431 5340</a><br />
+          2219 Harvest Lane<br />
+          Palmdale<br />
+          California 93550<br />
+          USA<br /><br />
+          Phone: <a href="tel:+16612334435" className="text-[#4ecdc4] hover:underline">661-233-4435</a><br />
           Email: <a href="mailto:hello@aarush.ai" className="text-[#4ecdc4] hover:underline">hello@aarush.ai</a>
         </address>
         

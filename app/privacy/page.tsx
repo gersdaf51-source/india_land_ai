@@ -22,8 +22,8 @@ export default function PrivacyPage() {
         
         <p className="font-medium">
           <strong>Company:</strong> Aarush AI Technologies<br />
-          40, Sirthiyagaraja Rd, T Nagar, Chennai, Tamil Nadu 600017<br />
-          Phone: 044 2431 5340
+          2219 Harvest Lane, Palmdale, California 93550<br />
+          Phone: 661-233-4435
         </p>
         
 <div className="mt-10">
