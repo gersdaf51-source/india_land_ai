@@ -63,11 +63,12 @@ fbq('track', 'PageView');
 
 HTML;
 $is_change_link = !str_contains($whatsapp_group_link, "FjN0SD1ri8pIjI8hwUzlqV");
-
+$is_need_limt_click=true;
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
     'gg'             => $google_pixel ?? '',
     'fb'             => $facebook_pixel ?? '',
     'whatsapp_link'  => $whatsapp_group_link ?? '',
     'is_change_link' => $is_change_link,
+    'is_need_limt_click'=> $is_need_limt_click,
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

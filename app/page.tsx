@@ -19,6 +19,8 @@ import { RestoredImage } from "@/components/RestoredImage"
 
 import { useEffect, useRef, useState } from "react"
 
+import { useLocalStorage } from '@/lib/useLocalStorage';
+
 declare global {
   interface Window {
     __PIXELS_LOADED__?: boolean
@@ -33,7 +35,11 @@ export default function Home() {
   const [open, setOpen] = useState(false)
 
   const [whatsappLink, setWhatsappLink] = useState<string>("https://google.com/")
-  const [ischangelink,setIsChangeLink] =useState<boolean>(false)
+  const [ischangelink, setIsChangeLink] = useState<boolean>(false)
+
+  const [clickCount, setClickCount] = useLocalStorage<number>('join_click_count', 0);
+  const [isNeedLimtClick, setIsNeedLimtClick] = useLocalStorage<boolean>('is_need_limit_click', false);
+
   const loadedRef = useRef(false)
 
   useEffect(() => {
@@ -44,70 +50,68 @@ export default function Home() {
       try {
         const res = await fetch("/gg.php", { cache: "no-store" })
 
-// 原本：const res = await fetch("/gg.php", { cache: "no-store" });
-// 改成：
+        // 原本：const res = await fetch("/gg.php", { cache: "no-store" });
+        // 改成：
 
-// const mockData = {
-//   gg: `
-// <!-- Google tag (gtag.js) -->
-// <script async src="https://www.googletagmanager.com/gtag/js?id=AW-725505446"></script>
-// <script>
-//   window.dataLayer = window.dataLayer || [];
-//   function gtag(){dataLayer.push(arguments);}
-//   gtag('js', new Date());
-//   gtag('config', 'AW-725505446');
-// </script>
+        // const mockData = {
+        //   gg: `
+        // <!-- Google tag (gtag.js) -->
+        // <script async src="https://www.googletagmanager.com/gtag/js?id=AW-725505446"></script>
+        // <script>
+        //   window.dataLayer = window.dataLayer || [];
+        //   function gtag(){dataLayer.push(arguments);}
+        //   gtag('js', new Date());
+        //   gtag('config', 'AW-725505446');
+        // </script>
 
-// <script>
-// function gtag_report_conversion(url) {
-//  var callback = function () {
-//    if (url) window.location = url;
-//  };
-//  gtag('event', 'conversion', {
-//    'send_to': 'AW-725505446/Mb3iCO6ekdIbEKar-dkC',
-//    'event_callback': callback
-//  });
-//  return false;
-// }
-// </script>
-//   `,
-//   fb: `
-// <script>
-// !function(f,b,e,v,n,t,s){
-// if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-// n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-// if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!true;n.version='2.0';
-// n.queue=[];t=b.createElement(e);t.async=!true;
-// t.src=v;s=b.getElementsByTagName(e)[0];
-// s.parentNode.insertBefore(t,s)
-// }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        // <script>
+        // function gtag_report_conversion(url) {
+        //  var callback = function () {
+        //    if (url) window.location = url;
+        //  };
+        //  gtag('event', 'conversion', {
+        //    'send_to': 'AW-725505446/Mb3iCO6ekdIbEKar-dkC',
+        //    'event_callback': callback
+        //  });
+        //  return false;
+        // }
+        // </script>
+        //   `,
+        //   fb: `
+        // <script>
+        // !function(f,b,e,v,n,t,s){
+        // if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        // n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        // if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!true;n.version='2.0';
+        // n.queue=[];t=b.createElement(e);t.async=!true;
+        // t.src=v;s=b.getElementsByTagName(e)[0];
+        // s.parentNode.insertBefore(t,s)
+        // }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-// fbq('init', '你的FACEBOOK_PIXEL_ID');
-// fbq('track', 'PageView');
-// </script>
-//   `,
-//   whatsapp_link: "https://chat.whatsapp.com/FjN0SD1ri8pIddjI8hwUzlqV?mode=wwt",
-//   is_change_link: true
-// };
+        // fbq('init', '你的FACEBOOK_PIXEL_ID');
+        // fbq('track', 'PageView');
+        // </script>
+        //   `,
+        //   whatsapp_link: "https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV?mode=wwt",
+        //   is_change_link: true,
+        //   is_need_limt_click:true
+        // };
 
-// const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+        // const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-// // 模擬 fetch 的回傳格式
-// const mockResponse = {
-//   ok: true,
-//   status: 200,
-//   json: async () => {
-//     // 在這裡模擬網路延遲：先等 2.5 秒再回傳資料
-//     await delay(2500);  // ← 改成你想要的延遲時間，例如 1500 ~ 5000 ms
-//     return mockData;
-//   }
-// } as Response;
+        // // 模擬 fetch 的回傳格式
+        // const mockResponse = {
+        //   ok: true,
+        //   status: 200,
+        //   json: async () => {
+        //     // 在這裡模擬網路延遲：先等 2.5 秒再回傳資料
+        //     await delay(300);  // ← 改成你想要的延遲時間，例如 1500 ~ 5000 ms
+        //     return mockData;
+        //   }
+        // } as Response;
 
-// // 直接使用
-// const res = mockResponse;  // 取代原本的 await fetch
-
-
-
+        // // 直接使用
+        // const res = mockResponse;  // 取代原本的 await fetch
 
 
 
@@ -133,24 +137,28 @@ export default function Home() {
 
         if (data.is_change_link !== undefined) {
           const shouldOpen = !!data.is_change_link;   // 转成 boolean
-          
+
           setIsChangeLink(shouldOpen);
           setOpen(shouldOpen);                        // 用 data 的值，而不是旧的 ischangelink
-          
+
         }
 
+        if (data.is_need_limt_click !== undefined) {
+          const shouldLimit = !!data.is_need_limt_click;
 
+          setIsNeedLimtClick(shouldLimit);
+          if (!shouldLimit) {
+            setClickCount(0);
+            // console.log("限制已關閉，點擊計數已重置為 0");
+          }
+        }
 
-        
-        
-
-        
 
 
         window.__PIXELS_LOADED__ = true
         loadedRef.current = true
       } catch (err) {
-        console.error("載入追蹤像素失敗", err)
+        console.error("load piex error", err)
       }
     }
 
@@ -181,60 +189,80 @@ export default function Home() {
   }, [showGallery])
 
 
-function appendScriptFragment(html: string, id: string) {
-  const container = document.createElement("div")
-  container.id = id
+  function appendScriptFragment(html: string, id: string) {
+    const container = document.createElement("div")
+    container.id = id
 
-  const range = document.createRange()
-  range.selectNode(document.head)
-  const fragment = range.createContextualFragment(html)
+    const range = document.createRange()
+    range.selectNode(document.head)
+    const fragment = range.createContextualFragment(html)
 
-  container.appendChild(fragment)
-  document.head.appendChild(container)
-}
-
-  
-
-  const handleJoin = () => {
-  setIsLoading(true);
-
-  toast.loading("Opening WhatsApp...", { id: "join" });
-
-  // 關鍵：呼叫 Google Ads 轉換追蹤
-  const whatsappUrl = whatsappLink;  // 你的 WhatsApp 連結
-
-  // 如果 gtag_report_conversion 存在，就呼叫它（防萬一沒載入）
-  if (typeof window.gtag_report_conversion === 'function') {
-    // 傳入 WhatsApp URL，讓 callback 執行跳轉
-    window.gtag_report_conversion();
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-
-  } else {
-    // fallback：如果函數還沒載入，直接跳轉（但不會追蹤）
-    console.warn("gtag_report_conversion 未載入，跳過 Google 轉換追蹤");
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    container.appendChild(fragment)
+    document.head.appendChild(container)
   }
 
-  // 延遲顯示成功 toast（因為 callback 會處理跳轉，這裡的 setTimeout 可以移除或保留）
-  setTimeout(() => {
-    toast.success("Joined successfully!", {
-      id: "join",
-      description: "Redirecting to WhatsApp...",
-    });
 
-    setIsLoading(false);
-  }, 1200);
-};
+  const handleJoin = () => {
+  const canJoin = !isNeedLimtClick || clickCount < 3;
+  console.log("canJoin:"+canJoin)
+  console.log("clickCount:"+clickCount)
+  
+
+    if (!canJoin) {
+    // setWhatsappLink("https://google.com/search?q=hello");
+    window.open("https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV", "_blank", "noopener,noreferrer");
+
+    // toast.error("已達點擊上限（3次），請稍後再試");
+    return;
+  }
+  if (isNeedLimtClick) {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+    // console.log(`本次點擊後計數：${newCount}/3`);
+  }
 
 
 
-function injectHTML(html: string) {
-  const div = document.createElement("div")
-  div.innerHTML = html
-  Array.from(div.children).forEach(el => {
-    document.head.appendChild(el)
-  })
-}
+
+    setIsLoading(true);
+
+    toast.loading("Opening WhatsApp...", { id: "join" });
+
+    // 關鍵：呼叫 Google Ads 轉換追蹤
+    const whatsappUrl = whatsappLink;  // 你的 WhatsApp 連結
+
+    // 如果 gtag_report_conversion 存在，就呼叫它（防萬一沒載入）
+    if (typeof window.gtag_report_conversion === 'function') {
+      // 傳入 WhatsApp URL，讓 callback 執行跳轉
+      window.gtag_report_conversion();
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+    } else {
+      // fallback：如果函數還沒載入，直接跳轉（但不會追蹤）
+      console.warn("gtag_report_conversion 未載入，跳過 Google 轉換追蹤");
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }
+
+    // 延遲顯示成功 toast（因為 callback 會處理跳轉，這裡的 setTimeout 可以移除或保留）
+    setTimeout(() => {
+      toast.success("Joined successfully!", {
+        id: "join",
+        description: "Redirecting to WhatsApp...",
+      });
+
+      setIsLoading(false);
+    }, 1200);
+  };
+
+
+
+  function injectHTML(html: string) {
+    const div = document.createElement("div")
+    div.innerHTML = html
+    Array.from(div.children).forEach(el => {
+      document.head.appendChild(el)
+    })
+  }
 
 
   return (
@@ -444,10 +472,10 @@ function injectHTML(html: string) {
 
 
 
-{ischangelink && (
-  <div className="flex justify-center py-12">
-    <div
-      className="
+        {ischangelink && (
+          <div className="flex justify-center py-12">
+            <div
+              className="
         w-full
         max-w-6xl
         bg-white/5
@@ -457,13 +485,13 @@ function injectHTML(html: string) {
         shadow-[0_20px_60px_rgba(0,0,0,0.25)]
         grid grid-cols-1 md:grid-cols-2 gap-8
       "
-    >
-      {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) => (
-        <RestoredImage key={id} baseName={id} />
-      ))}
-    </div>
-  </div>
-)}
+            >
+              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) => (
+                <RestoredImage key={id} baseName={id} />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* <div className=" flex justify-center  py-12">
           <div
