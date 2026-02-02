@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V4.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V6-添加兩個選項，一個必選.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

@@ -1,7 +1,7 @@
 // app/page.tsx
 "use client"
 
-import { MessageCircle } from 'lucide-react'
+import { MessageCircle, Radio } from 'lucide-react'
 import { Toaster, toast } from 'sonner'
 import Image from 'next/image'
 import {
@@ -20,6 +20,9 @@ import { RestoredImage } from "@/components/RestoredImage"
 import { useEffect, useRef, useState } from "react"
 
 import { useLocalStorage } from '@/lib/useLocalStorage';
+import StepChoice from '@/components/Step2'   // 正確（@ 是 Next.js 常見 alias）
+import { Value } from '@radix-ui/react-select'
+
 
 declare global {
   interface Window {
@@ -33,6 +36,34 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [showGallery, setShowGallery] = useState(false) // For gallery toggle if needed
   const [open, setOpen] = useState(false)
+  const [step, setStep] = useState(0) //增加彈窗數量
+  let question_ans = 0
+
+
+  const handleOpenStep1 = () => {
+    setStep(1)
+    setOpen(true)
+  }
+
+  const handleNext = () => {
+    if (step < 2) {
+      setStep(step + 1)  //設置狀態會自動更新ui.
+    } else {
+      setOpen(false)           // 最後一個關閉
+      setStep(1)
+      handleJoin()
+
+      // 或者可以再做其他事，例如導向 whatsapp
+    }
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+    // 如果你希望「關閉後不要再自動跳下一個」，就不要在這裡 setStep
+  }
+
+
+
 
   const [whatsappLink, setWhatsappLink] = useState<string>("https://google.com/")
   const [ischangelink, setIsChangeLink] = useState<boolean>(false)
@@ -48,8 +79,8 @@ export default function Home() {
 
     const loadPixels = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -76,7 +107,12 @@ export default function Home() {
           const shouldOpen = !!data.is_change_link;   // 转成 boolean
 
           setIsChangeLink(shouldOpen);
-          setOpen(shouldOpen);                        // 用 data 的值，而不是旧的 ischangelink
+          // setOpen(shouldOpen);                        // 用 data 的值，而不是旧的 ischangelink
+          if (shouldOpen) {
+            handleOpenStep1()
+
+          }
+
 
         }
 
@@ -141,8 +177,8 @@ export default function Home() {
 
   const handleJoin = () => {
     const canJoin = !isNeedLimtClick || clickCount < 3;
-    console.log("canJoin:" + canJoin)
-    console.log("clickCount:" + clickCount)
+    // console.log("canJoin:" + canJoin)
+    // console.log("clickCount:" + clickCount)
 
 
     if (!canJoin) {
@@ -357,9 +393,12 @@ export default function Home() {
             <DialogHeader>
 
               <DialogDescription className="text-white/80">
-                {ischangelink && <div className=" flex justify-center  py-1">
-                  <div
-                    className="
+                {
+                  step === 1 && (
+                    ischangelink && <>
+                      <div className=" flex justify-center  py-1">
+                        <div
+                          className="
                       w-full
                       max-w-6xl
                       bg-white/5
@@ -369,18 +408,94 @@ export default function Home() {
                       shadow-[0_20px_60px_rgba(0,0,0,0.25)]
                       grid grid-cols-1 md:grid-cols-2 gap-8
                     "
-                  >
-                    {["13"].map((id) => (
-                      <RestoredImage key={id} baseName={id} />
-                    ))}
-                  </div>
-                </div>
+                        >
+                          {["13"].map((id) => (
+                            <RestoredImage key={id} baseName={id} />
+                          ))}
+                        </div>
+                      </div>
+
+                    </>
+                  )
                 }
+                {
+                  step === 2 && (
+                    ischangelink && <>
+                      <div className=" flex justify-center  py-1">
+                        <div
+                          className="
+                      w-full
+                      max-w-6xl
+                      bg-white/5
+                      backdrop-blur-xl
+                      rounded-3xl
+                      p-1 md:p-1
+                      shadow-[0_20px_60px_rgba(0,0,0,0.25)]
+                      grid grid-cols-1 md:grid-cols-2 gap-8
+                    "
+                        >
+
+                          <div className=" max-w-3xl mx-auto">
+                            <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1>
+
+
+                            {/* 另一個例子 */}
+                            <StepChoice
+                              question="1、Which AI tools have you used?"
+                              options={[
+                                { id: "chatgpt", label: "ChatGPT" },
+                                { id: "claude", label: "Claude" },
+                                { id: "gemini", label: "Gemini" },
+
+                              ]}
+                              defaultSelectedId="chatgpt"
+                              onChange={(value) => {
+
+
+                              }}
+                            />
+
+
+                            <StepChoice
+                              question="2、What is your expected daily profit?"
+                              options={[
+                                { id: "a", label: "500" },
+                                { id: "b", label: "1,000" },
+                                { id: "c", label: "5,000" },
+                              ]}
+
+                              onChange={(value) => {
+                                question_ans=1;
+                                console.log("使用者選擇了：", value)
+                              }}
+                            />
+                          </div>
+
+
+
+
+
+                        </div>
+                      </div>
+
+                    </>
+                  )
+                }
+                {/* {
+                  step === 3 && (
+                    <>
+
+
+                    </>
+                  )
+                } */}
+
+
+
+
+
                 {!ischangelink && <div>
                   Do you want to learn how to use AI? Join the group to get the latest learning resources and shared materials.
-
-
-
 
                 </div>
 
@@ -398,10 +513,28 @@ export default function Home() {
               </DialogClose>
 
               <button
-                onClick={() => { handleJoin() }}
+                onClick={() => {
+                  if (step === 2) {
+                    if(question_ans===1){
+                    handleNext()
+
+                    }else{
+                      toast.error("You need to click on your answer.")
+                    }
+
+
+                  } else {
+                    handleNext()
+
+                  }
+
+
+
+
+                }}
                 className="bg-[#25d366] px-6 py-3 rounded-full font-black shadow-[0_10px_30px_rgba(37,211,102,0.6)]"
               >
-                👉 Join —just let me know.
+                👉 I want to Join.
               </button>
             </DialogFooter>
           </DialogContent>
@@ -422,13 +555,13 @@ export default function Home() {
                       shadow-[0_20px_60px_rgba(0,0,0,0.25)]
                       grid grid-cols-1  gap-8
                     "
-                          >
+            >
               {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
                 ["1", "5", "12"].includes(id) ? (
                   <div
                     key={id}
                     onClick={() => {
-                      handleJoin()
+                      handleOpenStep1()
                     }}
                     className={id}
                   >
@@ -443,44 +576,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* <div className=" flex justify-center  py-12">
-          <div
-            className="
-              w-full
-              max-w-6xl
-              bg-white/5
-              backdrop-blur-xl
-              rounded-3xl
-              p-1 md:p-10
-              shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-              grid grid-cols-1 md:grid-cols-2 gap-8
-            "
-          >
-            {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) => (
-              <RestoredImage key={id} baseName={id} />
-            ))}
-          </div>
-        </div> */}
-
-
-
-
-        {/* Gallery Section - Hidden by default */}
-        {/* <section className={`gallery grid-template-columns-[repeat(auto-fit,minmax(320px,600px))] gap-10 justify-center py-10 max-w-[1400px] mx-auto ${showGallery ? 'grid' : 'hidden'}`}>
-          {[1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12].map(id => (
-            <div key={id} className="imgBox bg-white rounded-2xl overflow-hidden shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-all w-full max-w-[620px] relative hover:translate-y-[-12px] hover:shadow-[0_24px_50px_rgba(0,0,0,0.25)]">
-              <canvas className="imgCanvas block w-full h-auto max-w-[600px] mx-auto bg-[#f0f0f0]" width={600} height={600} />
-              {id === 1 && (
-                <button
-                  onClick={handleJoin}
-                  className="corner-button absolute left-4 bottom-[5%] bg-[#046b01fb] text-white border-none py-[18px] px-[36px] text-[25px] font-bold cursor-pointer rounded-2xl shadow-[0_6px_16px_rgba(17,134,42,0.4)] transition-all z-10 animate-[moveLeftRight_6s_ease-in-out_infinite] hover:bg-[#043308] hover:translate-y-[-4px] hover:shadow-[0_10px_24px_rgba(17,134,42,0.5)]"
-                >
-                  Get Templates
-                </button>
-              )}
-            </div>
-          ))}
-        </section> */}
 
         {/* Live Proof */}
         <div className="live-proof bg-[rgba(255,255,255,0.08)] rounded-[24px] p-6 border border-[rgba(255,255,255,0.15)] backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.3)] my-5">
@@ -587,7 +682,7 @@ export default function Home() {
           </button>
         </div>
 
-        <Toaster position="top-center" richColors />
+        <Toaster position="bottom-center" richColors />
       </div>
     </main>
   )
