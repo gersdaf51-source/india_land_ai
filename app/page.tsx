@@ -37,30 +37,9 @@ export default function Home() {
   const [showGallery, setShowGallery] = useState(false) // For gallery toggle if needed
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState(0) //增加彈窗數量
-  let question_ans = 0
+  
+  const isQuestionAnswer= useRef(false)
 
-
-  const handleOpenStep1 = () => {
-    setStep(1)
-    setOpen(true)
-  }
-
-  const handleNext = () => {
-    if (step < 2) {
-      setStep(step + 1)  //設置狀態會自動更新ui.
-    } else {
-      setOpen(false)           // 最後一個關閉
-      setStep(1)
-      handleJoin()
-
-      // 或者可以再做其他事，例如導向 whatsapp
-    }
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-    // 如果你希望「關閉後不要再自動跳下一個」，就不要在這裡 setStep
-  }
 
 
 
@@ -80,7 +59,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("/gg.php", { cache: "no-store" })
+        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        // const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -104,15 +84,7 @@ export default function Home() {
 
 
         if (data.is_change_link !== undefined) {
-          const shouldOpen = !!data.is_change_link;   // 转成 boolean
-
-          setIsChangeLink(shouldOpen);
-          // setOpen(shouldOpen);                        // 用 data 的值，而不是旧的 ischangelink
-          if (shouldOpen) {
-            handleOpenStep1()
-
-          }
-
+          setIsChangeLink(!!data.is_change_link) ; 
 
         }
 
@@ -137,6 +109,7 @@ export default function Home() {
 
     loadPixels()
   }, [])
+
 
 
 
@@ -174,6 +147,55 @@ export default function Home() {
     document.head.appendChild(container)
   }
 
+useEffect(() => {
+  // 這裡的代碼只在 isChangeLink **變化** 時執行（不包含初次 mount）
+
+  if (ischangelink === undefined) return; // 避免初次 undefined
+
+  if(ischangelink){
+  handleOpenStep1()
+
+  }
+
+
+  
+}, [ischangelink]);
+
+
+
+
+  // 事件A
+    const handleOpenStep1 = () => {
+    setStep(1)
+    setOpen(true)
+  }
+
+  //事件B
+  const handleNext = () => {
+    if (step < 2) {
+      setStep(step + 1)  //設置狀態會自動更新ui.
+    } else {
+      // 第二步后进行验证数据 然后才能跳转
+      if(isQuestionAnswer.current){
+      setOpen(false)           // 最後一個關閉
+      setStep(1)
+      handleJoin()
+      isQuestionAnswer.current=false
+
+      }else{
+        toast.error("Please select your answer.")
+      }
+
+      // 或者可以再做其他事，例如導向 whatsapp
+    }
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+    // 如果你希望「關閉後不要再自動跳下一個」，就不要在這裡 setStep
+  }
+
+  //事件C
 
   const handleJoin = () => {
     const canJoin = !isNeedLimtClick || clickCount < 3;
@@ -368,7 +390,7 @@ export default function Home() {
 
 
           <button
-            onClick={() => { setOpen(true) }}
+            onClick={() => { handleOpenStep1() }}
             disabled={isLoading}
             className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
           >
@@ -465,7 +487,7 @@ export default function Home() {
                               ]}
 
                               onChange={(value) => {
-                                question_ans=1;
+                                isQuestionAnswer.current=true;
                                 console.log("使用者選擇了：", value)
                               }}
                             />
@@ -514,23 +536,7 @@ export default function Home() {
 
               <button
                 onClick={() => {
-                  if (step === 2) {
-                    if(question_ans===1){
-                    handleNext()
-
-                    }else{
-                      toast.error("You need to click on your answer.")
-                    }
-
-
-                  } else {
-                    handleNext()
-
-                  }
-
-
-
-
+                  handleNext()
                 }}
                 className="bg-[#25d366] px-6 py-3 rounded-full font-black shadow-[0_10px_30px_rgba(37,211,102,0.6)]"
               >
@@ -673,7 +679,7 @@ export default function Home() {
   border-t border-[rgba(138,43,226,0.3)]
   flex justify-center items-center">
           <button
-            onClick={() => { setOpen(true) }}
+            onClick={() => { handleOpenStep1() }}
             disabled={isLoading}
             className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
