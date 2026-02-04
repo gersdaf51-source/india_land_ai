@@ -59,8 +59,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -172,6 +172,23 @@ useEffect(() => {
 
   //事件B
   const handleNext = () => {
+    // console.log("是否审核："+ischangelink)
+    // console.log("setp:："+step)
+
+    if(!ischangelink){
+      handleJoin()
+      return
+    }
+    //这段不跳第二步，只用一步
+     handleJoin()
+
+     return
+     // 后续修改再改过来
+
+
+
+
+
     if (step < 2) {
       setStep(step + 1)  //設置狀態會自動更新ui.
     } else {
@@ -183,11 +200,15 @@ useEffect(() => {
       isQuestionAnswer.current=false
 
       }else{
+        
         toast.error("Please select your answer.")
+
       }
 
       // 或者可以再做其他事，例如導向 whatsapp
     }
+
+    
   }
 
   const handleClose = () => {
