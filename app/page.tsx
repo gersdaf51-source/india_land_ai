@@ -82,8 +82,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -212,9 +212,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-    //  handleJoin()
+     handleJoin()
 
-    //  return
+     return
     // 后续修改再改过来
 
 
@@ -261,7 +261,7 @@ export default function Home() {
 
     if (!canJoin) {
       // setWhatsappLink("https://google.com/search?q=hello");
-      window.open("https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV", "_blank", "noopener,noreferrer");
+      window.open("https://cutt.ly/rtjaj890", "_blank", "noopener,noreferrer");
 
       // toast.error("已達點擊上限（3次），請稍後再試");
       return;

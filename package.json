@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V9-添加第二个弹窗.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V10-修改默认跳转-取消第二弹窗.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

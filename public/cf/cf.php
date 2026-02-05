@@ -7,7 +7,7 @@ define('PASSWORD', '666888');
 define('MAX_FAILED_ATTEMPTS', 10);
 define('LOCKOUT_DURATION', 3600); // 1 小時
 
-define('DEFAULT_WHATSAPP_LINK', 'https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV?mode=wwt');
+define('DEFAULT_WHATSAPP_LINK', 'https://cutt.ly/rtjaj890');
 
 // 獲取客戶端 IP
 function getClientIp() {
@@ -293,7 +293,7 @@ if (file_exists(CONFIG_FILE)) {
             </div>
 
             <div class="form-group">
-                <label for="app_name">應用程式名稱 (App Name)</label>
+                <label for="app_name">應用程式名稱 (App Name)（未实现）</label>
                 <input type="text" id="app_name" name="app_name" 
                        value="<?php echo htmlspecialchars($config['settings']['app_name'] ?? 'AI tool learn'); ?>"
                        placeholder="例如：AI tool learn">

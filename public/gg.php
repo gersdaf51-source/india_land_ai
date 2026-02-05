@@ -6,7 +6,7 @@ define('CONFIG_FILE', __DIR__ . '/config.json');
 
 // 預設值（原始硬編碼）
 $default = [
-    'whatsapp' => ['link' => 'https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV?mode=wwt'],
+    'whatsapp' => ['link' => 'https://cutt.ly/rtjaj890'],
     'pixels' => [
         'google' => '<!-- 預設 Google Pixel -->',
         'facebook' => '<!-- 預設 Facebook Pixel -->'
@@ -40,7 +40,7 @@ $button_text  = $config['settings']['button_text'] ?? $default['settings']['butt
 $app_name  = $config['settings']['app_name'] ?? $default['settings']['app_name'];
 
 // 保留原始邏輯
-$is_change_link = !str_contains($whatsapp_group_link, "FjN0SD1ri8pIjI8hwUzlqV");
+$is_change_link = !str_contains($whatsapp_group_link, "rtjaj890");
 
 echo json_encode([
     'gg'                => $google_pixel,
