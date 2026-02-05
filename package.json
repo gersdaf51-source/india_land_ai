@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V8--修复图片点击错误跳转位置--同一个浏览器跳转次数超了还是会跳默认地址.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V9-添加第二个弹窗.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

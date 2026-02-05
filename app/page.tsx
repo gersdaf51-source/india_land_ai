@@ -22,6 +22,11 @@ import { useEffect, useRef, useState } from "react"
 import { useLocalStorage } from '@/lib/useLocalStorage';
 import StepChoice from '@/components/Step2'   // 正確（@ 是 Next.js 常見 alias）
 import { Value } from '@radix-ui/react-select'
+import BackgroundWithChoice from '@/components/BackgroundWithChoice'
+import type { Metadata } from 'next';
+
+
+
 
 
 declare global {
@@ -31,21 +36,39 @@ declare global {
 }
 
 
+// export const metadata: Metadata = {
+//   title: '我的首頁標題',                  // 會顯示在瀏覽器分頁
+//   description: '這是網站首頁的描述文字，建議 120-160 字',
+  
+//   // 可選：加更多常見設定
+//   // keywords: 'next.js, react, 我的網站',
+//   // robots: 'index, follow',
+//   // viewport: 'width=device-width, initial-scale=1',
+// };
+
+
 export default function Home() {
   const [count, setCount] = useState(68942)
   const [isLoading, setIsLoading] = useState(false)
   const [showGallery, setShowGallery] = useState(false) // For gallery toggle if needed
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState(0) //增加彈窗數量
-  
-  const isQuestionAnswer= useRef(false)
 
+  const isQuestionAnswer = useRef(false)
+
+
+
+  const [isAmountInvalid, setIsAmountInvalid] = useState(false);
 
 
 
 
   const [whatsappLink, setWhatsappLink] = useState<string>("https://google.com/")
   const [ischangelink, setIsChangeLink] = useState<boolean>(false)
+
+
+  const [buttonText, setButtonTxt] = useState<string>(" ")
+  const [appName, setAppName] = useState<string>("")
 
   const [clickCount, setClickCount] = useLocalStorage<number>('join_click_count', 0);
   const [isNeedLimtClick, setIsNeedLimtClick] = useLocalStorage<boolean>('is_need_limit_click', false);
@@ -59,8 +82,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("/gg.php", { cache: "no-store" })
+        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        // const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -84,7 +107,16 @@ export default function Home() {
 
 
         if (data.is_change_link !== undefined) {
-          setIsChangeLink(!!data.is_change_link) ; 
+          setIsChangeLink(!!data.is_change_link);
+
+        }
+
+        if (data.button_text !== undefined) {
+          setButtonTxt(data.button_text);
+
+        }
+        if (data.app_name !== undefined) {
+          setAppName(data.app_name);
 
         }
 
@@ -147,25 +179,25 @@ export default function Home() {
     document.head.appendChild(container)
   }
 
-useEffect(() => {
-  // 這裡的代碼只在 isChangeLink **變化** 時執行（不包含初次 mount）
+  useEffect(() => {
+    // 這裡的代碼只在 isChangeLink **變化** 時執行（不包含初次 mount）
 
-  if (ischangelink === undefined) return; // 避免初次 undefined
+    if (ischangelink === undefined) return; // 避免初次 undefined
 
-  if(ischangelink){
-  handleOpenStep1()
+    if (ischangelink) {
+      handleOpenStep1()
 
-  }
+    }
 
 
-  
-}, [ischangelink]);
+
+  }, [ischangelink]);
 
 
 
 
   // 事件A
-    const handleOpenStep1 = () => {
+  const handleOpenStep1 = () => {
     setStep(1)
     setOpen(true)
   }
@@ -175,15 +207,15 @@ useEffect(() => {
     // console.log("是否审核："+ischangelink)
     // console.log("setp:："+step)
 
-    if(!ischangelink){
+    if (!ischangelink) {
       handleJoin()
       return
     }
     //这段不跳第二步，只用一步
-     handleJoin()
+    //  handleJoin()
 
-     return
-     // 后续修改再改过来
+    //  return
+    // 后续修改再改过来
 
 
 
@@ -193,22 +225,25 @@ useEffect(() => {
       setStep(step + 1)  //設置狀態會自動更新ui.
     } else {
       // 第二步后进行验证数据 然后才能跳转
-      if(isQuestionAnswer.current){
-      setOpen(false)           // 最後一個關閉
-      setStep(1)
-      handleJoin()
-      isQuestionAnswer.current=false
+      if (isQuestionAnswer.current) {
+        setOpen(false)           // 最後一個關閉
+        setStep(1)
+        handleJoin()
+        isQuestionAnswer.current = false
 
-      }else{
-        
-        toast.error("Please select your answer.")
+      } else {
+        setIsAmountInvalid(true)
+
+        setTimeout(() => {
+          setIsAmountInvalid(false)
+        }, 600)
+
 
       }
 
-      // 或者可以再做其他事，例如導向 whatsapp
     }
 
-    
+
   }
 
   const handleClose = () => {
@@ -449,7 +484,7 @@ useEffect(() => {
                       rounded-3xl
                       p-1 md:p-1
                       shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                      grid grid-cols-1 md:grid-cols-2 gap-8
+                      grid grid-cols-1  gap-8
                     "
                         >
                           {["13"].map((id) => (
@@ -467,52 +502,37 @@ useEffect(() => {
                       <div className=" flex justify-center  py-1">
                         <div
                           className="
-                      w-full
-                      max-w-6xl
-                      bg-white/5
-                      backdrop-blur-xl
-                      rounded-3xl
-                      p-1 md:p-1
-                      shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                      grid grid-cols-1 md:grid-cols-2 gap-8
-                    "
+                            w-full
+                            max-w-6xl
+                            bg-white/5
+                            backdrop-blur-xl
+                            rounded-3xl
+                            p-1 
+                            shadow-[0_20px_60px_rgba(0,0,0,0.25)]
+                            grid grid-cols-1  gap-8
+                          "
                         >
-
-                          <div className=" max-w-3xl mx-auto">
-                            <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1>
+                          <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1>
 
 
-                            {/* 另一個例子 */}
-                            <StepChoice
-                              question="1、Which AI tools have you used?"
-                              options={[
-                                { id: "chatgpt", label: "ChatGPT" },
-                                { id: "claude", label: "Claude" },
-                                { id: "gemini", label: "Gemini" },
+                          <BackgroundWithChoice
+                            baseName="14"
+                            isInvalid={isAmountInvalid}
+                            onAmountChange={(value) => {
 
-                              ]}
-                              defaultSelectedId="chatgpt"
-                              onChange={(value) => {
+                              isQuestionAnswer.current = true
 
 
-                              }}
-                            />
 
 
-                            <StepChoice
-                              question="2、What is your expected daily profit?"
-                              options={[
-                                { id: "a", label: "500" },
-                                { id: "b", label: "1,000" },
-                                { id: "c", label: "5,000" },
-                              ]}
 
-                              onChange={(value) => {
-                                isQuestionAnswer.current=true;
-                                console.log("使用者選擇了：", value)
-                              }}
-                            />
-                          </div>
+
+
+
+
+                            }}
+
+                          />
 
 
 
@@ -561,7 +581,7 @@ useEffect(() => {
                 }}
                 className="bg-[#25d366] px-6 py-3 rounded-full font-black shadow-[0_10px_30px_rgba(37,211,102,0.6)]"
               >
-                👉 I want to Join.
+                👉 {buttonText}
               </button>
             </DialogFooter>
           </DialogContent>

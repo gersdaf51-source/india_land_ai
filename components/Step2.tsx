@@ -8,7 +8,7 @@ type Option = {
 }
 
 interface StepChoice {
-  question: string
+
   options: Option[]
   defaultSelectedId?: string
   onChange?: (selectedId: string) => void
@@ -16,7 +16,7 @@ interface StepChoice {
 }
 
 export default function StepChoice({
-  question = "你今天的心情如何？",
+
   options = [
     { id: "good", label: "很好" },
     { id: "normal", label: "普通" },
@@ -34,11 +34,9 @@ export default function StepChoice({
   }
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-4 px-5 bg-slate-900/60 rounded-xl border border-slate-700/70">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-4 px-5 rounded-xl  border-slate-700/70">
       {/* 左邊文字 */}
-      <div className="text-white text-lg font-medium">
-        {question}
-      </div>
+
 
       {/* 右邊三個選項 */}
       <div className="flex gap-3">
@@ -54,8 +52,8 @@ export default function StepChoice({
                 min-w-[80px]  py-2.5 rounded-full text-sm font-medium transition-all
                 border
                 ${isSelected 
-                  ? "bg-emerald-600/30 border-emerald-500 text-emerald-300 shadow-[0_0_12px_-4px] shadow-emerald-500/40" 
-                  : "bg-slate-800/50 border-slate-600 text-slate-300 hover:border-slate-400 hover:bg-slate-700/60"
+                  ? "bg-emerald-950/60 border-emerald-500 text-green-500  shadow-[0_0_12px_-4px] shadow-emerald-500/40" 
+                  : "bg-slate-800/50 border-slate-600 text-slate-50 hover:border-slate-400 hover:bg-slate-700/60"
                 }
               `}
             >
