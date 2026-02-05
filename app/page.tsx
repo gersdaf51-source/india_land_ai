@@ -212,9 +212,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-     handleJoin()
+    //  handleJoin()
 
-     return
+    //  return
     // 后续修改再改过来
 
 
