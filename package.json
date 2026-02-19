@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3001",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../ww7_海外書__0129-V3-修改語言和標題.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../ww_相冊-v2.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },
@@ -28,6 +28,7 @@
     "react-hook-form": "^7.71.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
+    "yet-another-react-lightbox": "^3.28.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

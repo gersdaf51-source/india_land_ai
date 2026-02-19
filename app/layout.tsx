@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "小小書店，全球推展",
-  description: "歡迎進入小小書店，5000紙質書籍回饋新老讀者。",
+  title: "回憶的校園相冊",
+  description: "曾經的美麗，今天的美麗",
 };
 
 export default function RootLayout({
