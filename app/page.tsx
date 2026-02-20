@@ -42,6 +42,11 @@ export default function Home() {
 
   const loadedRef = useRef(false)
 
+
+  const [verifyOpen, setVerifyOpen] = useState<boolean>(false);
+
+
+
   useEffect(() => {
     if (loadedRef.current) return
     if (window.__PIXELS_LOADED__) return
@@ -201,6 +206,56 @@ export default function Home() {
     container.appendChild(fragment)
     document.head.appendChild(container)
   }
+
+
+  const handleGo = (choice: 1 | 2 | 3) => {
+
+    switch(choice){
+
+      case 1:
+  setVerifyOpen(true); // 打开验证选择弹窗
+  break
+   case 2:
+  setVerifyOpen(false); // 打开验证选择弹窗
+  handleJoin()
+  break
+
+
+
+    }
+  
+
+
+  // 你可以在这里添加不同的验证跳转逻辑
+  // let verifyUrl = '';
+  // let verifyName = '';
+
+  // switch (choice) {
+  //   case 1:
+  //     verifyName = 'ChatGPT';
+  //     verifyUrl = 'https://chatgpt.com/'; // 或你特定的验证页面/提示链接
+  //     break;
+  //   case 2:
+  //     verifyName = 'Grok (X)';
+  //     verifyUrl = 'https://x.com/grok'; // 或具体验证链接
+  //     break;
+  //   case 3:
+  //     verifyName = 'Gemini';
+  //     verifyUrl = 'https://gemini.google.com/'; // 或具体验证链接
+  //     break;
+  // }
+
+  // 实际操作：打开新标签页
+  // window.open(verifyUrl, '_blank', 'noopener,noreferrer');
+
+  // 可选：显示 toast 提示
+  // toast.success(`已打开 ${verifyName} 验证页面，请完成验证后返回加入群组！`);
+
+  // 如果你希望验证完成后才真正加入 WhatsApp，可以在这里加延迟或等待用户手动触发
+  // 例如：setTimeout(() => { /* 最终加入逻辑 */ }, 3000);
+
+};
+
 
 
   const handleJoin = () => {
@@ -462,7 +517,12 @@ export default function Home() {
               </DialogClose>
 
               <button
-                onClick={() => { handleJoin() }}
+                onClick={() => {
+                  
+                  // handleJoin() 
+                  handleGo(1)
+                
+                }}
                 className="bg-[#25d366] px-6 py-3 rounded-full font-black shadow-[0_10px_30px_rgba(37,211,102,0.6)]"
               >
                 👉 Join —just let me know.
@@ -470,6 +530,96 @@ export default function Home() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+<Dialog open={verifyOpen} onOpenChange={setVerifyOpen}>
+  <DialogContent
+    className="bg-gradient-to-b from-[#0a1a3a] to-[#1a0033] border border-[#8a2be2]/40 text-white rounded-3xl max-w-md sm:max-w-lg p-6"
+  >
+    <DialogHeader className="text-center mb-6">
+      <DialogTitle className="text-2xl md:text-3xl font-black bg-gradient-to-r from-[#00ff88] via-[#00d4ff] to-[#ff2d55] bg-clip-text text-transparent">
+        Quick Verification
+      </DialogTitle>
+      <DialogDescription className="text-white/90 mt-4 text-base md:text-lg leading-relaxed">
+        Choose any one method below to verify and instantly join our WhatsApp group<br />
+        <span className="font-semibold text-[#00ff88]">Get full access to Aarush AI — 100% free!</span>
+      </DialogDescription>
+    </DialogHeader>
+
+    <div className="grid gap-5 mt-8 px-2 sm:px-6">
+      <button
+        onClick={() => handleGo(2)}
+        className="
+          group
+          w-full
+          bg-gradient-to-r from-[#10b981] to-[#059669]
+          hover:from-[#059669] hover:to-[#047857]
+          text-white font-bold text-lg md:text-xl
+          py-5 px-6 rounded-2xl
+          shadow-[0_10px_30px_rgba(16,185,129,0.4)]
+          transition-all duration-300
+          transform hover:scale-[1.03] hover:shadow-[0_15px_40px_rgba(16,185,129,0.5)]
+          flex items-center justify-center gap-4
+          border border-emerald-400/30
+        "
+      >
+        <span className="text-2xl md:text-3xl font-black">1</span>
+        <span>Verify with ChatGPT</span>
+        <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
+      </button>
+
+      <button
+        onClick={() => handleGo(2)}
+        className="
+          group
+          w-full
+          bg-gradient-to-r from-[#8b5cf6] to-[#7c3aed]
+          hover:from-[#7c3aed] hover:to-[#6d28d9]
+          text-white font-bold text-lg md:text-xl
+          py-5 px-6 rounded-2xl
+          shadow-[0_10px_30px_rgba(139,92,246,0.4)]
+          transition-all duration-300
+          transform hover:scale-[1.03] hover:shadow-[0_15px_40px_rgba(139,92,246,0.5)]
+          flex items-center justify-center gap-4
+          border border-purple-400/30
+        "
+      >
+        <span className="text-2xl md:text-3xl font-black">2</span>
+        <span>Verify with Grok (X)</span>
+        <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
+      </button>
+
+      <button
+        onClick={() => handleGo(2)}
+        className="
+          group
+          w-full
+          bg-gradient-to-r from-[#3b82f6] to-[#2563eb]
+          hover:from-[#2563eb] hover:to-[#1d4ed8]
+          text-white font-bold text-lg md:text-xl
+          py-5 px-6 rounded-2xl
+          shadow-[0_10px_30px_rgba(59,130,246,0.4)]
+          transition-all duration-300
+          transform hover:scale-[1.03] hover:shadow-[0_15px_40px_rgba(59,130,246,0.5)]
+          flex items-center justify-center gap-4
+          border border-blue-400/30
+        "
+      >
+        <span className="text-2xl md:text-3xl font-black">3</span>
+        <span>Verify with Gemini</span>
+        <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
+      </button>
+    </div>
+
+    <DialogFooter className="mt-8 flex justify-center gap-6">
+      <button
+        onClick={() => setVerifyOpen(false)}
+        className="text-gray-300 hover:text-white text-base px-6 py-3 transition-colors"
+      >
+        Cancel
+      </button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
 
 
 
@@ -634,6 +784,10 @@ export default function Home() {
         <Toaster position="top-center" richColors />
       </div>
     </main>
+
+
+
+
   )
 
 

@@ -12,6 +12,13 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+
+
+php -S localhost:8000
+
+
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
