@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../in6-india_land_ai_0129-V8-添加面板.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../in6-india_land_ai_0220-V10-给单个跳转.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

@@ -519,8 +519,8 @@ export default function Home() {
               <button
                 onClick={() => {
                   
-                  // handleJoin() 
-                  handleGo(1)
+                  handleJoin() 
+                  // handleGo(1)
                 
                 }}
                 className="bg-[#25d366] px-6 py-3 rounded-full font-black shadow-[0_10px_30px_rgba(37,211,102,0.6)]"
