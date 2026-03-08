@@ -82,8 +82,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -212,9 +212,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-    //  handleJoin()
+     handleJoin()
 
-    //  return
+     return
     // 后续修改再改过来
 
 
@@ -569,7 +569,9 @@ export default function Home() {
 
 
                 {!ischangelink && <div>
-                  Do you want to learn how to use AI? Join the group to get the latest learning resources and shared materials.
+                 日本株の分析や投資学習をAIで効率的にやりたい方へ  <br/>
+LINEグループで毎日「トヨタ7203の最新動向」「日経平均予想」「神プロンプト」などを共有中！  <br/>
+無料で参加OK、一緒に賢く投資しませんか？
 
                 </div>
 
@@ -614,8 +616,8 @@ export default function Home() {
                       grid grid-cols-1  gap-8
       "
             >
-              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
-                ["1", "5", "12"].includes(id) ? (
+              {["1", "2", "3", "4", "5", "6"].map((id) =>
+                ["1", "4", "6"].includes(id) ? (
                   <div
                     key={id}
                     onClick={() => {
@@ -753,10 +755,12 @@ export default function Home() {
           <button
             onClick={() => { handleOpenStep1() }}
             disabled={isLoading}
-            className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
+            className="bg-[#25d366] text-white text-[1.0rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
-            <MessageCircle className="wa-icon h-[56px] w-[56px]" />
-            Join 68,000+ Everyday People Now – Totally FREE!
+   
+            {'>>>'}今すぐLINEを追加 {'<<<'} <br/>
+
+残り空き枠：80名！今すぐ行動を！！
           </button>
         </div>
 
