@@ -39,7 +39,7 @@ declare global {
 // export const metadata: Metadata = {
 //   title: '我的首頁標題',                  // 會顯示在瀏覽器分頁
 //   description: '這是網站首頁的描述文字，建議 120-160 字',
-  
+
 //   // 可選：加更多常見設定
 //   // keywords: 'next.js, react, 我的網站',
 //   // robots: 'index, follow',
@@ -212,9 +212,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-    //  handleJoin()
+     handleJoin()
 
-    //  return
+     return
     // 后续修改再改过来
 
 
@@ -324,24 +324,24 @@ export default function Home() {
         <div className="hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
           <div className="live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
   scale-[1.03]">
-            JUST WENT LIVE!
+            ¡FRESH! Ya está aquí
           </div>
 
           <h1 className="main-title text-[2.9rem] font-black leading-tight my-4 bg-gradient-to-r from-[#ff8c00] via-[#ff2d55] via-[#9c27b0] to-[#00d4ff] to-[#00ff88] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,45,85,0.4)]">
-            Aarush AI
+            Clarity AI
           </h1>
 
           <p className="hero-subtitle text-[1.5rem] my-3">
-            Real AI Power — Completely Free for All
+            ¡Poder Real de IA — 100% GRATIS para Todos!
           </p>
 
           <div className="no-tension text-3xl font-black text-[#00ff88] my-3 drop-shadow-[0_0_20px_#00ff88]">
-            No fees, no tension!
+            ¡Sin comisiones, sin preocupaciones!
           </div>
 
           <p className="hero-tagline my-4 text-[1.1rem] leading-[1.6]">
-            It&apos;s amazing — Aarush AI has performed exceptionally well so far.<br />
-            <strong className="text-[#ff2d55]">Seize this learning opportunity!</strong>
+            ¡Es increíble! Aarush AI ha rendido excepcionalmente bien hasta ahora.<br />
+            <strong className="text-[#ff2d55]">¡Aprovecha esta oportunidad de aprendizaje!</strong>
           </p>
 
           {/* Search Container */}
@@ -376,7 +376,7 @@ export default function Home() {
                 {/* 內容重複 3 次確保無縫 + 手機不卡 */}
                 {Array(3).fill(null).map((_, group) => (
                   <div key={group} className="flex">
-                    {['Market data', 'Index values', 'Aarush AI Learning', 'How to use Aarush AI', 'What is Aarush AI', 'Daily tips & updates'].map((item, i) => (
+                    {['Market Insights', 'ESG Metrics', 'Clarity AI Learning', 'How to Use Clarity AI', 'What is Clarity AI', 'Daily Sustainability Tips'].map((item, i) => (
                       <span
                         key={`${group}-${i}`}
                         className="
@@ -412,13 +412,13 @@ export default function Home() {
                         flex-shrink-0
                         animate-pulse
                       " />
-                <span className='text-white'>Excellent results.</span>
+                <span className='text-white'>¡Resultados excelentes!</span>
               </div>
 
               {/* 輸入框 */}
               <input
                 type="text"
-                placeholder="Enter your code or question..."
+                placeholder="Ingresa ticker o consulta sobre impacto sostenible..."
                 autoComplete="off"
                 className="
                     question-input
@@ -451,7 +451,7 @@ export default function Home() {
             className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
           >
             <MessageCircle className="wa-icon h-16 w-16" />
-            Join WhatsApp & Start Using Instantly
+            ¡Únete a WhatsApp y Empieza a Usar al Instante!
           </button>
         </div>
 
@@ -558,7 +558,7 @@ export default function Home() {
 
 
                 {!ischangelink && <div>
-                  Do you want to learn how to use AI? Join the group to get the latest learning resources and shared materials.
+                  ¿Quieres aprender a usar IA? ¡Únete al grupo para obtener los recursos de aprendizaje más recientes y materiales compartidos!
 
                 </div>
 
@@ -571,7 +571,7 @@ export default function Home() {
             <DialogFooter>
               <DialogClose asChild>
                 <button className="px-4 py-2 text-sm text-gray-400 hover:text-white">
-                  Cancel
+                  Cancelar
                 </button>
               </DialogClose>
 
@@ -603,8 +603,8 @@ export default function Home() {
                       grid grid-cols-1  gap-8
                     "
             >
-              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
-                ["1", "5", "12"].includes(id) ? (
+              {["1", "2", "3", "4", "5", "6"].map((id) =>
+                ["1", "4", "6"].includes(id) ? (
                   <div
                     key={id}
                     onClick={() => {
@@ -642,23 +642,23 @@ export default function Home() {
             </div>
           </div>
           <div className="live-count text-[1.4rem] font-extrabold my-2">
-            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> learners joined <span className="highlight text-[#00ff88]">today</span>
+            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> profesionales se unieron <span className="highlight text-[#00ff88]">hoy</span>
           </div>
         </div>
 
         {/* Features */}
         <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">Why 68,000+ Learners Choose Aarush AI Every Day</h3>
+          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">¿Por qué 68,000+ profesionales de sostenibilidad eligen Clarity AI diariamente?</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
-              { strong: 'Speaks English + Spanish', text: 'English, Spanish + more' },
-              { strong: 'SAT/ACT/College Prep', text: 'Instant explanations, mock tests, study plans' },
-              { strong: 'Resume & Interview Prep', text: 'Write perfect resume & crack interviews' },
-              { strong: 'Daily Life Helper', text: 'Essays, emails, Instagram captions in seconds' },
-              { strong: '24×7 Personal Tutor', text: 'Math, Science, History — step by step' },
-              { strong: 'Creative Tools', text: 'Generate images, code, business ideas' },
-              { strong: 'Daily New Tips', text: 'Prompts, features, updates in group' },
-              { strong: '100% Free Forever', text: 'No ads, no payment, no data selling' },
+              { strong: 'Habla Inglés + Español', text: 'Soporte bilingüe para insights globales de sostenibilidad + más' },
+              { strong: 'Preparación para Análisis ESG', text: 'Explicaciones instantáneas de ESG, evaluaciones mock, planes de sostenibilidad' },
+              { strong: 'Preparación para Inversiones y Riesgos', text: 'Construye portafolios sostenibles y evalúa riesgos' },
+              { strong: 'Ayudante Diario de Sostenibilidad', text: 'Reportes, métricas, evaluaciones de impacto en segundos' },
+              { strong: 'Tutor ESG 24×7', text: 'Sostenibilidad, finanzas, clima — paso a paso' },
+              { strong: 'Herramientas de Análisis IA', text: 'Genera insights, modelos de datos, ideas sostenibles' },
+              { strong: 'Consejos Diarios Nuevos', text: 'Prompts ESG, características, actualizaciones en el grupo' },
+              { strong: '100% Gratis para Siempre', text: 'Sin anuncios, sin pagos, sin venta de datos' },
             ].map((item, i) => (
               <div key={i} className="feature-item bg-[rgba(255,255,255,0.05)] rounded-2xl p-4 border border-[rgba(0,212,255,0.2)]">
                 <strong className="block text-[1.1rem] mb-[6px] text-[#00ff88]">{item.strong}</strong>
@@ -671,9 +671,9 @@ export default function Home() {
         {/* Testimonials */}
         <div className="testimonials my-6 space-y-3">
           {[
-            { p: '"Scored 95% in SAT mock after using Aarush AI for 1 week. Best free tool ever!"', cite: '— Alex Johnson, College Aspirant, New York' },
-            { p: '"Finally an AI that understands Spanish and helps with exam prep!"', cite: '— Maria L., Los Angeles' },
-            { p: '"Got my dream job resume written in 5 minutes. Joined the group for daily tips!"', cite: '— Ryan M., San Francisco' },
+            { p: '"Clarity AI nos ayudó a personalizar datos ESG y mejorar nuestras decisiones de inversión sostenible en semanas. ¡La mejor herramienta gratuita para empezar!"', cite: '— Ana R., Analista de Sostenibilidad, Ciudad de México' },
+            { p: '"Finalmente una IA que entiende el español y entrega análisis ESG precisos y accionables. ¡Resultados excelentes en poco tiempo!"', cite: '— Carlos M., Gestor de Inversiones, Guadalajara' },
+            { p: '"Con Clarity AI generé un reporte de impacto sostenible en minutos. ¡Me uní al grupo por los tips diarios y actualizaciones gratis!"', cite: '— Laura P., Consultora ESG, Monterrey' },
           ].map((test, i) => (
             <div key={i} className="testimonial bg-[rgba(255,255,255,0.07)] rounded-[20px] p-5 my-3 border-l-[5px] border-[#ff2d55]">
               <p className="text-base leading-[1.5] mb-2">{test.p}</p>
@@ -684,7 +684,7 @@ export default function Home() {
 
         {/* Trust Badges */}
         <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['Made in California', '100% Free Forever', 'No Data Selling', '68,000+ Members'].map((badge, i) => (
+          {['Hecho en Nueva York', '100% Gratis para Siempre', 'Sin Venta de Datos', 'Más de 68,000+ Miembros'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
             </div>
@@ -693,25 +693,25 @@ export default function Home() {
 
         {/* Footer Links */}
         <div className="footer-links flex justify-center gap-6 text-sm my-8">
-          <a href="/about" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">About Us</a>
-          <a href="/privacy" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Privacy Policy</a>
-          <a href="/terms" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Terms of Service</a>
+          <a href="/about" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Sobre Nosotros</a>
+          <a href="/privacy" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Política de Privacidad</a>
+          <a href="/terms" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Términos de Servicio</a>
         </div>
 
         {/* Disclaimer */}
         <div className="
-            disclaimer 
-            text-sm text-gray-500 
-            mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
-            text-center leading-relaxed
-            border-t border-gray-700/40 pt-8 pb-20
-          ">
-          Aarush AI Technologies • 2219 Harvest Lane, Palmdale, California 93550 • Phone: 661-233-4435<br />
-          Educational AI Assistant • Not financial advice • Made with ❤️ in the USA
+    disclaimer 
+    text-sm text-gray-500 
+    mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
+    text-center leading-relaxed
+    border-t border-gray-700/40 pt-8 pb-20
+  ">
+          Clarity AI Learning • 495 Chapmans Lane, Los Lunas, NM 87031 • Phone: 505-865-8201<br />
+          Educational AI Assistant for Sustainability • Not financial advice • Made with ❤️ in the USA
         </div>
 
         {/* Bottom CTA */}
-        <div className="  bottom-cta
+        <div className="bottom-cta
   fixed bottom-0 left-0 right-0
   p-4
   bg-[rgba(18,7,49,0.26)]
@@ -725,7 +725,7 @@ export default function Home() {
             className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
             <MessageCircle className="wa-icon h-[56px] w-[56px]" />
-            Join 68,000+ Everyday People Now – Totally FREE!
+            ¡Únete a +68,000 personas AHORA – 100% GRATIS!
           </button>
         </div>
 

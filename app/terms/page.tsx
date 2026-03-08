@@ -7,33 +7,33 @@ export default function TermsPage() {
         <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
         
         <p className="mb-4 leading-relaxed">
-          Aarush AI is provided free of charge for educational and personal use only.
+          Clarity AI Learning is provided free of charge for educational and personal use only.
         </p>
         
         <p className="mb-4 leading-relaxed">
-          We do not provide financial, medical, or legal advice. Users are responsible for their own decisions.
+          We do not provide financial, investment, medical, or legal advice. Users are solely responsible for their own decisions and sustainability or investment analysis.
         </p>
         
         <p className="mb-6 leading-relaxed">
-          Respect all community members. No spam, harassment, or illegal content.
+          Respect all community members. No spam, harassment, or illegal content is permitted.
         </p>
         
         <p className="font-medium">
           <strong>Operated by:</strong><br />
-          Aarush AI Technologies<br />
-          2219 Harvest Lane<br />
-          Palmdale, California 93550<br />
-          Phone: 661-233-4435
+          Clarity AI Learning<br />
+          495 Chapmans Lane<br />
+          Los Lunas, NM 87031<br />
+          Phone: <a href="tel:+15058658201" className="text-[#4ecdc4] hover:underline">505-865-8201</a>
         </p>
         
-<div className="mt-10">
-  <Link 
-    href="/" 
-    className="text-[#4ecdc4] hover:underline"
-  >
-    ← Back
-  </Link>
-</div>
+        <div className="mt-10">
+          <Link 
+            href="/" 
+            className="text-[#4ecdc4] hover:underline"
+          >
+            ← Back
+          </Link>
+        </div>
       </div>
     </div>
   )
