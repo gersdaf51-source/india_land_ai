@@ -15,7 +15,8 @@ bun dev
 
 
 
-php -S localhost:8000
+php -S localhost:8000  //不能用了
+php -S 0.0.0.0:8000
 
 
 

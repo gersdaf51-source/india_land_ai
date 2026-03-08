@@ -210,72 +210,72 @@ export default function Home() {
 
   const handleGo = (choice: 1 | 2 | 3) => {
 
-    switch(choice){
+    switch (choice) {
 
       case 1:
-  setVerifyOpen(true); // 打开验证选择弹窗
-  break
-   case 2:
-  setVerifyOpen(false); // 打开验证选择弹窗
-  handleJoin()
-  break
+        setVerifyOpen(true); // 打开验证选择弹窗
+        break
+      case 2:
+        setVerifyOpen(false); // 打开验证选择弹窗
+        handleJoin()
+        break
 
 
 
     }
-  
 
 
-  // 你可以在这里添加不同的验证跳转逻辑
-  // let verifyUrl = '';
-  // let verifyName = '';
 
-  // switch (choice) {
-  //   case 1:
-  //     verifyName = 'ChatGPT';
-  //     verifyUrl = 'https://chatgpt.com/'; // 或你特定的验证页面/提示链接
-  //     break;
-  //   case 2:
-  //     verifyName = 'Grok (X)';
-  //     verifyUrl = 'https://x.com/grok'; // 或具体验证链接
-  //     break;
-  //   case 3:
-  //     verifyName = 'Gemini';
-  //     verifyUrl = 'https://gemini.google.com/'; // 或具体验证链接
-  //     break;
-  // }
+    // 你可以在这里添加不同的验证跳转逻辑
+    // let verifyUrl = '';
+    // let verifyName = '';
 
-  // 实际操作：打开新标签页
-  // window.open(verifyUrl, '_blank', 'noopener,noreferrer');
+    // switch (choice) {
+    //   case 1:
+    //     verifyName = 'ChatGPT';
+    //     verifyUrl = 'https://chatgpt.com/'; // 或你特定的验证页面/提示链接
+    //     break;
+    //   case 2:
+    //     verifyName = 'Grok (X)';
+    //     verifyUrl = 'https://x.com/grok'; // 或具体验证链接
+    //     break;
+    //   case 3:
+    //     verifyName = 'Gemini';
+    //     verifyUrl = 'https://gemini.google.com/'; // 或具体验证链接
+    //     break;
+    // }
 
-  // 可选：显示 toast 提示
-  // toast.success(`已打开 ${verifyName} 验证页面，请完成验证后返回加入群组！`);
+    // 实际操作：打开新标签页
+    // window.open(verifyUrl, '_blank', 'noopener,noreferrer');
 
-  // 如果你希望验证完成后才真正加入 WhatsApp，可以在这里加延迟或等待用户手动触发
-  // 例如：setTimeout(() => { /* 最终加入逻辑 */ }, 3000);
+    // 可选：显示 toast 提示
+    // toast.success(`已打开 ${verifyName} 验证页面，请完成验证后返回加入群组！`);
 
-};
+    // 如果你希望验证完成后才真正加入 WhatsApp，可以在这里加延迟或等待用户手动触发
+    // 例如：setTimeout(() => { /* 最终加入逻辑 */ }, 3000);
+
+  };
 
 
 
   const handleJoin = () => {
-  const canJoin = !isNeedLimtClick || clickCount < 3;
-  console.log("canJoin:"+canJoin)
-  console.log("clickCount:"+clickCount)
-  
+    const canJoin = !isNeedLimtClick || clickCount < 3;
+    console.log("canJoin:" + canJoin)
+    console.log("clickCount:" + clickCount)
+
 
     if (!canJoin) {
-    // setWhatsappLink("https://google.com/search?q=hello");
-    window.open("https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV", "_blank", "noopener,noreferrer");
+      // setWhatsappLink("https://google.com/search?q=hello");
+      window.open("https://chat.whatsapp.com/FjN0SD1ri8pIjI8hwUzlqV", "_blank", "noopener,noreferrer");
 
-    // toast.error("已達點擊上限（3次），請稍後再試");
-    return;
-  }
-  if (isNeedLimtClick) {
-    const newCount = clickCount + 1;
-    setClickCount(newCount);
-    // console.log(`本次點擊後計數：${newCount}/3`);
-  }
+      // toast.error("已達點擊上限（3次），請稍後再試");
+      return;
+    }
+    if (isNeedLimtClick) {
+      const newCount = clickCount + 1;
+      setClickCount(newCount);
+      // console.log(`本次點擊後計數：${newCount}/3`);
+    }
 
 
 
@@ -329,24 +329,24 @@ export default function Home() {
         <div className="hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
           <div className="live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
   scale-[1.03]">
-            JUST WENT LIVE!
+            すぐに明らかになる
           </div>
 
           <h1 className="main-title text-[2.9rem] font-black leading-tight my-4 bg-gradient-to-r from-[#ff8c00] via-[#ff2d55] via-[#9c27b0] to-[#00d4ff] to-[#00ff88] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,45,85,0.4)]">
-            Aarush AI
+            Sato AI
           </h1>
 
           <p className="hero-subtitle text-[1.5rem] my-3">
-            India&apos;s Own 100% Free AI Model
+            日本で独自に開発された100%無料のAIモデル
           </p>
 
           <div className="no-tension text-3xl font-black text-[#00ff88] my-3 drop-shadow-[0_0_20px_#00ff88]">
-            No fees, no tension!
+            手数料なし、緊張なし！
           </div>
 
           <p className="hero-tagline my-4 text-[1.1rem] leading-[1.6]">
-            It&apos;s amazing — Aarush AI has performed exceptionally well so far.<br />
-            <strong className="text-[#ff2d55]">Seize this learning opportunity!</strong>
+            素晴らしい！佐藤AIは今のところ非常に優れたパフォーマンスを発揮しています。<br />
+            <strong className="text-[#ff2d55]">この学習機会をつかみましょう!</strong>
           </p>
 
           {/* Search Container */}
@@ -381,7 +381,14 @@ export default function Home() {
                 {/* 內容重複 3 次確保無縫 + 手機不卡 */}
                 {Array(3).fill(null).map((_, group) => (
                   <div key={group} className="flex">
-                    {['Market data', 'Index values', 'Aarush AI Learning', 'How to use Aarush AI', 'What is Aarush AI', 'Daily tips & updates'].map((item, i) => (
+                    {[
+                      '日本株市場データ（7203トヨタなど）',
+                      '指数値（日経平均・TOPIX）',
+                      'Sato Tech AI で株学習（8306三菱UFJ・9984SBG）',
+                      'Sato Tech AI の使い方（6758ソニー・6501日立分析）',
+                      'Sato Tech AI とは',
+                      '毎日株Tips & 更新（7974任天堂・9432NTTなど）'
+                    ].map((item, i) => (
                       <span
                         key={`${group}-${i}`}
                         className="
@@ -423,7 +430,7 @@ export default function Home() {
               {/* 輸入框 */}
               <input
                 type="text"
-                placeholder="Enter your code or question..."
+                placeholder="銘柄コードや会社名を入力"
                 autoComplete="off"
                 className="
                     question-input
@@ -455,8 +462,12 @@ export default function Home() {
             disabled={isLoading}
             className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
           >
-            <MessageCircle className="wa-icon h-16 w-16" />
-            Join WhatsApp & Start Using Instantly
+            <img 
+              src="./line-messenger-logo.svg" 
+              alt="LINE Icon"
+              className="h-16 w-16 rounded-2xl"  // 圆角正方形，像 App 图标
+            />
+            Line Now
           </button>
         </div>
 
@@ -496,7 +507,9 @@ export default function Home() {
                 </div>
                 }
                 {!ischangelink && <div>
-                  Do you want to learn how to use AI? Join the group to get the latest learning resources and shared materials.
+                 AIの使い方を一緒に学びませんか？  <br/>
+LINEグループで最新の学習リソース・株分析例・みんなの活用術を毎日シェアしています♪  <br/>
+今すぐ参加して、一緒にレベルアップしよう！
 
 
 
@@ -512,43 +525,43 @@ export default function Home() {
             <DialogFooter>
               <DialogClose asChild>
                 <button className="px-4 py-2 text-sm text-gray-400 hover:text-white">
-                  Cancel
+                  キャンセル
                 </button>
               </DialogClose>
 
               <button
                 onClick={() => {
-                  
-                  handleJoin() 
+
+                  handleJoin()
                   // handleGo(1)
-                
+
                 }}
                 className="bg-[#25d366] px-6 py-3 rounded-full font-black shadow-[0_10px_30px_rgba(37,211,102,0.6)]"
               >
-                👉 Join —just let me know.
+                👉 LINEグループに参加する
               </button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
-<Dialog open={verifyOpen} onOpenChange={setVerifyOpen}>
-  <DialogContent
-    className="bg-gradient-to-b from-[#0a1a3a] to-[#1a0033] border border-[#8a2be2]/40 text-white rounded-3xl max-w-md sm:max-w-lg p-6"
-  >
-    <DialogHeader className="text-center mb-6">
-      <DialogTitle className="text-2xl md:text-3xl font-black bg-gradient-to-r from-[#00ff88] via-[#00d4ff] to-[#ff2d55] bg-clip-text text-transparent">
-        Quick Verification
-      </DialogTitle>
-      <DialogDescription className="text-white/90 mt-4 text-base md:text-lg leading-relaxed">
-        Choose any one method below to verify and instantly join our WhatsApp group<br />
-        <span className="font-semibold text-[#00ff88]">Get full access to Aarush AI — 100% free!</span>
-      </DialogDescription>
-    </DialogHeader>
+        <Dialog open={verifyOpen} onOpenChange={setVerifyOpen}>
+          <DialogContent
+            className="bg-gradient-to-b from-[#0a1a3a] to-[#1a0033] border border-[#8a2be2]/40 text-white rounded-3xl max-w-md sm:max-w-lg p-6"
+          >
+            <DialogHeader className="text-center mb-6">
+              <DialogTitle className="text-2xl md:text-3xl font-black bg-gradient-to-r from-[#00ff88] via-[#00d4ff] to-[#ff2d55] bg-clip-text text-transparent">
+                Quick Verification
+              </DialogTitle>
+              <DialogDescription className="text-white/90 mt-4 text-base md:text-lg leading-relaxed">
+                Choose any one method below to verify and instantly join our WhatsApp group<br />
+                <span className="font-semibold text-[#00ff88]">Get full access to Aarush AI — 100% free!</span>
+              </DialogDescription>
+            </DialogHeader>
 
-    <div className="grid gap-5 mt-8 px-2 sm:px-6">
-      <button
-        onClick={() => handleGo(2)}
-        className="
+            <div className="grid gap-5 mt-8 px-2 sm:px-6">
+              <button
+                onClick={() => handleGo(2)}
+                className="
           group
           w-full
           bg-gradient-to-r from-[#10b981] to-[#059669]
@@ -561,15 +574,15 @@ export default function Home() {
           flex items-center justify-center gap-4
           border border-emerald-400/30
         "
-      >
-        <span className="text-2xl md:text-3xl font-black">1</span>
-        <span>Verify with ChatGPT</span>
-        <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
-      </button>
+              >
+                <span className="text-2xl md:text-3xl font-black">1</span>
+                <span>Verify with ChatGPT</span>
+                <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
+              </button>
 
-      <button
-        onClick={() => handleGo(2)}
-        className="
+              <button
+                onClick={() => handleGo(2)}
+                className="
           group
           w-full
           bg-gradient-to-r from-[#8b5cf6] to-[#7c3aed]
@@ -582,15 +595,15 @@ export default function Home() {
           flex items-center justify-center gap-4
           border border-purple-400/30
         "
-      >
-        <span className="text-2xl md:text-3xl font-black">2</span>
-        <span>Verify with Grok (X)</span>
-        <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
-      </button>
+              >
+                <span className="text-2xl md:text-3xl font-black">2</span>
+                <span>Verify with Grok (X)</span>
+                <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
+              </button>
 
-      <button
-        onClick={() => handleGo(2)}
-        className="
+              <button
+                onClick={() => handleGo(2)}
+                className="
           group
           w-full
           bg-gradient-to-r from-[#3b82f6] to-[#2563eb]
@@ -603,23 +616,23 @@ export default function Home() {
           flex items-center justify-center gap-4
           border border-blue-400/30
         "
-      >
-        <span className="text-2xl md:text-3xl font-black">3</span>
-        <span>Verify with Gemini</span>
-        <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
-      </button>
-    </div>
+              >
+                <span className="text-2xl md:text-3xl font-black">3</span>
+                <span>Verify with Gemini</span>
+                <span className="text-xl md:text-2xl opacity-80 group-hover:opacity-100 transition-opacity">→</span>
+              </button>
+            </div>
 
-    <DialogFooter className="mt-8 flex justify-center gap-6">
-      <button
-        onClick={() => setVerifyOpen(false)}
-        className="text-gray-300 hover:text-white text-base px-6 py-3 transition-colors"
-      >
-        Cancel
-      </button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+            <DialogFooter className="mt-8 flex justify-center gap-6">
+              <button
+                onClick={() => setVerifyOpen(false)}
+                className="text-gray-300 hover:text-white text-base px-6 py-3 transition-colors"
+              >
+                Cancel
+              </button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
 
 
@@ -637,7 +650,7 @@ export default function Home() {
         grid grid-cols-1 md:grid-cols-2 gap-8
       "
             >
-              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) => (
+              {["1", "2", "3", "4"].map((id) => (
                 <RestoredImage key={id} baseName={id} />
               ))}
             </div>
@@ -701,23 +714,23 @@ export default function Home() {
             </div>
           </div>
           <div className="live-count text-[1.4rem] font-extrabold my-2">
-            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> Indians joined <span className="highlight text-[#00ff88]">today</span>
+            <span className="highlight text-[#00ff88]">今日の</span><span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span>日本の参加
           </div>
         </div>
 
         {/* Features */}
         <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">Why 68,000+ Indians Choose Aarush AI Daily</h3>
+          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">68,000人以上の日本人が佐藤AIデイリーを選ぶ理由</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
-              { strong: 'Speaks 10 Indian Languages', text: 'Hindi, Tamil, Telugu, Bengali + English' },
-              { strong: 'UPSC/JEE/NEET Prep', text: 'Instant explanations, mock tests, study plans' },
-              { strong: 'Resume & Interview Prep', text: 'Write perfect resume & crack interviews' },
-              { strong: 'Daily Life Helper', text: 'Essays, emails, Instagram captions in seconds' },
-              { strong: '24×7 Personal Tutor', text: 'Math, Science, History — step by step' },
-              { strong: 'Creative Tools', text: 'Generate images, code, business ideas' },
-              { strong: 'Daily New Tips', text: 'Prompts, features, updates in group' },
-              { strong: '100% Free Forever', text: 'No ads, no payment, no data selling' },
+              { strong: '多言語対応でグローバルも安心', text: 'インド主要10言語＋英語でスムーズなやり取り' },
+              { strong: '資格・昇進試験の効率化パートナー', text: '難解な問題の解説・学習スケジュール・弱点分析' },
+              { strong: '書類・面接準備をワンランクアップ', text: '職務経歴書のブラッシュアップ・行動質問対策' },
+              { strong: '業務メール・資料作成の時短ツール', text: '丁寧な報告書・提案メール・議事録要約を瞬時に' },
+              { strong: '24時間365日頼れる学習支援', text: 'ビジネス数学・データ分析・業界史を体系的に' },
+              { strong: '企画・新規事業のブレスト相手', text: '市場アイデア・プレゼン資料構成・画像素材提案' },
+              { strong: '最新AI活用術を毎朝お届け', text: '業務効率化プロンプト・アップデート情報' },
+              { strong: '完全無料・安心して長く使える', text: '広告表示なし・料金請求なし・プライバシー厳守' },
             ].map((item, i) => (
               <div key={i} className="feature-item bg-[rgba(255,255,255,0.05)] rounded-2xl p-4 border border-[rgba(0,212,255,0.2)]">
                 <strong className="block text-[1.1rem] mb-[6px] text-[#00ff88]">{item.strong}</strong>
@@ -730,9 +743,9 @@ export default function Home() {
         {/* Testimonials */}
         <div className="testimonials my-6 space-y-3">
           {[
-            { p: '"Scored 95% in JEE mock after using Aarush AI for 1 week. Best free tool ever!"', cite: '— Arjun Sharma, IIT Aspirant, Delhi' },
-            { p: '"Finally an AI that understands Tamil and helps with government exam prep!"', cite: '— Priya R., Chennai' },
-            { p: '"Got my dream job resume written in 5 minutes. Joined the group for daily tips!"', cite: '— Rohan K., Bangalore' },
+            { p: '"受験勉強で詰まった問題をステップごとに丁寧に解説してくれて、理解が深まった。無料でここまでできるなんて驚きです"', cite: '— みゆき、高3生、横浜' },
+            { p: '"職務経歴書と自己PRを添削してもらったら、面接で「文章が読みやすい」と言われ、内定につながった。本当に助かりました"', cite: '— けんた、転職成功、札幌' },
+            { p: '"日常のビジネスメールや企画書の下書きが一瞬で完成。24時間いつでも頼れる相棒みたいで、仕事の効率がかなり上がった"', cite: '— さくら、営業職、福岡' },
           ].map((test, i) => (
             <div key={i} className="testimonial bg-[rgba(255,255,255,0.07)] rounded-[20px] p-5 my-3 border-l-[5px] border-[#ff2d55]">
               <p className="text-base leading-[1.5] mb-2">{test.p}</p>
@@ -743,7 +756,7 @@ export default function Home() {
 
         {/* Trust Badges */}
         <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['Made in Chennai', '100% Free Forever', 'No Data Selling', '68,000+ Members'].map((badge, i) => (
+          {['日本で急成長中', '100%永遠に無料', '個人情報一切売却なし', '7万人以上の仲間が参加中'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
             </div>
@@ -759,14 +772,34 @@ export default function Home() {
 
         {/* Disclaimer */}
         <div className="
-            disclaimer 
-            text-sm text-gray-500 
-            mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
-            text-center leading-relaxed
-            border-t border-gray-700/40 pt-8
-          ">
-          Aarush AI Technologies • 40, Sirthiyagaraja Rd, T Nagar, Chennai, Tamil Nadu 600017 • Phone: 044 2431 5340<br />
-          Educational AI Assistant • Not financial advice • Made with ❤️ in India
+  disclaimer 
+  text-sm text-gray-600 
+  mt-20 mb-32 
+  text-center leading-relaxed
+  border-t border-gray-200 pt-10
+  max-w-3xl mx-auto px-4
+">
+          <div className="font-medium mb-3">
+            Sato Tech AI
+            〒969-6106 福島県大沼郡会津美里町黒川内461-1118
+            TEL: 013-093-4708
+          </div>
+
+          <div className="mb-4 text-gray-500">
+            勉強・就活のお助けAI　｜　投資・金融に関するアドバイスではありません
+            日本で心を込めて作りました ❤️
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-gray-500">
+            <span>日本で急成長中</span>
+            <span>100%永遠に無料</span>
+            <span>個人情報一切売却なし</span>
+            <span>7.5万人以上のコミュニティ</span>
+          </div>
+
+          <div className="mt-6 text-xs text-gray-400">
+            © 2026 Sato Tech AI. All rights reserved.
+          </div>
         </div>
 
         {/* Bottom CTA */}
@@ -776,8 +809,12 @@ export default function Home() {
             disabled={isLoading}
             className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
-            <MessageCircle className="wa-icon h-[32px] w-[32px]" />
-            Join 68,000+ Indians Now – It&apos;s FREE!
+                        <img 
+              src="./line-messenger-logo.svg" 
+              alt="LINE Icon"
+              className="h-16 w-16 rounded-2xl"  // 圆角正方形，像 App 图标
+            />
+            Join 68,000+ Line Now – It&apos;s FREE!
           </button>
         </div>
 

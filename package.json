@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../in7-版2-0301-v1.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../jap-v1-日本-0307-2.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

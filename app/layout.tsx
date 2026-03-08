@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aarush AI Learn",
-  description: "Aarush AI – Powered by Our Latest Model for Smarter Learning",
+  title: "Sato Tech AI Learn",
+  description: "Sato Tech AI – Powered by Our Latest Model for Smarter Learning",
 };
 
 export default function RootLayout({
