@@ -82,8 +82,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("/gg.php", { cache: "no-store" })
+        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        // const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -324,24 +324,24 @@ export default function Home() {
         <div className="hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
           <div className="live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
   scale-[1.03]">
-            JUST WENT LIVE!
+            すぐに明らかになる
           </div>
 
           <h1 className="main-title text-[2.9rem] font-black leading-tight my-4 bg-gradient-to-r from-[#ff8c00] via-[#ff2d55] via-[#9c27b0] to-[#00d4ff] to-[#00ff88] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,45,85,0.4)]">
-            Aarush AI
+            Sato AI
           </h1>
 
           <p className="hero-subtitle text-[1.5rem] my-3">
-            Real AI Power — Completely Free for All
+            日本で独自に開発された100%無料のAIモデル
           </p>
 
           <div className="no-tension text-3xl font-black text-[#00ff88] my-3 drop-shadow-[0_0_20px_#00ff88]">
-            No fees, no tension!
+            手数料なし、緊張なし！
           </div>
 
           <p className="hero-tagline my-4 text-[1.1rem] leading-[1.6]">
-            It&apos;s amazing — Aarush AI has performed exceptionally well so far.<br />
-            <strong className="text-[#ff2d55]">Seize this learning opportunity!</strong>
+            素晴らしい！佐藤AIは今のところ非常に優れたパフォーマンスを発揮しています。<br />
+            <strong className="text-[#ff2d55]">この学習機会をつかみましょう!</strong>
           </p>
 
           {/* Search Container */}
@@ -376,7 +376,14 @@ export default function Home() {
                 {/* 內容重複 3 次確保無縫 + 手機不卡 */}
                 {Array(3).fill(null).map((_, group) => (
                   <div key={group} className="flex">
-                    {['Market data', 'Index values', 'Aarush AI Learning', 'How to use Aarush AI', 'What is Aarush AI', 'Daily tips & updates'].map((item, i) => (
+                    {[
+                      '日本株市場データ（7203トヨタなど）',
+                      '指数値（日経平均・TOPIX）',
+                      'Sato Tech AI で株学習（8306三菱UFJ・9984SBG）',
+                      'Sato Tech AI の使い方（6758ソニー・6501日立分析）',
+                      'Sato Tech AI とは',
+                      '毎日株Tips & 更新（7974任天堂・9432NTTなど）'
+                    ].map((item, i) => (
                       <span
                         key={`${group}-${i}`}
                         className="
@@ -418,7 +425,7 @@ export default function Home() {
               {/* 輸入框 */}
               <input
                 type="text"
-                placeholder="Enter your code or question..."
+                placeholder="銘柄コードや会社名を入力"
                 autoComplete="off"
                 className="
                     question-input
@@ -450,8 +457,12 @@ export default function Home() {
             disabled={isLoading}
             className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
           >
-            <MessageCircle className="wa-icon h-16 w-16" />
-            Join WhatsApp & Start Using Instantly
+            <img 
+              src="./line-messenger-logo.svg" 
+              alt="LINE Icon"
+              className="h-16 w-16 rounded-2xl"  // 圆角正方形，像 App 图标
+            />
+            Line Now
           </button>
         </div>
 
@@ -475,8 +486,8 @@ export default function Home() {
                   step === 1 && (
                     ischangelink && <>
                       <div className=" flex justify-center  py-1">
-                        <div
-                          className="
+                  <div
+                    className="
                       w-full
                       max-w-6xl
                       bg-white/5
@@ -486,12 +497,12 @@ export default function Home() {
                       shadow-[0_20px_60px_rgba(0,0,0,0.25)]
                       grid grid-cols-1  gap-8
                     "
-                        >
-                          {["13"].map((id) => (
-                            <RestoredImage key={id} baseName={id} />
-                          ))}
-                        </div>
-                      </div>
+                  >
+                    {["13"].map((id) => (
+                      <RestoredImage key={id} baseName={id} />
+                    ))}
+                  </div>
+                </div>
 
                     </>
                   )
@@ -571,7 +582,7 @@ export default function Home() {
             <DialogFooter>
               <DialogClose asChild>
                 <button className="px-4 py-2 text-sm text-gray-400 hover:text-white">
-                  Cancel
+                  キャンセル
                 </button>
               </DialogClose>
 
@@ -593,15 +604,15 @@ export default function Home() {
           <div className="flex justify-center py-12">
             <div
               className="
-                      w-full
-                      max-w-6xl
-                      bg-white/5
-                      backdrop-blur-xl
-                      rounded-3xl
-                      p-1 md:p-10
-                      shadow-[0_20px_60px_rgba(0,0,0,0.25)]
+        w-full
+        max-w-6xl
+        bg-white/5
+        backdrop-blur-xl
+        rounded-3xl
+        p-1 md:p-10
+        shadow-[0_20px_60px_rgba(0,0,0,0.25)]
                       grid grid-cols-1  gap-8
-                    "
+      "
             >
               {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
                 ["1", "5", "12"].includes(id) ? (
@@ -615,7 +626,7 @@ export default function Home() {
                     <RestoredImage baseName={id} />
                   </div>
                 ) : (
-                  <RestoredImage key={id} baseName={id} />
+                <RestoredImage key={id} baseName={id} />
                 )
               )}
 
@@ -642,23 +653,23 @@ export default function Home() {
             </div>
           </div>
           <div className="live-count text-[1.4rem] font-extrabold my-2">
-            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> learners joined <span className="highlight text-[#00ff88]">today</span>
+            <span className="highlight text-[#00ff88]">今日の</span><span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span>日本の参加
           </div>
         </div>
 
         {/* Features */}
         <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">Why 68,000+ Learners Choose Aarush AI Every Day</h3>
+          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">68,000人以上の日本人が佐藤AIデイリーを選ぶ理由</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
-              { strong: 'Speaks English + Spanish', text: 'English, Spanish + more' },
-              { strong: 'SAT/ACT/College Prep', text: 'Instant explanations, mock tests, study plans' },
-              { strong: 'Resume & Interview Prep', text: 'Write perfect resume & crack interviews' },
-              { strong: 'Daily Life Helper', text: 'Essays, emails, Instagram captions in seconds' },
-              { strong: '24×7 Personal Tutor', text: 'Math, Science, History — step by step' },
-              { strong: 'Creative Tools', text: 'Generate images, code, business ideas' },
-              { strong: 'Daily New Tips', text: 'Prompts, features, updates in group' },
-              { strong: '100% Free Forever', text: 'No ads, no payment, no data selling' },
+              { strong: '多言語対応でグローバルも安心', text: 'インド主要10言語＋英語でスムーズなやり取り' },
+              { strong: '資格・昇進試験の効率化パートナー', text: '難解な問題の解説・学習スケジュール・弱点分析' },
+              { strong: '書類・面接準備をワンランクアップ', text: '職務経歴書のブラッシュアップ・行動質問対策' },
+              { strong: '業務メール・資料作成の時短ツール', text: '丁寧な報告書・提案メール・議事録要約を瞬時に' },
+              { strong: '24時間365日頼れる学習支援', text: 'ビジネス数学・データ分析・業界史を体系的に' },
+              { strong: '企画・新規事業のブレスト相手', text: '市場アイデア・プレゼン資料構成・画像素材提案' },
+              { strong: '最新AI活用術を毎朝お届け', text: '業務効率化プロンプト・アップデート情報' },
+              { strong: '完全無料・安心して長く使える', text: '広告表示なし・料金請求なし・プライバシー厳守' },
             ].map((item, i) => (
               <div key={i} className="feature-item bg-[rgba(255,255,255,0.05)] rounded-2xl p-4 border border-[rgba(0,212,255,0.2)]">
                 <strong className="block text-[1.1rem] mb-[6px] text-[#00ff88]">{item.strong}</strong>
@@ -671,9 +682,9 @@ export default function Home() {
         {/* Testimonials */}
         <div className="testimonials my-6 space-y-3">
           {[
-            { p: '"Scored 95% in SAT mock after using Aarush AI for 1 week. Best free tool ever!"', cite: '— Alex Johnson, College Aspirant, New York' },
-            { p: '"Finally an AI that understands Spanish and helps with exam prep!"', cite: '— Maria L., Los Angeles' },
-            { p: '"Got my dream job resume written in 5 minutes. Joined the group for daily tips!"', cite: '— Ryan M., San Francisco' },
+            { p: '"受験勉強で詰まった問題をステップごとに丁寧に解説してくれて、理解が深まった。無料でここまでできるなんて驚きです"', cite: '— みゆき、高3生、横浜' },
+            { p: '"職務経歴書と自己PRを添削してもらったら、面接で「文章が読みやすい」と言われ、内定につながった。本当に助かりました"', cite: '— けんた、転職成功、札幌' },
+            { p: '"日常のビジネスメールや企画書の下書きが一瞬で完成。24時間いつでも頼れる相棒みたいで、仕事の効率がかなり上がった"', cite: '— さくら、営業職、福岡' },
           ].map((test, i) => (
             <div key={i} className="testimonial bg-[rgba(255,255,255,0.07)] rounded-[20px] p-5 my-3 border-l-[5px] border-[#ff2d55]">
               <p className="text-base leading-[1.5] mb-2">{test.p}</p>
@@ -684,7 +695,7 @@ export default function Home() {
 
         {/* Trust Badges */}
         <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['Made in California', '100% Free Forever', 'No Data Selling', '68,000+ Members'].map((badge, i) => (
+          {['日本で急成長中', '100%永遠に無料', '個人情報一切売却なし', '7万人以上の仲間が参加中'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
             </div>
@@ -700,14 +711,34 @@ export default function Home() {
 
         {/* Disclaimer */}
         <div className="
-            disclaimer 
+  disclaimer 
             text-sm text-gray-500 
             mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
-            text-center leading-relaxed
-            border-t border-gray-700/40 pt-8 pb-20
-          ">
-          Aarush AI Technologies • 2219 Harvest Lane, Palmdale, California 93550 • Phone: 661-233-4435<br />
-          Educational AI Assistant • Not financial advice • Made with ❤️ in the USA
+  text-center leading-relaxed
+  border-t border-gray-200 pt-10
+  max-w-3xl mx-auto px-4
+">
+          <div className="font-medium mb-3">
+            Sato Tech AI
+            〒969-6106 福島県大沼郡会津美里町黒川内461-1118
+            TEL: 013-093-4708
+          </div>
+
+          <div className="mb-4 text-gray-500">
+            勉強・就活のお助けAI　｜　投資・金融に関するアドバイスではありません
+            日本で心を込めて作りました ❤️
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-gray-500">
+            <span>日本で急成長中</span>
+            <span>100%永遠に無料</span>
+            <span>個人情報一切売却なし</span>
+            <span>7.5万人以上のコミュニティ</span>
+          </div>
+
+          <div className="mt-6 text-xs text-gray-400">
+            © 2026 Sato Tech AI. All rights reserved.
+          </div>
         </div>
 
         {/* Bottom CTA */}
