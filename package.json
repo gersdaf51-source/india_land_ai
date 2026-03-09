@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../mex-v1-0.08-1-6张图片.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../ww-ai底板-v1-0309-1.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },
