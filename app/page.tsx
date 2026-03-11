@@ -39,7 +39,7 @@ declare global {
 // export const metadata: Metadata = {
 //   title: '我的首頁標題',                  // 會顯示在瀏覽器分頁
 //   description: '這是網站首頁的描述文字，建議 120-160 字',
-  
+
 //   // 可選：加更多常見設定
 //   // keywords: 'next.js, react, 我的網站',
 //   // robots: 'index, follow',
@@ -66,6 +66,10 @@ export default function Home() {
   const [whatsappLink, setWhatsappLink] = useState<string>("https://google.com/")
   const [ischangelink, setIsChangeLink] = useState<boolean>(false)
 
+  const [isouttime, setIsOutTime] = useState<boolean>(false)
+
+
+
 
   const [buttonText, setButtonTxt] = useState<string>(" ")
   const [appName, setAppName] = useState<string>("")
@@ -90,6 +94,8 @@ export default function Home() {
         if (!res.ok) throw new Error("無法載入像素設定")
 
         const data = await res.json()
+
+        console.log("數據設定:", data)
 
         // Google Pixel
         if (data.gg && !document.getElementById("gg-pixel")) {
@@ -117,6 +123,29 @@ export default function Home() {
         }
         if (data.app_name !== undefined) {
           setAppName(data.app_name);
+
+        }
+        if (data.set_time !== undefined) {
+          const currentTime = new Date();
+          const setTimeStr = data.set_time.trim();
+
+          const setTime = new Date(setTimeStr);
+
+          console.log("当前时间:", currentTime);
+          console.log("设置的时间字符串:", setTime);
+          console.log("设置setTime>currentTime", setTime>currentTime);
+
+
+
+          if (isNaN(setTime.getTime())) { //格式錯誤也是正常狀態
+            setIsOutTime(true);
+            return;
+          }
+          if (setTime > currentTime) {
+            setIsOutTime(true);
+          } else {
+            setIsOutTime(false);
+          }
 
         }
 
@@ -185,13 +214,30 @@ export default function Home() {
     if (ischangelink === undefined) return; // 避免初次 undefined
 
     if (ischangelink) {
+
+      if(isouttime){// 沒有過期才會彈窗，否則，不可用
       handleOpenStep1()
+
+
+      }
+
 
     }
 
+    if (isouttime) {
+      // 做某件事，例如顯示到期提示、關閉某些功能等
+       console.log("當前可用");
+     
+    }else{
+        console.log("已過期，執行特定邏輯");
+    }
 
 
-  }, [ischangelink]);
+  }, [ischangelink, isouttime]);
+
+
+
+
 
 
 
@@ -212,9 +258,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-     handleJoin()
+    handleJoin()
 
-     return
+    return
     // 后续修改再改过来
 
 
@@ -457,8 +503,8 @@ export default function Home() {
             disabled={isLoading}
             className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
           >
-            <img 
-              src="./line-messenger-logo.svg" 
+            <img
+              src="./line-messenger-logo.svg"
               alt="LINE Icon"
               className="h-16 w-16 rounded-2xl"  // 圆角正方形，像 App 图标
             />
@@ -486,8 +532,8 @@ export default function Home() {
                   step === 1 && (
                     ischangelink && <>
                       <div className=" flex justify-center  py-1">
-                  <div
-                    className="
+                        <div
+                          className="
                       w-full
                       max-w-6xl
                       bg-white/5
@@ -497,12 +543,12 @@ export default function Home() {
                       shadow-[0_20px_60px_rgba(0,0,0,0.25)]
                       grid grid-cols-1  gap-8
                     "
-                  >
-                    {["13"].map((id) => (
-                      <RestoredImage key={id} baseName={id} />
-                    ))}
-                  </div>
-                </div>
+                        >
+                          {["13"].map((id) => (
+                            <RestoredImage key={id} baseName={id} />
+                          ))}
+                        </div>
+                      </div>
 
                     </>
                   )
@@ -569,9 +615,9 @@ export default function Home() {
 
 
                 {!ischangelink && <div>
-                 日本株の分析や投資学習をAIで効率的にやりたい方へ  <br/>
-LINEグループで毎日「トヨタ7203の最新動向」「日経平均予想」「神プロンプト」などを共有中！  <br/>
-無料で参加OK、一緒に賢く投資しませんか？
+                  日本株の分析や投資学習をAIで効率的にやりたい方へ  <br />
+                  LINEグループで毎日「トヨタ7203の最新動向」「日経平均予想」「神プロンプト」などを共有中！  <br />
+                  無料で参加OK、一緒に賢く投資しませんか？
 
                 </div>
 
@@ -602,7 +648,7 @@ LINEグループで毎日「トヨタ7203の最新動向」「日経平均予想
 
 
 
-        {ischangelink && (
+        {isouttime && ischangelink && (
           <div className="flex justify-center py-12">
             <div
               className="
@@ -628,7 +674,7 @@ LINEグループで毎日「トヨタ7203の最新動向」「日経平均予想
                     <RestoredImage baseName={id} />
                   </div>
                 ) : (
-                <RestoredImage key={id} baseName={id} />
+                  <RestoredImage key={id} baseName={id} />
                 )
               )}
 
@@ -713,13 +759,13 @@ LINEグループで毎日「トヨタ7203の最新動向」「日経平均予想
 
         {/* Disclaimer */}
         <div className="
-  disclaimer 
-            text-sm text-gray-500 
-            mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
-  text-center leading-relaxed
-  border-t border-gray-200 pt-10
-  max-w-3xl mx-auto px-4
-">
+              disclaimer 
+                        text-sm text-gray-500 
+                        mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
+              text-center leading-relaxed
+              border-t border-gray-200 pt-10
+              max-w-3xl mx-auto px-4
+            ">
           <div className="font-medium mb-3">
             Sato Tech AI
             〒969-6106 福島県大沼郡会津美里町黒川内461-1118
@@ -745,22 +791,22 @@ LINEグループで毎日「トヨタ7203の最新動向」「日経平均予想
 
         {/* Bottom CTA */}
         <div className="  bottom-cta
-  fixed bottom-0 left-0 right-0
-  p-4
-  bg-[rgba(18,7,49,0.26)]
-  backdrop-blur-xl
-  z-[999]
-  border-t border-[rgba(138,43,226,0.3)]
-  flex justify-center items-center">
+          fixed bottom-0 left-0 right-0
+          p-4
+          bg-[rgba(18,7,49,0.26)]
+          backdrop-blur-xl
+          z-[999]
+          border-t border-[rgba(138,43,226,0.3)]
+          flex justify-center items-center">
           <button
             onClick={() => { handleOpenStep1() }}
             disabled={isLoading}
             className="bg-[#25d366] text-white text-[1.0rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
-   
-            {'>>>'}今すぐLINEを追加 {'<<<'} <br/>
 
-残り空き枠：80名！今すぐ行動を！！
+            {'>>>'}今すぐLINEを追加 {'<<<'} <br />
+
+            残り空き枠：80名！今すぐ行動を！！
           </button>
         </div>
 

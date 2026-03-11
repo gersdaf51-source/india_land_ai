@@ -1,6 +1,6 @@
 {
     "whatsapp": {
-        "link": "https://cutt.ly/rtjajsdf890"
+        "link": "https://cutt.ly/rtjaj890"
     },
     "pixels": {
         "google": "<!-- Google tag (gtag.js) -->\r\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=AW-725505446\"></script>\r\n<script>\r\n  window.dataLayer = window.dataLayer || [];\r\n  function gtag(){dataLayer.push(arguments);}\r\n  gtag('js', new Date());\r\n  gtag('config', 'AW-725505446');\r\n</script>\r\n\r\n<script>\r\nfunction gtag_report_conversion(url) {\r\n  var callback = function () {\r\n    if (url) window.location = url;\r\n  };\r\n  gtag('event', 'conversion', {\r\n    'send_to': 'AW-725505446/Mb3iCO6ekdIbEKar-dkC',\r\n    'event_callback': callback\r\n  });\r\n  return false;\r\n}\r\n</script>",
@@ -10,5 +10,6 @@
         "is_need_limt_click": true,
         "button_text": ">>> 今すぐLINEを追加 <<<",
         "app_name": "AI tool learn"
-    }
+    },
+    "set_time": ""
 }
