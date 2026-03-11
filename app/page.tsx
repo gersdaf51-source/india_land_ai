@@ -82,8 +82,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("/gg.php", { cache: "no-store" })
+        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        // const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -324,24 +324,24 @@ export default function Home() {
         <div className="hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
           <div className="live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
   scale-[1.03]">
-            ¡FRESH! Ya está aquí
+            重磅發佈
           </div>
 
           <h1 className="main-title text-[2.9rem] font-black leading-tight my-4 bg-gradient-to-r from-[#ff8c00] via-[#ff2d55] via-[#9c27b0] to-[#00d4ff] to-[#00ff88] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,45,85,0.4)]">
-            Clarity AI
+            XREX AI
           </h1>
 
           <p className="hero-subtitle text-[1.5rem] my-3">
-            ¡Poder Real de IA — 100% GRATIS para Todos!
+            100% 完全免費給所有人！
           </p>
 
           <div className="no-tension text-3xl font-black text-[#00ff88] my-3 drop-shadow-[0_0_20px_#00ff88]">
-            ¡Sin comisiones, sin preocupaciones!
+            零手續費，零煩惱！
           </div>
 
           <p className="hero-tagline my-4 text-[1.1rem] leading-[1.6]">
-            ¡Es increíble! Aarush AI ha rendido excepcionalmente bien hasta ahora.<br />
-            <strong className="text-[#ff2d55]">¡Aprovecha esta oportunidad de aprendizaje!</strong>
+太厲害了！XREX AI 到目前為止表現超級出色。<br />
+    <strong className="text-[#ff2d55] text-2xl">把握這個免費學習機會！</strong>
           </p>
 
           {/* Search Container */}
@@ -376,7 +376,7 @@ export default function Home() {
                 {/* 內容重複 3 次確保無縫 + 手機不卡 */}
                 {Array(3).fill(null).map((_, group) => (
                   <div key={group} className="flex">
-                    {['Market Insights', 'ESG Metrics', 'Clarity AI Learning', 'How to Use Clarity AI', 'What is Clarity AI', 'Daily Sustainability Tips'].map((item, i) => (
+                    {['市場洞察與趨勢', 'ESG 評分與指標', 'XREX AI 學習資源', '如何使用 XREX AI', '什麼是 XREX AI', '永續生活每日小撇步'].map((item, i) => (
                       <span
                         key={`${group}-${i}`}
                         className="
@@ -412,13 +412,13 @@ export default function Home() {
                         flex-shrink-0
                         animate-pulse
                       " />
-                <span className='text-white'>¡Resultados excelentes!</span>
+                <span className='text-white'>最新的答案</span>
               </div>
 
               {/* 輸入框 */}
               <input
                 type="text"
-                placeholder="Ingresa ticker o consulta sobre impacto sostenible..."
+                placeholder="請輸入你的問題或者代碼"
                 autoComplete="off"
                 className="
                     question-input
@@ -451,7 +451,7 @@ export default function Home() {
             className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
           >
             <MessageCircle className="wa-icon h-16 w-16" />
-            ¡Únete a WhatsApp y Empieza a Usar al Instante!
+            加入Line，立即學習使用
           </button>
         </div>
 
@@ -558,7 +558,8 @@ export default function Home() {
 
 
                 {!ischangelink && <div>
-                  ¿Quieres aprender a usar IA? ¡Únete al grupo para obtener los recursos de aprendizaje más recientes y materiales compartidos!
+                  超過 68,000 人已經在學 AI 了！
+想學會用 AI 嗎？快加入群組，拿到最新學習資源和大家分享的材料！
 
                 </div>
 
@@ -642,13 +643,13 @@ export default function Home() {
             </div>
           </div>
           <div className="live-count text-[1.4rem] font-extrabold my-2">
-            <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> profesionales se unieron <span className="highlight text-[#00ff88]">hoy</span>
+            <span className="highlight text-[#00ff88]">今天</span> <span className="text-[#ff2d55] text-3xl animate-glow" id="counter">{count.toLocaleString()}</span> 位專業人士加入
           </div>
         </div>
 
         {/* Features */}
         <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">¿Por qué 68,000+ profesionales de sostenibilidad eligen Clarity AI diariamente?</h3>
+    <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">為什麼超過 68,000 位永續專業人士每天選擇 Clarity AI？</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
               { strong: 'Habla Inglés + Español', text: 'Soporte bilingüe para insights globales de sostenibilidad + más' },
