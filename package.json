@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../in7-版2-0301-v2.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../in7-版2-0301-v3-修復圖片按鈕不跳問題.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

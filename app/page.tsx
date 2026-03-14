@@ -634,11 +634,24 @@ export default function Home() {
         rounded-3xl
         p-1 md:p-10
         shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-        grid grid-cols-1 md:grid-cols-2 gap-8
+                      grid grid-cols-1  gap-8
       "
             >
               {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) => (
-                <RestoredImage key={id} baseName={id} />
+                               ["1", "5", "12"].includes(id) ? (
+                  <div
+                    key={id}
+                    onClick={() => {
+                      setOpen(true)
+                    }}
+                    className={id}
+                  >
+                    <RestoredImage baseName={id} />
+                  </div>
+                ) : (
+                  <RestoredImage key={id} baseName={id} />
+                )
+
               ))}
             </div>
           </div>
