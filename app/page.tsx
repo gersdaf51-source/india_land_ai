@@ -53,8 +53,8 @@ export default function Home() {
 
     const loadPixels = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
 
         // 原本：const res = await fetch("/gg.php", { cache: "no-store" });
         // 改成：
