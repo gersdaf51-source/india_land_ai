@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../ww-ai底板-v01-0315-01更图片.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../ww-ai底板-v01-0316-01调整小图人色.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },
