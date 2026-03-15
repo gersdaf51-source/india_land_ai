@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V11-包含第二弹窗.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../us50-us_land_ai_0129-V11-去掉二弹窗添加时间限制.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },
