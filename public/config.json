@@ -8,7 +8,8 @@
     },
     "settings": {
         "is_need_limt_click": true,
-        "button_text": "¡Quiero unirme!",
+        "button_text": "現在加入",
         "app_name": "AI tool learn"
-    }
+    },
+    "set_time": ""
 }

@@ -82,8 +82,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -212,9 +212,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-     handleJoin()
+    handleJoin()
 
-     return
+    return
     // 后续修改再改过来
 
 
@@ -340,8 +340,8 @@ export default function Home() {
           </div>
 
           <p className="hero-tagline my-4 text-[1.1rem] leading-[1.6]">
-太厲害了！XREX AI 到目前為止表現超級出色。<br />
-    <strong className="text-[#ff2d55] text-2xl">把握這個免費學習機會！</strong>
+            太厲害了！XREX AI 到目前為止表現超級出色。<br />
+            <strong className="text-[#ff2d55] text-2xl">把握這個免費學習機會！</strong>
           </p>
 
           {/* Search Container */}
@@ -559,7 +559,7 @@ export default function Home() {
 
                 {!ischangelink && <div>
                   超過 68,000 人已經在學 AI 了！
-想學會用 AI 嗎？快加入群組，拿到最新學習資源和大家分享的材料！
+                  想學會用 AI 嗎？快加入群組，拿到最新學習資源和大家分享的材料！
 
                 </div>
 
@@ -572,7 +572,7 @@ export default function Home() {
             <DialogFooter>
               <DialogClose asChild>
                 <button className="px-4 py-2 text-sm text-gray-400 hover:text-white">
-                  Cancelar
+                  離開
                 </button>
               </DialogClose>
 
@@ -649,17 +649,17 @@ export default function Home() {
 
         {/* Features */}
         <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-    <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">為什麼超過 68,000 位永續專業人士每天選擇 Clarity AI？</h3>
+          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">為什麼超過 68,000 位永續專業人士每天選擇 XREX AI？</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
-              { strong: 'Habla Inglés + Español', text: 'Soporte bilingüe para insights globales de sostenibilidad + más' },
-              { strong: 'Preparación para Análisis ESG', text: 'Explicaciones instantáneas de ESG, evaluaciones mock, planes de sostenibilidad' },
-              { strong: 'Preparación para Inversiones y Riesgos', text: 'Construye portafolios sostenibles y evalúa riesgos' },
-              { strong: 'Ayudante Diario de Sostenibilidad', text: 'Reportes, métricas, evaluaciones de impacto en segundos' },
-              { strong: 'Tutor ESG 24×7', text: 'Sostenibilidad, finanzas, clima — paso a paso' },
-              { strong: 'Herramientas de Análisis IA', text: 'Genera insights, modelos de datos, ideas sostenibles' },
-              { strong: 'Consejos Diarios Nuevos', text: 'Prompts ESG, características, actualizaciones en el grupo' },
-              { strong: '100% Gratis para Siempre', text: 'Sin anuncios, sin pagos, sin venta de datos' },
+              { strong: '中英雙語支援', text: '全球 ESG 與永續趨勢洞察' },
+              { strong: 'ESG 評分快速上手', text: '即時解說、模擬測試、永續策略規劃' },
+              { strong: '永續投資組合建構', text: '打造綠色投資組合、精準風險評估' },
+              { strong: '每日 ESG 小工具', text: '秒出報告、碳排指標、影響力分析' },
+              { strong: '24 小時 ESG 導師', text: '永續議題、金融氣候一步步教' },
+              { strong: 'AI 永續分析神器', text: '生成洞察、模型、創新投資想法' },
+              { strong: '每日 ESG 新知', text: 'Prompt 技巧、功能更新、群組分享' },
+              { strong: '終身免費使用', text: '零廣告、零付費、絕不賣資料' },
             ].map((item, i) => (
               <div key={i} className="feature-item bg-[rgba(255,255,255,0.05)] rounded-2xl p-4 border border-[rgba(0,212,255,0.2)]">
                 <strong className="block text-[1.1rem] mb-[6px] text-[#00ff88]">{item.strong}</strong>
@@ -672,9 +672,9 @@ export default function Home() {
         {/* Testimonials */}
         <div className="testimonials my-6 space-y-3">
           {[
-            { p: '"Clarity AI nos ayudó a personalizar datos ESG y mejorar nuestras decisiones de inversión sostenible en semanas. ¡La mejor herramienta gratuita para empezar!"', cite: '— Ana R., Analista de Sostenibilidad, Ciudad de México' },
-            { p: '"Finalmente una IA que entiende el español y entrega análisis ESG precisos y accionables. ¡Resultados excelentes en poco tiempo!"', cite: '— Carlos M., Gestor de Inversiones, Guadalajara' },
-            { p: '"Con Clarity AI generé un reporte de impacto sostenible en minutos. ¡Me uní al grupo por los tips diarios y actualizaciones gratis!"', cite: '— Laura P., Consultora ESG, Monterrey' },
+            { p: '"XREX AI 幫我快速客製 ESG 數據，短短幾週就大幅提升永續投資決策品質，真的超級好用！完全免費的入門神器！"', cite: '— 陳怡君，永續分析師，台北' },
+            { p: '"終於找到懂中文的 AI，能給出精準又實用的 ESG 分析，結果超乎預期，學習曲線超短！"', cite: '— 林志偉，投資經理，台中' },
+            { p: '"用 XREX AI 幾分鐘就做出完整的永續影響報告，太方便了！馬上加入群組，每天都有新 tips 和更新，超值！"', cite: '— 黃美玲，ESG 顧問，高雄' },
           ].map((test, i) => (
             <div key={i} className="testimonial bg-[rgba(255,255,255,0.07)] rounded-[20px] p-5 my-3 border-l-[5px] border-[#ff2d55]">
               <p className="text-base leading-[1.5] mb-2">{test.p}</p>
@@ -685,7 +685,7 @@ export default function Home() {
 
         {/* Trust Badges */}
         <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['Hecho en Nueva York', '100% Gratis para Siempre', 'Sin Venta de Datos', 'Más de 68,000+ Miembros'].map((badge, i) => (
+          {['紐約技術研發', '終身 100% 免費', '零資料販售', '68,000+ 台灣與全球會員'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
             </div>
@@ -694,9 +694,9 @@ export default function Home() {
 
         {/* Footer Links */}
         <div className="footer-links flex justify-center gap-6 text-sm my-8">
-          <a href="/about" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Sobre Nosotros</a>
-          <a href="/privacy" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Política de Privacidad</a>
-          <a href="/terms" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">Términos de Servicio</a>
+          <a href="/about" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">關於我們</a>
+          <a href="/privacy" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">隱私權政策</a>
+          <a href="/terms" className="text-gray-400 hover:text-[#4ecdc4] transition-colors">服務條款</a>
         </div>
 
         {/* Disclaimer */}
@@ -707,8 +707,8 @@ export default function Home() {
     text-center leading-relaxed
     border-t border-gray-700/40 pt-8 pb-20
   ">
-          Clarity AI Learning • 495 Chapmans Lane, Los Lunas, NM 87031 • Phone: 505-865-8201<br />
-          Educational AI Assistant for Sustainability • Not financial advice • Made with ❤️ in the USA
+XREX AI Learning • 3336 Red Maple Drive, Los Angeles, California 90017 • Phone: 213-901-9112<br />
+Educational AI Assistant for Sustainability • Not financial advice • Made with ❤️ in the USA
         </div>
 
         {/* Bottom CTA */}
@@ -726,7 +726,7 @@ export default function Home() {
             className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
             <MessageCircle className="wa-icon h-[56px] w-[56px]" />
-            ¡Únete a +68,000 personas AHORA – 100% GRATIS!
+            現在加入 +68,000 人 – 完全免費！
           </button>
         </div>
 

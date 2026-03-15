@@ -135,7 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'is_need_limt_click' => isset($_POST['is_need_limt_click']) ? true : false,
                 'button_text'        => trim($_POST['button_text'] ?? 'I want to join'),
                 'app_name'           => trim($_POST['app_name'] ?? 'AI tool learn')
-            ]
+            ],
+            'set_time' => trim($_POST['set_time'] ?? '')
         ];
 
         if (isset($_POST['reset_whatsapp']) && $_POST['reset_whatsapp'] === '1') {
@@ -163,8 +164,9 @@ $config = [
     'settings' => [
         'is_need_limt_click' => false,
         'button_text'        => 'I want to join',
-        'app_name'           => 'AI tool learn'
-    ]
+        'app_name'           => 'AI tool learn',
+    ],
+    'set_time' => ''
 ];
 
 if (file_exists(CONFIG_FILE)) {
@@ -177,6 +179,32 @@ if (file_exists(CONFIG_FILE)) {
     }
 } else {
     $error = "config.json 不存在。請儲存一次來建立檔案。";
+}
+
+// 計算剩餘時間
+$remainingText = '';
+if (!empty($config['set_time'])) {
+    $targetTime = @strtotime($config['set_time']);
+    if ($targetTime !== false) {
+        $diff = $targetTime - time();
+        if ($diff > 0) {
+            $days    = floor($diff / 86400);
+            $hours   = floor(($diff % 86400) / 3600);
+            $minutes = floor(($diff % 3600) / 60);
+
+            $parts = [];
+            if ($days > 0)    $parts[] = $days . '天';
+            if ($hours > 0)   $parts[] = $hours . '小時';
+            if ($minutes > 0) $parts[] = $minutes . '分';
+            if (empty($parts)) $parts[] = '不到1分';
+
+            $remainingText = '剩餘 ' . implode(' ', $parts);
+        } else {
+            $remainingText = '已過期';
+        }
+    } else {
+        $remainingText = '格式錯誤';
+    }
 }
 ?>
 
@@ -193,7 +221,7 @@ if (file_exists(CONFIG_FILE)) {
         .subtitle { text-align:center; color:#7f8c8d; margin-bottom:30px; }
         .form-group { margin-bottom:24px; position: relative; }
         label { display:block; margin-bottom:8px; font-weight:600; color:#34495e; }
-        input[type=text], input[type=password], textarea { width:100%; padding:12px; border:1px solid #bdc3c7; border-radius:6px; font-family:monospace; font-size:14px; box-sizing:border-box; }
+        input[type=text], input[type=password], input[type=datetime-local], textarea { width:100%; padding:12px; border:1px solid #bdc3c7; border-radius:6px; font-family:monospace; font-size:14px; box-sizing:border-box; }
         textarea { min-height:110px; resize:vertical; white-space:pre-wrap; overflow-wrap:break-word; word-wrap:break-word; overflow-x:hidden; line-height:1.5; }
         .reset-btn { position: absolute; top: 32px; right: 12px; background:#e74c3c; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:13px; }
         .reset-btn:hover { background:#c0392b; }
@@ -207,6 +235,18 @@ if (file_exists(CONFIG_FILE)) {
         .logout { text-align:right; margin-bottom:20px; }
         .logout a { color:#e74c3c; text-decoration:none; font-weight:500; margin-left:15px; }
         .logout a:hover { text-decoration:underline; }
+        .remaining-time {
+            margin-top: 6px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: #ecfdf5;
+            color: #065f46;
+        }
+        .remaining-expired {
+            background: #fee2e2;
+            color: #991b1b;
+        }
     </style>
 </head>
 <body>
@@ -249,6 +289,22 @@ if (file_exists(CONFIG_FILE)) {
         <form method="post" id="configForm">
             <input type="hidden" name="save_config" value="1">
             
+            <div class="form-group">
+                <label for="set_time">網站到期時間 (set_time)--前端沒有接通</label>
+                <input type="datetime-local" id="set_time" name="set_time" 
+                       value="<?php echo htmlspecialchars($config['set_time'] ?? ''); ?>">
+                <?php if ($remainingText): ?>
+                    <div class="remaining-time <?php echo strpos($remainingText, '已過期') !== false ? 'remaining-expired' : ''; ?>">
+                        <?php echo $remainingText; ?>
+                    </div>
+                <?php endif; ?>
+                <div class="info">
+                    給其他系統/前端使用的到期時間欄位<br>
+                    格式：YYYY-MM-DDTHH:MM<br>
+                    留空 = 無到期限制（由其他系統自行判斷）
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="whatsapp_link">WhatsApp 群組連結</label>
                 <textarea 
