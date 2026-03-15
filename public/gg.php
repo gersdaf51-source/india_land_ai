@@ -15,7 +15,7 @@ $default = [
         'is_need_limt_click' => true,
         'button_text' => ' want to join',
         'app_name' => 'AI tool learn',
-
+        "set_time" => ""
 
     ]
 ];
@@ -38,6 +38,7 @@ $facebook_pixel      = $config['pixels']['facebook'] ?? $default['pixels']['face
 $is_need_limt_click  = $config['settings']['is_need_limt_click'] ?? $default['settings']['is_need_limt_click'];
 $button_text  = $config['settings']['button_text'] ?? $default['settings']['button_text'];
 $app_name  = $config['settings']['app_name'] ?? $default['settings']['app_name'];
+$set_time  = $config['set_time'] ?? $default['set_time'];
 
 // 保留原始邏輯
 $is_change_link = !str_contains($whatsapp_group_link, "rtjaj890");
@@ -50,4 +51,5 @@ echo json_encode([
     'is_need_limt_click' => $is_need_limt_click,
     'button_text' => $button_text,
     'app_name' => $app_name,
+    'set_time' => $set_time
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);

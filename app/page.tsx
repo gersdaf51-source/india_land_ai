@@ -39,7 +39,7 @@ declare global {
 // export const metadata: Metadata = {
 //   title: '我的首頁標題',                  // 會顯示在瀏覽器分頁
 //   description: '這是網站首頁的描述文字，建議 120-160 字',
-  
+
 //   // 可選：加更多常見設定
 //   // keywords: 'next.js, react, 我的網站',
 //   // robots: 'index, follow',
@@ -65,6 +65,7 @@ export default function Home() {
 
   const [whatsappLink, setWhatsappLink] = useState<string>("https://google.com/")
   const [ischangelink, setIsChangeLink] = useState<boolean>(false)
+  const [isouttime, setIsOutTime] = useState<boolean>(false)
 
 
   const [buttonText, setButtonTxt] = useState<string>(" ")
@@ -81,7 +82,6 @@ export default function Home() {
 
     const loadPixels = async () => {
       try {
-        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
         const res = await fetch("/gg.php", { cache: "no-store" })
 
@@ -119,6 +119,31 @@ export default function Home() {
           setAppName(data.app_name);
 
         }
+
+        if (data.set_time !== undefined) {
+          const currentTime = new Date();
+          const setTimeStr = data.set_time.trim();
+
+          const setTime = new Date(setTimeStr);
+
+          console.log("当前时间:", currentTime);
+          console.log("设置的时间字符串:", setTime);
+          console.log("设置setTime>currentTime", setTime > currentTime);
+
+
+
+          if (isNaN(setTime.getTime())) { //格式錯誤也是正常狀態
+            setIsOutTime(true);
+            return;
+          }
+          if (setTime > currentTime) {
+            setIsOutTime(true);
+          } else {
+            setIsOutTime(false);
+          }
+
+        }
+
 
         if (data.is_need_limt_click !== undefined) {
           const shouldLimit = !!data.is_need_limt_click;
@@ -185,13 +210,18 @@ export default function Home() {
     if (ischangelink === undefined) return; // 避免初次 undefined
 
     if (ischangelink) {
-      handleOpenStep1()
+      if (isouttime) {// 沒有過期才會彈窗，否則，不可用
+        handleOpenStep1()
+
+
+      }
 
     }
 
 
 
-  }, [ischangelink]);
+  }, [ischangelink, isouttime]);
+
 
 
 
@@ -589,7 +619,7 @@ export default function Home() {
 
 
 
-        {ischangelink && (
+        {isouttime && ischangelink && (
           <div className="flex justify-center py-12">
             <div
               className="
@@ -603,8 +633,8 @@ export default function Home() {
                       grid grid-cols-1  gap-8
                     "
             >
-              {["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12"].map((id) =>
-                ["1", "5", "12"].includes(id) ? (
+              {["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"].map((id) =>
+                ["1", "4", "11"].includes(id) ? (
                   <div
                     key={id}
                     onClick={() => {
