@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,           // ← 這行關掉內建圖片優化
   },
   trailingSlash: true,
+  productionBrowserSourceMaps: false,
 };
+
 
 export default nextConfig;

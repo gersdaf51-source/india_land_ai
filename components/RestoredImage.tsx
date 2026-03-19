@@ -1,25 +1,20 @@
+// components/RestoredImage.tsx   （或你原本的檔案）
 "use client"
 
-import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { restoreImageToCanvas } from "@/lib/restore-image"
 import { loadPswd } from "@/lib/load-pswd"
 
-export function RestoredImage({ baseName }: { baseName: string }) {
+export function RestoredImage({ imageSrc }: { imageSrc: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
   const [ready, setReady] = useState(false)
   const [highlight, setHighlight] = useState(false)
 
-  // 自动取消高亮
   useEffect(() => {
-    if (!highlight) return
-
-    const timer = setTimeout(() => {
-      setHighlight(false)
-    }, 1200) // 1.2 秒后消失，可自行调整
-
-    return () => clearTimeout(timer)
+    if (highlight) {
+      const timer = setTimeout(() => setHighlight(false), 1200)
+      return () => clearTimeout(timer)
+    }
   }, [highlight])
 
   useEffect(() => {
@@ -32,41 +27,37 @@ export function RestoredImage({ baseName }: { baseName: string }) {
       canvasRef.current.width = 600
       canvasRef.current.height = 600
 
-      await restoreImageToCanvas(baseName, canvasRef.current, pswd)
+      // 從 imageSrc 提取 baseName（給 restoreImageToCanvas 使用）
+      const baseName = imageSrc.split('/').pop()?.replace('_1.jpg', '') || ''
 
+      await restoreImageToCanvas(baseName, canvasRef.current, pswd)
       if (!cancelled) setReady(true)
     }
 
     run()
-    return () => {
-      cancelled = true
-    }
-  }, [baseName])
+    return () => { cancelled = true }
+  }, [imageSrc])
 
-  const handleClick = () => {
-    setHighlight(true)          // 点击 → 触发高亮
-    // 不需要手动取反，定时器会自动清除
-  }
+  const handleClick = () => setHighlight(true)
 
   return (
     <div
-      ref={containerRef}
       onClick={handleClick}
       className={`
-        relative w-full max-w-full aspect-square overflow-hidden rounded-2xl
-        cursor-pointer transition-all duration-200 ease-out
+        relative w-full aspect-square overflow-hidden rounded-2xl cursor-pointer
+        transition-all duration-200 ease-out
         ${highlight 
           ? "ring-4 ring-blue-500 ring-offset-2 scale-[1.02] shadow-xl" 
           : "hover:ring-2 hover:ring-gray-300 hover:scale-[1.01]"
         }
       `}
     >
-      <Image
-        src={`/imgs/${baseName}_1.jpg`}
+      <img
+        src={imageSrc}
         alt=""
-        fill
-        sizes="(max-width: 768px) 100vw, 33vw"
-        className={`object-cover transition-opacity duration-500 ${
+        loading="lazy"
+        decoding="async"
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
           ready ? "opacity-0" : "opacity-100"
         }`}
       />

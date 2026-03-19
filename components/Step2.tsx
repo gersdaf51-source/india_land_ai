@@ -50,7 +50,7 @@ export default function StepChoice({
               onClick={() => handleClick(opt.id)}
               className={`
                 min-w-[80px]  py-2.5 rounded-full text-sm font-medium transition-all
-                border
+                border font-bold
                 ${isSelected 
                   ? "bg-emerald-950/60 border-emerald-500 text-green-500  shadow-[0_0_12px_-4px] shadow-emerald-500/40" 
                   : "bg-slate-800/50 border-slate-600 text-slate-50 hover:border-slate-400 hover:bg-slate-700/60"

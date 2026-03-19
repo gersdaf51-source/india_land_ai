@@ -126,13 +126,7 @@ export default function Home() {
 
           const setTime = new Date(setTimeStr);
 
-          console.log("当前时间:", currentTime);
-          console.log("设置的时间字符串:", setTime);
-          console.log("设置setTime>currentTime", setTime > currentTime);
-
-
-
-          if (isNaN(setTime.getTime())) { //格式錯誤也是正常狀態
+          if (isNaN(setTime.getTime())) {
             setIsOutTime(true);
             return;
           }
@@ -210,7 +204,7 @@ export default function Home() {
     if (ischangelink === undefined) return; // 避免初次 undefined
 
     if (ischangelink) {
-      if (isouttime) {// 沒有過期才會彈窗，否則，不可用
+      if (isouttime) {
         handleOpenStep1()
 
 
@@ -242,9 +236,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-     handleJoin()
+    //  handleJoin()
 
-     return
+    //  return
     // 后续修改再改过来
 
 
@@ -517,9 +511,12 @@ export default function Home() {
                       grid grid-cols-1  gap-8
                     "
                         >
-                          {["13"].map((id) => (
-                            <RestoredImage key={id} baseName={id} />
-                          ))}
+{/* 原來這段請改成下面這樣 */}
+{["13"].map((id) => {
+  const imageSrc = `/imgs/${id}_1.jpg`     // ← 改成完整靜態路徑
+
+  return <RestoredImage key={id} imageSrc={imageSrc} />
+})}
                         </div>
                       </div>
 
@@ -633,21 +630,21 @@ export default function Home() {
                       grid grid-cols-1  gap-8
                     "
             >
-              {["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"].map((id) =>
-                ["1", "4", "11"].includes(id) ? (
-                  <div
-                    key={id}
-                    onClick={() => {
-                      handleOpenStep1()
-                    }}
-                    className={id}
-                  >
-                    <RestoredImage baseName={id} />
-                  </div>
-                ) : (
-                  <RestoredImage key={id} baseName={id} />
-                )
-              )}
+{["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"].map((id) => {
+  const imageSrc = `/imgs/${id}_1.jpg`     // ← 這裡也改成完整路徑
+
+  return ["1", "4", "11"].includes(id) ? (
+    <div
+      key={id}
+      onClick={() => handleOpenStep1()}
+      className={id}
+    >
+      <RestoredImage imageSrc={imageSrc} />
+    </div>
+  ) : (
+    <RestoredImage key={id} imageSrc={imageSrc} />
+  )
+})}
 
             </div>
           </div>
