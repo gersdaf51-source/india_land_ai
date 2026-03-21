@@ -21,7 +21,7 @@ export default function PrivacyPage() {
         </p>
         
         <p className="font-medium">
-          <strong>公司：</strong> XREX AI Learning<br />
+          <strong>公司：</strong> Aarush AI Learning<br />
           3336 Red Maple Drive<br />
           Los Angeles, California 90017<br />
           電話：<a href="tel:+12139019112" className="text-[#4ecdc4] hover:underline">213-901-9112</a>

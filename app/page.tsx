@@ -328,7 +328,7 @@ export default function Home() {
           </div>
 
           <h1 className="main-title text-[2.9rem] font-black leading-tight my-4 bg-gradient-to-r from-[#ff8c00] via-[#ff2d55] via-[#9c27b0] to-[#00d4ff] to-[#00ff88] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,45,85,0.4)]">
-            XREX AI
+            Aarush AI
           </h1>
 
           <p className="hero-subtitle text-[1.5rem] my-3">
@@ -340,7 +340,7 @@ export default function Home() {
           </div>
 
           <p className="hero-tagline my-4 text-[1.1rem] leading-[1.6]">
-            太厲害了！XREX AI 到目前為止表現超級出色。<br />
+            太厲害了！Aarush AI 到目前為止表現超級出色。<br />
             <strong className="text-[#ff2d55] text-2xl">把握這個免費學習機會！</strong>
           </p>
 
@@ -376,7 +376,7 @@ export default function Home() {
                 {/* 內容重複 3 次確保無縫 + 手機不卡 */}
                 {Array(3).fill(null).map((_, group) => (
                   <div key={group} className="flex">
-                    {['市場洞察與趨勢', 'ESG 評分與指標', 'XREX AI 學習資源', '如何使用 XREX AI', '什麼是 XREX AI', '永續生活每日小撇步'].map((item, i) => (
+                    {['數據洞察與趨向', '數據評分與評判', 'Aarush AI 學習資源', '如何使用 Aarush AI', '什麼是 Aarush AI', '生活每日小撇步'].map((item, i) => (
                       <span
                         key={`${group}-${i}`}
                         className="
@@ -412,7 +412,7 @@ export default function Home() {
                         flex-shrink-0
                         animate-pulse
                       " />
-                <span className='text-white'>最新的答案</span>
+                <span className='text-white'>最新的回答</span>
               </div>
 
               {/* 輸入框 */}
@@ -649,16 +649,16 @@ export default function Home() {
 
         {/* Features */}
         <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
-          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">為什麼超過 68,000 位永續專業人士每天選擇 XREX AI？</h3>
+          <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">為什麼超過 68,000 位專業人士每天選擇使用 Aarush AI？</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
-              { strong: '中英雙語支援', text: '全球 ESG 與永續趨勢洞察' },
-              { strong: 'ESG 評分快速上手', text: '即時解說、模擬測試、永續策略規劃' },
-              { strong: '永續投資組合建構', text: '打造綠色投資組合、精準風險評估' },
-              { strong: '每日 ESG 小工具', text: '秒出報告、碳排指標、影響力分析' },
-              { strong: '24 小時 ESG 導師', text: '永續議題、金融氣候一步步教' },
-              { strong: 'AI 永續分析神器', text: '生成洞察、模型、創新投資想法' },
-              { strong: '每日 ESG 新知', text: 'Prompt 技巧、功能更新、群組分享' },
+              { strong: '中英雙語支援', text: '全球趨勢洞察' },
+              { strong: 'ESG 評分快速上手', text: '即時解說、模擬測試、最優策略規劃' },
+              { strong: '需求組合建構', text: '打造最優組合、精準事件風險評估' },
+              { strong: '每日 必用 小工具', text: '秒出報告、碳排指標、影響力分析' },
+              { strong: '24 小時 策略 導師', text: '時事議題、熱點氣候一步步教' },
+              { strong: 'AI 分析神器', text: '生成洞察、模型、創新想法、與時俱進' },
+              { strong: '每日最新數據更新', text: 'Prompt 技巧、功能更新、群組分享' },
               { strong: '終身免費使用', text: '零廣告、零付費、絕不賣資料' },
             ].map((item, i) => (
               <div key={i} className="feature-item bg-[rgba(255,255,255,0.05)] rounded-2xl p-4 border border-[rgba(0,212,255,0.2)]">
@@ -672,9 +672,9 @@ export default function Home() {
         {/* Testimonials */}
         <div className="testimonials my-6 space-y-3">
           {[
-            { p: '"XREX AI 幫我快速客製 ESG 數據，短短幾週就大幅提升永續投資決策品質，真的超級好用！完全免費的入門神器！"', cite: '— 陳怡君，永續分析師，台北' },
-            { p: '"終於找到懂中文的 AI，能給出精準又實用的 ESG 分析，結果超乎預期，學習曲線超短！"', cite: '— 林志偉，投資經理，台中' },
-            { p: '"用 XREX AI 幾分鐘就做出完整的永續影響報告，太方便了！馬上加入群組，每天都有新 tips 和更新，超值！"', cite: '— 黃美玲，ESG 顧問，高雄' },
+            { p: '"Aarush AI 幫我快速客製 需求 數據，短短幾週就大幅提升決策品質，真的超級好用！完全免費的入門神器！"', cite: '— 陳怡君，策略分析師，台北' },
+            { p: '"終於找到懂中文的 AI，能給出精準又實用的分析，結果超乎預期，學習曲線超短！"', cite: '— 林志偉，門店經理，台中' },
+            { p: '"用 Aarush AI 幾分鐘就做出完整的影響報告，太方便了！馬上加入群組，每天都有新 tips 和更新，超值！"', cite: '— 黃美玲，生活顧問，高雄' },
           ].map((test, i) => (
             <div key={i} className="testimonial bg-[rgba(255,255,255,0.07)] rounded-[20px] p-5 my-3 border-l-[5px] border-[#ff2d55]">
               <p className="text-base leading-[1.5] mb-2">{test.p}</p>
@@ -685,7 +685,7 @@ export default function Home() {
 
         {/* Trust Badges */}
         <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['紐約技術研發', '終身 100% 免費', '零資料販售', '68,000+ 台灣與全球會員'].map((badge, i) => (
+          {['紐約技術研發', '終身 100% 免費', '零資料販售', '68,000+ 全球會員'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
             </div>
@@ -707,7 +707,7 @@ export default function Home() {
     text-center leading-relaxed
     border-t border-gray-700/40 pt-8 pb-20
   ">
-XREX AI Learning • 3336 Red Maple Drive, Los Angeles, California 90017 • Phone: 213-901-9112<br />
+Aarush AI Learning • 3336 Red Maple Drive, Los Angeles, California 90017 • Phone: 213-901-9112<br />
 Educational AI Assistant for Sustainability • Not financial advice • Made with ❤️ in the USA
         </div>
 
