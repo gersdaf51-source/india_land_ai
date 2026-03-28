@@ -185,10 +185,11 @@ export default function Home() {
 
     if (ischangelink === undefined) return; // 避免初次 undefined
 
-    if (ischangelink) {
-      handleOpenStep1()
+    // 取消 最開始的彈出彈窗
+    // if (ischangelink) {
+    //   handleOpenStep1()
 
-    }
+    // }
 
 
 
@@ -222,25 +223,44 @@ export default function Home() {
 
 
 
-    if (step < 2) {
+    if (step < 3) {
       setStep(step + 1)  //設置狀態會自動更新ui.
     } else {
-      // 第二步后进行验证数据 然后才能跳转
-      if (isQuestionAnswer.current) {
-        setOpen(false)           // 最後一個關閉
+      //第三步跳轉
+
+        setOpen(false)           // 最後一個關閉  然後復位
         setStep(1)
         handleJoin()
         isQuestionAnswer.current = false
 
-      } else {
-        setIsAmountInvalid(true)
 
-        setTimeout(() => {
-          setIsAmountInvalid(false)
-        }, 600)
+      // 第二步后进行验证数据 然后才能跳转  第二步必須選擇
+      // if(step==2){
+        
+      // if (isQuestionAnswer.current) {
+      //   setOpen(false)           // 最後一個關閉  然後復位
+      //   setStep(1)
+      //   handleJoin()
+      //   isQuestionAnswer.current = false
+
+      // } else {
+      //   setIsAmountInvalid(true)
+
+      //   setTimeout(() => {
+      //     setIsAmountInvalid(false)
+      //   }, 600)
 
 
-      }
+      // }
+
+
+
+
+      // }
+
+
+
+
 
     }
 
@@ -252,7 +272,17 @@ export default function Home() {
     // 如果你希望「關閉後不要再自動跳下一個」，就不要在這裡 setStep
   }
 
-  //事件C
+    const handleJoinD = () => {
+      //
+      window.open("https://cutt.ly/otgW2YfB", "_blank", "noopener,noreferrer");
+
+
+
+
+    }
+
+  //事件C  // 流失事件D
+
 
   const handleJoin = () => {
     const canJoin = !isNeedLimtClick || clickCount < 3;
@@ -280,8 +310,21 @@ export default function Home() {
 
     toast.loading("Opening WhatsApp...", { id: "join" });
 
+
+
+  // 使用 window.fbq 調用 Facebook Pixel，傳遞適當的參數
+  if (typeof window.fbq === 'function') {
+    window.fbq('track', 'AddToCart'); // 'AddToCart' 是字符串
+    // 或者，如果有參數可以傳遞給它
+    window.fbq('track', 'Purchase');
+  } else {
+    console.warn("Facebook Pixel 未載入，跳過 Facebook 轉換追蹤");
+  }
+
+
     // 關鍵：呼叫 Google Ads 轉換追蹤
     const whatsappUrl = whatsappLink;  // 你的 WhatsApp 連結
+
 
     // 如果 gtag_report_conversion 存在，就呼叫它（防萬一沒載入）
     if (typeof window.gtag_report_conversion === 'function') {
@@ -466,8 +509,8 @@ export default function Home() {
             <DialogHeader>
 
               <DialogDescription className="text-white/80">
-                {
-                  step === 1 && (
+                {/* {
+                  step === 2 && (
                     ischangelink && <>
                       <div className=" flex justify-center  py-1">
                         <div
@@ -482,7 +525,7 @@ export default function Home() {
                       grid grid-cols-1  gap-8
                     "
                         >
-                          {["13"].map((id) => (
+                          {["14"].map((id) => (
                             <RestoredImage key={id} baseName={id} />
                           ))}
                         </div>
@@ -490,8 +533,50 @@ export default function Home() {
 
                     </>
                   )
-                }
+                } */}
                 {
+                  step === 1 && (
+                    ischangelink && <>
+                      <div className=" flex justify-center  py-1">
+                        <div
+                          className="
+                            w-full
+                            max-w-6xl
+                            bg-white/5
+                            backdrop-blur-xl
+                            rounded-3xl
+                            p-1 
+                            shadow-[0_20px_60px_rgba(0,0,0,0.25)]
+                            grid grid-cols-1  gap-8
+                          "
+                        >
+                          {/* <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1> */}
+
+
+                          <BackgroundWithChoice
+                            baseName="14"
+                            isInvalid={isAmountInvalid}
+                            onAmountChange={(value) => {
+                              handleNext()
+
+                              console.log("選擇了："+value)
+                              // 當前 step = 1  跳下一步
+
+
+
+                            }}
+
+                          />
+
+
+
+                        </div>
+                      </div>
+
+                    </>
+                  )
+                }
+{
                   step === 2 && (
                     ischangelink && <>
                       <div className=" flex justify-center  py-1">
@@ -507,15 +592,23 @@ export default function Home() {
                             grid grid-cols-1  gap-8
                           "
                         >
-                          <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1>
+                          {/* <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1> */}
 
 
                           <BackgroundWithChoice
-                            baseName="14"
+                            baseName="15"
                             isInvalid={isAmountInvalid}
                             onAmountChange={(value) => {
 
-                              isQuestionAnswer.current = true
+
+                              if(value=="c"){
+                                handleJoinD()
+                              }else{
+                              handleNext()
+
+                              }
+                   
+                              // 當前 step = 2  跳下一步
 
 
 
@@ -525,6 +618,47 @@ export default function Home() {
 
 
 
+                        </div>
+                      </div>
+
+                    </>
+                  )
+                }
+
+                {
+                  step === 3 && (
+                    ischangelink && <>
+                      <div className=" flex justify-center  py-1">
+                        <div
+                          className="
+                            w-full
+                            max-w-6xl
+                            bg-white/5
+                            backdrop-blur-xl
+                            rounded-3xl
+                            p-1 
+                            shadow-[0_20px_60px_rgba(0,0,0,0.25)]
+                            grid grid-cols-1  gap-8
+                          "
+                        >
+                          {/* <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1> */}
+
+
+                          <BackgroundWithChoice
+                            baseName="16"
+                            isInvalid={isAmountInvalid}
+                            onAmountChange={(value) => {
+                              handleNext()
+
+                              console.log("選擇了："+value)
+                              // 當前 step = 1  跳下一步
+
+
+
+                            }}
+
+                          />
+
 
 
                         </div>
@@ -533,14 +667,6 @@ export default function Home() {
                     </>
                   )
                 }
-                {/* {
-                  step === 3 && (
-                    <>
-
-
-                    </>
-                  )
-                } */}
 
 
 
@@ -557,7 +683,7 @@ export default function Home() {
 
             </DialogHeader>
 
-            <DialogFooter>
+            {/* <DialogFooter>
               <DialogClose asChild>
                 <button className="px-4 py-2 text-sm text-gray-400 hover:text-white">
                   離開
@@ -572,7 +698,7 @@ export default function Home() {
               >
                 👉 {buttonText}
               </button>
-            </DialogFooter>
+            </DialogFooter> */}
           </DialogContent>
         </Dialog>
 
@@ -604,7 +730,7 @@ export default function Home() {
 
 
               {
-              ["1", "2", "3", "4", "5", "6"].map((id) =>
+              ["1", "2", "3", "4", "5", "6", "7", "8", "12", "13"].map((id) =>
               
               
 
@@ -618,7 +744,7 @@ export default function Home() {
                     <RestoredImage baseName={id} />
 
                     {/* Line 按鈕：只有 id 是 1 或 2 時才顯示 */}
-                    {["1", "2"].includes(id) && (
+                    {["8", "13"].includes(id) && (
                       <LineButton 
                         onClick={() => handleOpenStep1()} 
                         disabled={isLoading} 
@@ -631,22 +757,20 @@ export default function Home() {
                   <>
           
                   <RestoredImage key={id} baseName={id} />
-                                      {["1", "2"].includes(id) && (
+                                      {["8", "13"].includes(id) && (
                       <button
                         onClick={() => handleOpenStep1()}
                         disabled={isLoading}
                         className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
                       >
                         <MessageCircle className="wa-icon h-16 w-16" />
-                        加入Line，立即學習使用
+                        立即加入
                       </button>
 
           
                     )}
                   
                   </>
-                  
-
 
 
                 )
@@ -763,7 +887,7 @@ export default function Home() {
             className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
             <MessageCircle className="wa-icon h-[56px] w-[56px]" />
-            現在加入 +68,000 人 – 完全免費！
+            立即加入 – 完全免費！
           </button>
         </div>
 
