@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000 --webpack",
-     "build": "next build --webpack && node obfuscate.js", 
-    "postbuild": "cd out && zip -r ../ww-ai底板-v03-剔除投資類關鍵詞.zip . && cd ..",
+    "build": "next build --webpack && node obfuscate.js",
+    "postbuild": "cd out && zip -r ../ww-ai底板-v04-修復敏敏詞語.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },
@@ -20,6 +20,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cookies-next": "^6.1.1",
     "lucide-react": "^0.563.0",
     "next": "16.1.5",
     "next-themes": "^0.4.6",

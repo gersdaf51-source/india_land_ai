@@ -332,7 +332,7 @@ export default function Home() {
           </h1>
 
           <p className="hero-subtitle text-[1.5rem] my-3">
-            100% 完全免費給所有人！
+            終身免費使用
           </p>
 
           <div className="no-tension text-3xl font-black text-[#00ff88] my-3 drop-shadow-[0_0_20px_#00ff88]">
@@ -653,8 +653,8 @@ export default function Home() {
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
               { strong: '中英雙語支援', text: '全球趨勢洞察' },
-              { strong: 'ESG 評分快速上手', text: '即時解說、模擬測試、最優策略規劃' },
-              { strong: '需求組合建構', text: '打造最優組合、精準事件風險評估' },
+              { strong: '快速上手', text: '即時解說、模擬測試、最優策略規劃' },
+              { strong: '需求組合建構', text: '打造最優組合、精準事件解析' },
               { strong: '每日 必用 小工具', text: '秒出報告、碳排指標、影響力分析' },
               { strong: '24 小時 策略 導師', text: '時事議題、熱點氣候一步步教' },
               { strong: 'AI 分析神器', text: '生成洞察、模型、創新想法、與時俱進' },
