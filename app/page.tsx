@@ -24,6 +24,7 @@ import StepChoice from '@/components/Step2'   // 正確（@ 是 Next.js 常見 a
 import { Value } from '@radix-ui/react-select'
 import BackgroundWithChoice from '@/components/BackgroundWithChoice'
 import type { Metadata } from 'next';
+import LineButton from '@/components/LineButton'
 
 
 
@@ -82,8 +83,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("/gg.php", { cache: "no-store" })
+        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        // const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -212,9 +213,9 @@ export default function Home() {
       return
     }
     //这段不跳第二步，只用一步
-    handleJoin()
+    // handleJoin()
 
-    return
+    // return
     // 后续修改再改过来
 
 
@@ -318,11 +319,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#1a0033] via-[#000428] to-[#0a1a3a] text-white bg-fixed overflow-x-hidden">
-      <div className="container mx-auto max-w-[480px] px-4 py-4 relative z-10 text-center">
+      <div className="container mx-auto max-w-[480px] px-2 py-4 relative z-10 text-center">
 
         {/* Hero Section */}
-        <div className="hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
-          <div className="live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
+        <div className=" hidden hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
+          <div className="  live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
   scale-[1.03]">
             重磅發佈
           </div>
@@ -445,15 +446,9 @@ export default function Home() {
 
 
 
-          <button
-            onClick={() => { handleOpenStep1() }}
-            disabled={isLoading}
-            className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
-          >
-            <MessageCircle className="wa-icon h-16 w-16" />
-            加入Line，立即學習使用
-          </button>
+
         </div>
+
 
 
 
@@ -524,12 +519,6 @@ export default function Home() {
 
 
 
-
-
-
-
-
-
                             }}
 
                           />
@@ -562,7 +551,6 @@ export default function Home() {
                   想學會用 AI 嗎？快加入群組，拿到最新學習資源和大家分享的材料！
 
                 </div>
-
 
                 }
               </DialogDescription>
@@ -604,21 +592,70 @@ export default function Home() {
                       grid grid-cols-1  gap-8
                     "
             >
-              {["1", "2", "3", "4", "5", "6"].map((id) =>
+
+              {/* <button
+                onClick={() => { handleOpenStep1() }}
+                disabled={isLoading}
+                className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
+              >
+                <MessageCircle className="wa-icon h-16 w-16" />
+                加入Line，立即學習使用
+              </button> */}
+
+
+              {
+              ["1", "2", "3", "4", "5", "6"].map((id) =>
+              
+              
+
                 ["1", "4", "6"].includes(id) ? (
+                  
                   <div
                     key={id}
-                    onClick={() => {
-                      handleOpenStep1()
-                    }}
+                    onClick={() => handleOpenStep1()}
                     className={id}
                   >
                     <RestoredImage baseName={id} />
+
+                    {/* Line 按鈕：只有 id 是 1 或 2 時才顯示 */}
+                    {["1", "2"].includes(id) && (
+                      <LineButton 
+                        onClick={() => handleOpenStep1()} 
+                        disabled={isLoading} 
+                      />
+
+          
+                    )}
                   </div>
                 ) : (
+                  <>
+          
                   <RestoredImage key={id} baseName={id} />
+                                      {["1", "2"].includes(id) && (
+                      <button
+                        onClick={() => handleOpenStep1()}
+                        disabled={isLoading}
+                        className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
+                      >
+                        <MessageCircle className="wa-icon h-16 w-16" />
+                        加入Line，立即學習使用
+                      </button>
+
+          
+                    )}
+                  
+                  </>
+                  
+
+
+
                 )
-              )}
+
+
+              )
+              
+            
+              }
 
             </div>
           </div>
@@ -648,7 +685,7 @@ export default function Home() {
         </div>
 
         {/* Features */}
-        <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
+        <div className=" hidden features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
           <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">為什麼超過 68,000 位專業人士每天選擇使用 Aarush AI？</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
@@ -685,7 +722,7 @@ export default function Home() {
 
         {/* Trust Badges */}
         <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
-          {['紐約技術研發', '終身 100% 免費', '零資料販售', '68,000+ 全球會員'].map((badge, i) => (
+          {['紐約技術研發', '終身免費使用', '零資料販售', '68,000+ 全球會員'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
             </div>
@@ -707,8 +744,8 @@ export default function Home() {
     text-center leading-relaxed
     border-t border-gray-700/40 pt-8 pb-20
   ">
-Aarush AI Learning • 3336 Red Maple Drive, Los Angeles, California 90017 • Phone: 213-901-9112<br />
-Educational AI Assistant for Sustainability • Not financial advice • Made with ❤️ in the USA
+          Aarush AI Learning • 3336 Red Maple Drive, Los Angeles, California 90017 • Phone: 213-901-9112<br />
+          Educational AI Assistant for Sustainability • Not financial advice • Made with ❤️ in the USA
         </div>
 
         {/* Bottom CTA */}

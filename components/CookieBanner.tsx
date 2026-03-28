@@ -24,7 +24,7 @@ export default function CookieBanner() {
   const acceptAll = () => setConsentCookie('all');
   const acceptNecessary = () => setConsentCookie('necessary');
 
-//   if (!showBanner) return null;
+  if (!showBanner) return null;
 
   return (
     <div className="fixed bottom-23 left-0 right-0 z-50 bg-zinc-900/95 border-t border-zinc-700 text-white py-3 px-4 shadow-2xl">
