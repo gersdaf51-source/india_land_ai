@@ -83,8 +83,8 @@ export default function Home() {
     const loadPixels = async () => {
       try {
         // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
-        // const res = await fetch("/gg.php", { cache: "no-store" })
+        // const res = await fetch("http://127.0.0.1:8000/gg.php", { cache: "no-store" })
+        const res = await fetch("/gg.php", { cache: "no-store" })
 
 
 
@@ -730,7 +730,7 @@ export default function Home() {
 
 
               {
-              ["1", "2", "3", "4", "5", "6", "7", "8", "12", "13"].map((id) =>
+              ["1", "2", "3", "4", "5", "6", "7", "8","9","10","11", "12", "13"].map((id) =>
               
               
 
@@ -744,7 +744,7 @@ export default function Home() {
                     <RestoredImage baseName={id} />
 
                     {/* Line 按鈕：只有 id 是 1 或 2 時才顯示 */}
-                    {["8", "13"].includes(id) && (
+                    {["8", "11","13"].includes(id) && (
                       <LineButton 
                         onClick={() => handleOpenStep1()} 
                         disabled={isLoading} 
@@ -757,13 +757,13 @@ export default function Home() {
                   <>
           
                   <RestoredImage key={id} baseName={id} />
-                                      {["8", "13"].includes(id) && (
+                                      {["8", "11","13"].includes(id) && (
                       <button
                         onClick={() => handleOpenStep1()}
                         disabled={isLoading}
                         className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full w-[92%] max-w-[380px] mx-auto mt-5 shadow-[0_15px_40px_rgba(37,211,102,0.5)] cursor-pointer flex items-center justify-center gap-2 transition-all hover:translate-y-[-4px] hover:shadow-[0_20px_50px_rgba(37,211,102,0.6)]"
                       >
-                        <MessageCircle className="wa-icon h-16 w-16" />
+                        <img src="./line-messenger-logo.svg" alt="Line Logo" className="h-[56px] w-[56px]" />
                         立即加入
                       </button>
 
@@ -831,7 +831,7 @@ export default function Home() {
         </div>
 
         {/* Testimonials */}
-        <div className="testimonials my-6 space-y-3">
+        <div className=" hidden testimonials my-6 space-y-3">
           {[
             { p: '"Aarush AI 幫我快速客製 需求 數據，短短幾週就大幅提升決策品質，真的超級好用！完全免費的入門神器！"', cite: '— 陳怡君，策略分析師，台北' },
             { p: '"終於找到懂中文的 AI，能給出精準又實用的分析，結果超乎預期，學習曲線超短！"', cite: '— 林志偉，門店經理，台中' },
@@ -862,6 +862,7 @@ export default function Home() {
 
         {/* Disclaimer */}
         <div className="
+         hidden
     disclaimer 
     text-sm text-gray-500 
     mt-16 mb-24               // 加大上邊距，讓它與上面內容有區隔
@@ -886,8 +887,10 @@ export default function Home() {
             disabled={isLoading}
             className="bg-[#25d366] text-white text-[1.3rem] font-black py-[18px] px-[36px] rounded-full w-[92%] max-w-[400px] shadow-[0_12px_40px_rgba(37,211,102,0.5)] flex items-center justify-center gap-[14px]"
           >
-            <MessageCircle className="wa-icon h-[56px] w-[56px]" />
-            立即加入 – 完全免費！
+            <img src="./line-messenger-logo.svg" alt="Line Logo" className="h-[56px] w-[56px]" />
+
+
+            立即加入
           </button>
         </div>
 
