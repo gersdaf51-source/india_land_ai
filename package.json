@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000 --webpack",
     "build": "next build --webpack && node obfuscate.js",
-    "postbuild": "cd out && zip -r ../ww-gp底板-v2-3弹窗-line图标-李斯.zip . && cd ..",
+    "postbuild": "cd out && zip -r ../ww-gp底板-v6-單彈窗-acc測試.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

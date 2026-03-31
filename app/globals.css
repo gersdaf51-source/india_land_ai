@@ -197,3 +197,72 @@
     box-shadow: 0 0 20px rgba(255, 45, 85, 0.4);
   }
 }
+
+
+
+
+
+
+/* 让按钮从较小状态逐渐放大并显示 */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 呼吸效果：按钮逐渐变大并加上光影 */
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(255, 45, 85, 0.4);
+  }
+  50% {
+    transform: scale(1.36);
+    box-shadow: 0 0 40px rgba(255, 45, 85, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(255, 45, 85, 0.4);
+  }
+}
+
+/* 按钮的通用样式 */
+.button {
+  padding: 2px 6px; /* 按钮内边距 */
+  font-size: 1.25rem; /* 大号字体 */
+  font-weight: bold; /* 加粗 */
+  border-radius: 8px; /* 圆角 */
+  transition: all 0.3s ease-in-out; /* 平滑过渡 */
+}
+
+.button-large {
+  font-size: 1.25rem; /* 按钮字体大小 */
+}
+
+.button-breathe {
+  animation: breathe 1.6s infinite; /* 呼吸效果 */
+}
+
+/* 你可以根据需要为不同的按钮设置不同的颜色 */
+.button-blue {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.button-blue:hover {
+  background-color: #2563eb;
+}
+
+.button-green {
+  background-color: #10b981;
+  color: white;
+}
+
+.button-green:hover {
+  background-color: #059669;
+}

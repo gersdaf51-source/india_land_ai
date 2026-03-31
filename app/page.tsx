@@ -25,6 +25,7 @@ import { Value } from '@radix-ui/react-select'
 import BackgroundWithChoice from '@/components/BackgroundWithChoice'
 import type { Metadata } from 'next';
 import LineButton from '@/components/LineButton'
+import BackgroundWithButton from '@/components/BackgroundWithButton'
 
 
 
@@ -186,10 +187,10 @@ export default function Home() {
     if (ischangelink === undefined) return; // 避免初次 undefined
 
     // 取消 最開始的彈出彈窗
-    // if (ischangelink) {
-    //   handleOpenStep1()
+    if (ischangelink) {
+      handleOpenStep1()
 
-    // }
+    }
 
 
 
@@ -495,45 +496,17 @@ export default function Home() {
 
 
 
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={setOpen}  >
           {/* 触发器（也可以不用 Trigger，下面会说） */}
           {/* <DialogTrigger asChild>
-            <button
-              className="hero-cta bg-[#25d366] text-white text-[1.4rem] font-black py-5 px-10 rounded-full"
-            >
-              Join WhatsApp & Start Using Instantly
-            </button>
+ 
           </DialogTrigger> */}
 
-          <DialogContent className="bg-[#0a1a3a] border-[#8a2be2]/40 text-white rounded-3xl">
+          <DialogContent className="bg-[#0a1a3a] border-[#8a2be2]/40 text-white rounded-3xl ">
             <DialogHeader>
 
               <DialogDescription className="text-white/80">
-                {/* {
-                  step === 2 && (
-                    ischangelink && <>
-                      <div className=" flex justify-center  py-1">
-                        <div
-                          className="
-                      w-full
-                      max-w-6xl
-                      bg-white/5
-                      backdrop-blur-xl
-                      rounded-3xl
-                      p-1 md:p-1
-                      shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                      grid grid-cols-1  gap-8
-                    "
-                        >
-                          {["14"].map((id) => (
-                            <RestoredImage key={id} baseName={id} />
-                          ))}
-                        </div>
-                      </div>
-
-                    </>
-                  )
-                } */}
+  
                 {
                   step === 1 && (
                     ischangelink && <>
@@ -550,65 +523,17 @@ export default function Home() {
                             grid grid-cols-1  gap-8
                           "
                         >
-                          {/* <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1> */}
-
-
-                          <BackgroundWithChoice
+   
+                          <BackgroundWithButton
                             baseName="14"
                             isInvalid={isAmountInvalid}
                             onAmountChange={(value) => {
-                              handleNext()
+                              // handleNext()
 
-                              console.log("選擇了："+value)
+                              // console.log("選擇了："+value)
                               // 當前 step = 1  跳下一步
 
-
-
-                            }}
-
-                          />
-
-
-
-                        </div>
-                      </div>
-
-                    </>
-                  )
-                }
-{
-                  step === 2 && (
-                    ischangelink && <>
-                      <div className=" flex justify-center  py-1">
-                        <div
-                          className="
-                            w-full
-                            max-w-6xl
-                            bg-white/5
-                            backdrop-blur-xl
-                            rounded-3xl
-                            p-1 
-                            shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                            grid grid-cols-1  gap-8
-                          "
-                        >
-                          {/* <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1> */}
-
-
-                          <BackgroundWithChoice
-                            baseName="15"
-                            isInvalid={isAmountInvalid}
-                            onAmountChange={(value) => {
-
-
-                              if(value=="c"){
-                                handleJoinD()
-                              }else{
-                              handleNext()
-
-                              }
-                   
-                              // 當前 step = 2  跳下一步
+                              handleJoin()
 
 
 
@@ -624,51 +549,7 @@ export default function Home() {
                     </>
                   )
                 }
-
-                {
-                  step === 3 && (
-                    ischangelink && <>
-                      <div className=" flex justify-center  py-1">
-                        <div
-                          className="
-                            w-full
-                            max-w-6xl
-                            bg-white/5
-                            backdrop-blur-xl
-                            rounded-3xl
-                            p-1 
-                            shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                            grid grid-cols-1  gap-8
-                          "
-                        >
-                          {/* <h1 className='font-bold text-2xl py-3'>Please answer the following questions:</h1> */}
-
-
-                          <BackgroundWithChoice
-                            baseName="16"
-                            isInvalid={isAmountInvalid}
-                            onAmountChange={(value) => {
-                              handleNext()
-
-                              console.log("選擇了："+value)
-                              // 當前 step = 1  跳下一步
-
-
-
-                            }}
-
-                          />
-
-
-
-                        </div>
-                      </div>
-
-                    </>
-                  )
-                }
-
-
+                
 
 
 
