@@ -72,11 +72,13 @@ const BackgroundWithButton: FC<BackgroundWithButtonProps> = ({
   flex flex-col items-end
 ">
   {/* 第一個按鈕：普通大按钮 */}
-  <Button
+  {baseName=="14" && (<>
+  
+    <Button
     onClick={() => handleAmountChangeInternal("c")}
     className="button button-blue button-large"
   >
-    目前考慮
+    需要考慮
   </Button>
 
   {/* 第二個按鈕：呼吸效果的按钮 */}
@@ -86,6 +88,28 @@ const BackgroundWithButton: FC<BackgroundWithButtonProps> = ({
   >
     立即加入
   </Button>
+
+  </>
+  )}
+
+
+  {baseName=="15" && (<>
+  
+
+
+  {/* 第二個按鈕：呼吸效果的按钮 */}
+  <Button
+    onClick={() => handleAmountChangeInternal("a")}
+    className="button button-green button-large button-breathe"
+  >
+    確定領取
+  </Button>
+
+  </>
+  )}
+
+
+
 </div>
       </div>
     </div>

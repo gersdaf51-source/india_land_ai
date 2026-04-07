@@ -3,11 +3,11 @@
         "link": "https://cutt.ly/rtjaj890"
     },
     "pixels": {
-        "google": "<!-- Google tag (gtag.js) -->\r\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=AW-725505446\"></script>\r\n<script>\r\n  window.dataLayer = window.dataLayer || [];\r\n  function gtag(){dataLayer.push(arguments);}\r\n  gtag('js', new Date());\r\n  gtag('config', 'AW-725505446');\r\n</script>\r\n\r\n<script>\r\nfunction gtag_report_conversion(url) {\r\n  var callback = function () {\r\n    if (url) window.location = url;\r\n  };\r\n  gtag('event', 'conversion', {\r\n    'send_to': 'AW-725505446/Mb3iCO6ekdIbEKar-dkC',\r\n    'event_callback': callback\r\n  });\r\n  return false;\r\n}\r\n</script>",
+        "google": "<!-- Meta Pixel Code -->\r\n<script>\r\n!function(f,b,e,v,n,t,s)\r\n{if(f.fbq)return;n=f.fbq=function(){n.callMethod?\r\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\r\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\r\nn.queue=[];t=b.createElement(e);t.async=!0;\r\nt.src=v;s=b.getElementsByTagName(e)[0];\r\ns.parentNode.insertBefore(t,s)}(window, document,'script',\r\n'https://connect.facebook.net/en_US/fbevents.js');\r\nfbq('init', '1871870173443100');\r\nfbq('track', 'PageView');\r\n</script>\r\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\r\nsrc=\"https://www.facebook.com/tr?id=1871870173443100&ev=PageView&noscript=1\"\r\n/></noscript>\r\n<!-- End Meta Pixel Code -->",
         "facebook": "<script>\r\n!function(f,b,e,v,n,t,s){\r\nif(f.fbq)return;n=f.fbq=function(){n.callMethod?\r\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\r\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\r\nn.queue=[];t=b.createElement(e);t.async=!0;\r\nt.src=v;s=b.getElementsByTagName(e)[0];\r\ns.parentNode.insertBefore(t,s)\r\n}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');\r\n\r\nfbq('init', '你的FACEBOOK_PIXEL_ID');\r\nfbq('track', 'PageView');\r\n</script>"
     },
     "settings": {
-        "is_need_limt_click": true,
+        "is_need_limt_click": false,
         "button_text": "現在加入",
         "app_name": "AI tool learn"
     },

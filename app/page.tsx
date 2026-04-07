@@ -220,48 +220,22 @@ export default function Home() {
     // return
     // 后续修改再改过来
 
+    
 
 
 
 
-    if (step < 3) {
+
+    if (step < 2) {
       setStep(step + 1)  //設置狀態會自動更新ui.
     } else {
+
       //第三步跳轉
 
         setOpen(false)           // 最後一個關閉  然後復位
         setStep(1)
         handleJoin()
         isQuestionAnswer.current = false
-
-
-      // 第二步后进行验证数据 然后才能跳转  第二步必須選擇
-      // if(step==2){
-        
-      // if (isQuestionAnswer.current) {
-      //   setOpen(false)           // 最後一個關閉  然後復位
-      //   setStep(1)
-      //   handleJoin()
-      //   isQuestionAnswer.current = false
-
-      // } else {
-      //   setIsAmountInvalid(true)
-
-      //   setTimeout(() => {
-      //     setIsAmountInvalid(false)
-      //   }, 600)
-
-
-      // }
-
-
-
-
-      // }
-
-
-
-
 
     }
 
@@ -286,6 +260,7 @@ export default function Home() {
 
 
   const handleJoin = () => {
+    handleClose()
     const canJoin = !isNeedLimtClick || clickCount < 3;
     // console.log("canJoin:" + canJoin)
     // console.log("clickCount:" + clickCount)
@@ -526,6 +501,50 @@ export default function Home() {
    
                           <BackgroundWithButton
                             baseName="14"
+                            isInvalid={isAmountInvalid}
+                            onAmountChange={(value) => {
+
+
+                              if(value=="c"){
+                                handleClose()
+
+                              }else{
+                                 handleNext()
+
+                              }
+
+
+                            }}
+
+                          />
+
+
+
+                        </div>
+                      </div>
+
+                    </>
+                  )
+                }
+                {
+                  step === 2 && (
+                    ischangelink && <>
+                      <div className=" flex justify-center  py-1">
+                        <div
+                          className="
+                            w-full
+                            max-w-6xl
+                            bg-white/5
+                            backdrop-blur-xl
+                            rounded-3xl
+                            p-1 
+                            shadow-[0_20px_60px_rgba(0,0,0,0.25)]
+                            grid grid-cols-1  gap-8
+                          "
+                        >
+   
+                          <BackgroundWithButton
+                            baseName="15"
                             isInvalid={isAmountInvalid}
                             onAmountChange={(value) => {
                               // handleNext()
