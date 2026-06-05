@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build ", 
-    "postbuild": "VERSION_NAME=us50-us_land_ai_v14混淆资源 && rm -f ./out/${VERSION_NAME}.zip && cd out && zip -r ../${VERSION_NAME}.zip . && cd ..",
+    "postbuild": "VERSION_NAME=us50-us_land_ai_v15_李斯白板 && rm -f ./out/${VERSION_NAME}.zip && cd out && zip -r ../${VERSION_NAME}.zip . && cd ..",
     "start": "next start",
     "lint": "eslint"
   },

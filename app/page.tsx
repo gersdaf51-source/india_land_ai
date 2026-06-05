@@ -345,7 +345,7 @@ export default function Home() {
       <div className="container mx-auto max-w-[480px] px-4 py-4 relative z-10 text-center">
 
         {/* Hero Section */}
-        <div className="hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
+        <div className=" hidden hero p-4 md:p-[40px_20px] bg-gradient-to-br from-[rgba(138,43,226,0.3)] to-[rgba(0,212,255,0.15)] rounded-[32px] border border-[rgba(138,43,226,0.4)] shadow-[0_20px_60px_rgba(138,43,226,0.25)] backdrop-blur-xl mb-6">
           <div className="live-badge inline-block bg-[#ff2d55] text-white px-[10px_28px] py-[10px] rounded-full font-black text-[1.1rem] shadow-[0_0_30px_rgba(255,45,85,0.6)]   animate-pulse
   scale-[1.03]">
             JUST WENT LIVE!
@@ -652,7 +652,7 @@ export default function Home() {
 
 
         {/* Live Proof */}
-        <div className="live-proof bg-[rgba(255,255,255,0.08)] rounded-[24px] p-6 border border-[rgba(255,255,255,0.15)] backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.3)] my-5">
+        <div className=" hidden live-proof bg-[rgba(255,255,255,0.08)] rounded-[24px] p-6 border border-[rgba(255,255,255,0.15)] backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.3)] my-5">
           <div className="avatars flex justify-center items-center my-4">
             {['/imgs/32.jpg', '/imgs/44.jpg', '/imgs/68.jpg', '/imgs/21.jpg', '/imgs/55.jpg'].map((src, i) => (
               <Image
@@ -674,7 +674,7 @@ export default function Home() {
         </div>
 
         {/* Features */}
-        <div className="features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
+        <div className=" hidden features bg-[rgba(255,255,255,0.06)] rounded-[24px] p-7 border border-[rgba(255,255,255,0.1)] my-6">
           <h3 className="text-[1.4rem] mb-5 text-[#00d4ff] font-bold">Why 68,000+ Learners Choose Aarush AI Every Day</h3>
           <div className="feature-grid grid grid-cols-2 gap-4 text-left">
             {[
@@ -696,7 +696,7 @@ export default function Home() {
         </div>
 
         {/* Testimonials */}
-        <div className="testimonials my-6 space-y-3">
+        <div className=" hidden testimonials my-6 space-y-3">
           {[
             { p: '"Scored 95% in SAT mock after using Aarush AI for 1 week. Best free tool ever!"', cite: '— Alex Johnson, College Aspirant, New York' },
             { p: '"Finally an AI that understands Spanish and helps with exam prep!"', cite: '— Maria L., Los Angeles' },
@@ -710,7 +710,7 @@ export default function Home() {
         </div>
 
         {/* Trust Badges */}
-        <div className="trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
+        <div className=" hidden trust-badges flex justify-center flex-wrap gap-4 my-[30px]">
           {['Made in California', '100% Free Forever', 'No Data Selling', '68,000+ Members'].map((badge, i) => (
             <div key={i} className="badge bg-[rgba(0,255,136,0.15)] text-[#00ff88] px-5 py-[10px] rounded-full font-bold text-[0.9rem] border border-[rgba(0,255,136,0.4)]">
               {badge}
