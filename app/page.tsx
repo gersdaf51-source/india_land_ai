@@ -377,7 +377,7 @@ export default function Home() {
 
             <div className="text-center mb-6">
               <span className="inline-block bg-red-100 text-red-700 px-5 py-2 rounded-full font-bold text-lg">
-                🧧 2026 新年限定回饋
+                
               </span>
             </div>
 
@@ -387,7 +387,7 @@ export default function Home() {
             </h1>
 
             <p className="text-lg md:text-xl text-center mb-8 max-w-3xl mx-auto leading-relaxed">
-              這是小小書店送給新舊朋友的 2026 新年心意：<br />
+              這是小小書店送給新舊朋友的優惠心意：<br />
               你只要選一本想讀的書，聯絡客服給收件資訊，我們就會盡快幫你寄到家～（全球免運）
             </p>
 
